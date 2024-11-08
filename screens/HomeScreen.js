@@ -2,7 +2,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import OfferingCardComponent from './Components/OfferingCardComponent';
 
 const HomeScreen = ({ navigation }) => {
     return (
@@ -25,6 +24,18 @@ const HomeScreen = ({ navigation }) => {
                 onPress={() => navigation.navigate('OfferServiceScreen')}
             >
                 <Text style={styles.offerButtonText}>Offer Service</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.offerButton}
+                onPress={() => navigation.navigate('AskServiceScreen')}
+            >
+                <Text style={styles.offerButtonText}>Ask for a new service</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.offerButton}
+                onPress={() => navigation.navigate('EventServiceScreen')}
+            >
+                <Text style={styles.offerButtonText}>Events</Text>
             </TouchableOpacity>
         </View>
     );

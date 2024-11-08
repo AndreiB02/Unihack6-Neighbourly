@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
-import OfferingCardComponent from './Components/OfferingCardComponent';
+import OfferingCardComponent from '../Components/OfferingCardComponent';
 
 const OfferServiceScreen = ({ navigation }) => {
     return (
