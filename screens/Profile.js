@@ -1,13 +1,13 @@
-// Profile.js
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 const Profile = () => {
-    // Starting points for demonstration
+    const navigation = useNavigation();
+
     const [points, setPoints] = useState(150);
 
-    // Possessions data (can be dynamic from a database)
     const possessionsData = [
         { id: '1', item: 'Screwdriver', quantity: 1 },
         { id: '2', item: 'Chairs', quantity: 5 },
@@ -16,15 +16,26 @@ const Profile = () => {
         { id: '5', item: 'Books', quantity: 20 },
     ];
 
-    return (
-        <ScrollView style={styles.container}>
+    const renderHeader = () => (
+        <View>
+            {/* Profile Header */}
             <View style={styles.header}>
                 <Image
-                    source={{ uri: 'https://www.w3schools.com/w3images/avatar2.png' }} // Placeholder image
+                    source={{ uri: 'https://www.w3schools.com/w3images/avatar2.png' }}
                     style={styles.avatar}
                 />
                 <Text style={styles.name}>John Doe</Text>
                 <Text style={styles.gender}>Male</Text>
+            </View>
+
+            {/* My Neighbourhood Button */}
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity
+                    style={styles.neighbourhoodButton}
+                    onPress={() => navigation.navigate('Neighbourhood')}
+                >
+                    <Text style={styles.buttonText}>Go to My Neighbourhood</Text>
+                </TouchableOpacity>
             </View>
 
             {/* Points Section */}
@@ -37,30 +48,31 @@ const Profile = () => {
                 </View>
             </View>
 
-            <View style={styles.profileSection}>
-                <Text style={styles.sectionTitle}>Possessions</Text>
+            {/* Possessions Section Title */}
+            <Text style={styles.sectionTitle}>Possessions</Text>
+        </View>
+    );
 
-                {/* FlatList for Possessions */}
-                <View style={styles.tableContainer}>
-                    <FlatList
-                        data={possessionsData}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({ item }) => (
-                            <View style={styles.tableRow}>
-                                <Text style={styles.tableCell}>{item.item}</Text>
-                                <Text style={styles.tableCell}>{item.quantity}</Text>
-                            </View>
-                        )}
-                    />
-                </View>
-            </View>
-        </ScrollView>
+    const renderPossession = ({ item }) => (
+        <View style={styles.tableRow}>
+            <Text style={styles.tableCell}>{item.item}</Text>
+            <Text style={styles.tableCell}>{item.quantity}</Text>
+        </View>
+    );
+
+    return (
+        <FlatList
+            data={possessionsData}
+            keyExtractor={(item) => item.id}
+            ListHeaderComponent={renderHeader}
+            renderItem={renderPossession}
+            contentContainerStyle={styles.container}
+        />
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: '#f0f4f7',
         padding: 20,
     },
@@ -86,50 +98,28 @@ const styles = StyleSheet.create({
         color: '#666',
         marginBottom: 20,
     },
-    profileSection: {
+    buttonContainer: {
         marginBottom: 25,
+        alignItems: 'center',
     },
-    sectionTitle: {
-        fontSize: 24,
+    neighbourhoodButton: {
+        backgroundColor: '#4CAF50',
+        paddingVertical: 12,
+        paddingHorizontal: 25,
+        borderRadius: 8,
+    },
+    buttonText: {
+        color: '#ffffff',
+        fontSize: 16,
         fontWeight: 'bold',
-        color: '#333',
-        marginBottom: 10,
-    },
-    tableContainer: {
-        backgroundColor: '#ffffff',
-        borderRadius: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 5,
-        padding: 10,
-    },
-    tableRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingVertical: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
-    },
-    tableCell: {
-        fontSize: 18,
-        color: '#444',
-        flex: 1,
-        textAlign: 'center',
     },
     pointsSection: {
         marginBottom: 25,
     },
     pointsCard: {
-        backgroundColor: '#fff8dc', // Light golden color for the points card
+        backgroundColor: '#fff8dc',
         padding: 20,
         borderRadius: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 6,
-        elevation: 5,
         alignItems: 'center',
     },
     pointsText: {
@@ -147,6 +137,25 @@ const styles = StyleSheet.create({
         marginTop: 10,
         textAlign: 'center',
         paddingHorizontal: 10,
+    },
+    sectionTitle: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#333',
+        marginBottom: 10,
+    },
+    tableRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
+    },
+    tableCell: {
+        fontSize: 18,
+        color: '#444',
+        flex: 1,
+        textAlign: 'center',
     },
 });
 

@@ -5,6 +5,7 @@ import HomeScreen from './screens/HomeScreen'; // Update the import path as nece
 import AddAccount from './screens/CreateAccount/AddAccount'; // Update the import path as necessary
 import LoginPage from './screens/LoginPage/LoginPage';
 import Profile from './screens/Profile';
+import Neighbourhood from './screens/Neighbourhood';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="AddAccount" component={AddAccount} options={{ headerShown: false }} />
         <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Neighbourhood" component={Neighbourhood} />
       </Stack.Navigator>
     </NavigationContainer>
   );
