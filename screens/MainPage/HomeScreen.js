@@ -26,8 +26,13 @@ const HomeScreen = ({ navigation }) => {
                     <Text style={styles.neighborhoodTitle}>{zone} </Text>
                     <Text>Neighbourhood</Text>
                 </View>
-                <Image source={logo} style={{ width: 70, height: 40 }} />
+                <TouchableOpacity onPress={() => navigation.navigate('AboutApp')} >
+                    <Image
+                        source={logo}
+                        style={{ width: 70, height: 40 }} />
+                </TouchableOpacity>
             </View>
+            
 
             {/* CoFunds Section */}
             <CoFunds navigation={navigation} />
