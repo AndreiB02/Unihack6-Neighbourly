@@ -21,6 +21,7 @@ import AddAskScreen from './screens/MainPage/Ask/AddAskScreen';
 import AboutApp from './screens/MainPage/AboutApp';
 import CoFundScreen from './screens/CoFound/CoFundScreen'
 import TopMembersScreen from './screens/MainPage/ProfilePage/TopMembersScreen';
+import JoinService from './screens/MainPage/Comunty/JoinService';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -46,6 +47,7 @@ const App = () => {
         <Stack.Screen name="AboutApp" component={AboutApp} options={{ title: 'About' }} />
         <Stack.Screen name="CoFundScreen" component={CoFundScreen} options={{ headerShown: false }} />
         <Stack.Screen name="TopMembersScreen" component={TopMembersScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="JoinService" component={JoinService} options={{ title: 'Help your comunity' }} />
       </Stack.Navigator>
     </NavigationContainer>
 

@@ -1,3 +1,4 @@
+// CommunityServiceScreen.js
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import CommunityCardComponent from '../Components/CommunityCardComponent'; // You will create this component
@@ -36,7 +37,12 @@ const CommunityServiceScreen = ({ navigation }) => {
         <View style={styles.screenContainer}>
             <ScrollView style={styles.container}>
                 {services.map((service) => (
-                    <CommunityCardComponent key={service.id} service={service} />
+                    <TouchableOpacity
+                        key={service.id}
+                        onPress={() => navigation.navigate('JoinService')}
+                    >
+                        <CommunityCardComponent service={service} />
+                    </TouchableOpacity>
                 ))}
             </ScrollView>
 

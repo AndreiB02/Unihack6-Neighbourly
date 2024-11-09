@@ -150,7 +150,6 @@ const Section = ({ title, screenName, navigation, mockData }) => (
         </ScrollView>
     </>
 );
-
 const MiniCard = ({ item }) => {
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -184,22 +183,30 @@ const MiniCard = ({ item }) => {
                         <Image source={{ uri: item.avatarUrl }} style={styles.modalAvatar} />
                         <Text style={styles.modalTitle}>{item.label}</Text>
                         <Text style={styles.modalDescription}>{item.description}</Text>
-                        <TouchableOpacity
-                            style={styles.joinButton}
-                            onPress={() => {
-                                // Handle Join/Help button press
-                                console.log('Joined Help');
-                                setModalVisible(false); // Close modal after action
-                            }}
-                        >
-                            <Text style={styles.joinButtonText}>Join/Help</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.closeButton}
-                            onPress={() => setModalVisible(false)}
-                        >
-                            <Text style={styles.closeButtonText}>Close</Text>
-                        </TouchableOpacity>
+
+                        {/* Phone number section */}
+                        <Text style={styles.modalPhone}>Phone: {item.phone || 'N/A'}</Text>
+
+                        {/* Buttons in the same row */}
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity
+                                style={styles.joinButton}
+                                onPress={() => {
+                                    // Handle Join/Help button press
+                                    console.log('Joined Help');
+                                    setModalVisible(false); // Close modal after action
+                                }}
+                            >
+                                <Text style={styles.joinButtonText}>Join/Help</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                style={styles.closeButton}
+                                onPress={() => setModalVisible(false)}
+                            >
+                                <Text style={styles.closeButtonText}>Close</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             </Modal>
@@ -372,48 +379,66 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     modalContent: {
+        width: '85%', // Increased width for a bigger modal
         backgroundColor: 'white',
+        borderRadius: 12,
         padding: 20,
-        borderRadius: 10,
-        width: 300,
         alignItems: 'center',
+        elevation: 5,
     },
     modalAvatar: {
-        width: 80,
-        height: 80,
-        borderRadius: 40,
+        width: 50,
+        height: 50,
+        borderRadius: 25,
         marginBottom: 15,
     },
     modalTitle: {
-        fontWeight: '600',
-        fontSize: 18,
-        color: '#2E7D32',
+        fontSize: 22,
+        fontWeight: 'bold',
+        color: '#333',
+        marginBottom: 10,
     },
     modalDescription: {
-        fontSize: 14,
+        fontSize: 16,
         color: '#555',
         marginBottom: 20,
         textAlign: 'center',
     },
+    modalPhone: {
+        fontSize: 16,
+        color: '#777',
+        marginBottom: 20,
+        textAlign: 'center',
+    },
+    buttonContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+    },
     joinButton: {
         backgroundColor: '#4CAF50',
         paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 5,
-        marginBottom: 15,
-    },
-    joinButtonText: {
-        color: '#fff',
-        fontSize: 16,
+        paddingHorizontal: 25,
+        borderRadius: 20,
+        elevation: 3,
+        marginRight: 10,
+        flex: 1,
+        alignItems: 'center',
     },
     closeButton: {
-        backgroundColor: '#ddd',
         paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 5,
+        paddingHorizontal: 25,
+        borderRadius: 20,
+        backgroundColor: '#E0E0E0',
+        flex: 1,
+        alignItems: 'center',
+    },
+    joinButtonText: {
+        color: 'white',
+        fontSize: 16,
     },
     closeButtonText: {
-        color: '#555',
+        color: '#333',
         fontSize: 16,
     },
 });
