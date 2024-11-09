@@ -10,37 +10,37 @@ const Stack = createStackNavigator();
 
 const HomeScreen = ({ navigation }) => {
     return (
-        
-        <ScrollView style={styles.container}>
-            {/* Fixed Header */}
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-                    <Icon
-                        name="person-circle-outline"
-                        size={40}
-                        color="black"
-                        style={styles.profileIcon}
-                    />
-                </TouchableOpacity>
-                <View style={{ flexWrap: 'wrap', flexDirection: 'column' }}>
-                    <Text style={styles.neighborhoodTitle}>{zone} </Text>
-                    <Text>Neighbourhood</Text>
+        // SafeAreaView wrapping the entire content to ensure no overlap with system UI
+        <SafeAreaView style={{ flex: 1, marginTop:35, }}>
+            <ScrollView style={styles.container}>
+                {/* Fixed Header */}
+                <View style={styles.header}>
+                    <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+                        <Icon
+                            name="person-circle-outline"
+                            size={40}
+                            color="black"
+                            style={styles.profileIcon}
+                        />
+                    </TouchableOpacity>
+                    <View style={{ flexWrap: 'wrap', flexDirection: 'column' }}>
+                        <Text style={styles.neighborhoodTitle}>{zone} </Text>
+                        <Text>Neighbourhood</Text>
+                    </View>
+                    <TouchableOpacity onPress={() => navigation.navigate('AboutApp')}>
+                        <Image
+                            source={logo}
+                            style={{ width: 70, height: 40 }} />
+                    </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate('AboutApp')} >
-                    <Image
-                        source={logo}
-                        style={{ width: 70, height: 40 }} />
-                </TouchableOpacity>
-            </View>
-            
 
-            {/* CoFunds Section */}
-            <CoFunds navigation={navigation} />
+                {/* CoFunds Section */}
+                <CoFunds navigation={navigation} />
 
-            {/* Scrollable Sections */}
-            <Sections navigation={navigation} />
-        </ScrollView>
-        
+                {/* Scrollable Sections */}
+                <Sections navigation={navigation} />
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 
@@ -90,7 +90,7 @@ const CoFunds = ({ navigation }) => (
         </Text>
         <TouchableOpacity
             style={styles.coFundsButton}
-            onPress={() => navigation.navigate('CoFundsScreen')} // Navigate to CoFundsScreen
+            onPress={() => navigation.navigate('CoFundScreen')} // Navigate to CoFundsScreen
         >
             <Text style={styles.coFundsButtonText}>Get Started</Text>
         </TouchableOpacity>

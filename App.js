@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import HomeScreen from './screens/MainPage/HomeScreen'; // Update the import path as necessary
@@ -45,6 +46,7 @@ const App = () => {
         <Stack.Screen name="AboutApp" component={AboutApp} options={{ title: 'About' }} />
       </Stack.Navigator>
     </NavigationContainer>
+
   );
 };
 
