@@ -1,7 +1,7 @@
 // AskServiceScreen.js
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import AskCardComponent from '../Components/AskCardComponent';
+import AskCardComponent from '../MainPage/Components/AskCardComponent';
 
 const AskServiceScreen = ({ navigation }) => {
     const asks = [

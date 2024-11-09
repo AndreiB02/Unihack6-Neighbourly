@@ -1,10 +1,11 @@
-// Profile.js
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, FlatList, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 const Profile = () => {
     const [points, setPoints] = useState(150);
+    const navigation = useNavigation();
 
     const possessionsData = [
         { id: '1', item: 'Screwdriver', quantity: 1 },
@@ -25,6 +26,17 @@ const Profile = () => {
         { id: '8', name: 'Hank' },
     ];
 
+    // Updated neighborhood details with additional information
+    const neighborhoodInfo = {
+        name: 'Ghiroda',
+        population: '10,000',
+        area: '50 km²',
+        established: '1850',
+        nearbyLandmarks: 'Karina',
+        averageIncome: '€30,000',
+        mainAttractions: 'aaa',
+    };
+
     return (
         <ScrollView style={styles.container}>
             <View style={styles.headerContainer}>
@@ -44,7 +56,9 @@ const Profile = () => {
 
             <View style={styles.mainContent}>
                 <View style={styles.profileSection}>
-                    <Text style={styles.sectionTitle}>Possessions</Text>
+                    <View style={styles.possessionsTitleContainer}>
+                        <Text style={styles.possessionsTitle}>Possessions</Text>
+                    </View>
                     <View style={styles.tableContainer}>
                         <FlatList
                             data={possessionsData}
@@ -57,10 +71,19 @@ const Profile = () => {
                             )}
                         />
                     </View>
+                    <View style={styles.seeMoreButtonContainer}>
+                        <Button
+                            title="See More"
+                            onPress={() => navigation.navigate('PossessionsSeeMore')}
+                            color="#808080"
+                        />
+                    </View>
                 </View>
 
                 <View style={styles.neighborhoodSection}>
-                    <Text style={styles.sectionTitle}>Neighborhood</Text>
+                    <View style={styles.neighborhoodTitleContainer}>
+                        <Text style={styles.possessionsTitle}>Neighborhood</Text>
+                    </View>
                     <View style={styles.neighborhoodContainer}>
                         <FlatList
                             data={neighborhoodData}
@@ -73,6 +96,30 @@ const Profile = () => {
                             )}
                         />
                     </View>
+                    <View style={styles.seeMoreButtonContainer}>
+                        <Button
+                            title="See More"
+                            onPress={() => navigation.navigate('NeighborhoodSeeMore')}
+                            color="#808080"
+                        />
+                    </View>
+                </View>
+            </View>
+
+            {/* Updated Neighborhood Frame with shadow and additional info */}
+            <View style={styles.neighborhoodFrame}>
+                <Image
+                    source={{ uri: 'https://via.placeholder.com/100' }}
+                    style={styles.neighborhoodImage}
+                />
+                <View style={styles.neighborhoodDetails}>
+                    <Text style={styles.neighborhoodName}>{neighborhoodInfo.name}</Text>
+                    <Text style={styles.neighborhoodDetailText}>Population: {neighborhoodInfo.population}</Text>
+                    <Text style={styles.neighborhoodDetailText}>Area: {neighborhoodInfo.area}</Text>
+                    <Text style={styles.neighborhoodDetailText}>Funds: {neighborhoodInfo.established}</Text>
+                    <Text style={styles.neighborhoodDetailText}>MOM: {neighborhoodInfo.nearbyLandmarks}</Text>
+                    <Text style={styles.neighborhoodDetailText}>Average Income: {neighborhoodInfo.averageIncome}</Text>
+                    <Text style={styles.neighborhoodDetailText}>Idk10: {neighborhoodInfo.mainAttractions}</Text>
                 </View>
             </View>
         </ScrollView>
@@ -93,7 +140,6 @@ const styles = StyleSheet.create({
     profileContainer: {
         flex: 1,
         backgroundColor: '#ffffff',
-        borderRadius: 10,
         padding: 20,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -103,6 +149,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginRight: 10,
         height: 160,
+        borderRadius: 15,
     },
     avatar: {
         width: 80,
@@ -122,7 +169,6 @@ const styles = StyleSheet.create({
     pointsSection: {
         flex: 1,
         backgroundColor: '#fff8dc',
-        borderRadius: 10,
         padding: 20,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -130,7 +176,9 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
         elevation: 5,
         alignItems: 'center',
+        justifyContent: 'center',
         height: 160,
+        borderRadius: 15,
     },
     pointsText: {
         fontSize: 24,
@@ -151,22 +199,29 @@ const styles = StyleSheet.create({
     neighborhoodSection: {
         flex: 1,
     },
-    sectionTitle: {
+    possessionsTitle: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#333',
-        marginBottom: 10,
+        color: '#fff',
+        textAlign: 'center',
+    },
+    possessionsTitleContainer: {
+        backgroundColor: '#808080',
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
     },
     tableContainer: {
         backgroundColor: '#ffffff',
-        borderRadius: 10,
         padding: 10,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 4,
         elevation: 5,
-        height: 200,
+        height: 230,
+        borderRadius: 0,
     },
     tableRow: {
         flexDirection: 'row',
@@ -181,14 +236,14 @@ const styles = StyleSheet.create({
     },
     neighborhoodContainer: {
         backgroundColor: '#ffffff',
-        borderRadius: 10,
         padding: 10,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 4,
         elevation: 5,
-        height: 200,
+        height: 230,
+        borderRadius: 0,
     },
     neighborCard: {
         flexDirection: 'row',
@@ -201,6 +256,55 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#444',
         marginLeft: 10,
+    },
+    seeMoreButtonContainer: {
+        backgroundColor: '#808080',
+        borderRadius: 5,
+        marginTop: 0,
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10,
+        overflow: 'hidden',
+        marginBottom: 20,
+    },
+    neighborhoodTitleContainer: {
+        backgroundColor: '#808080',
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+    },
+    neighborhoodFrame: {
+        flexDirection: 'row',
+        marginTop: 10,
+        padding: 10,
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 5 },
+        shadowOpacity: 0.3,
+        shadowRadius: 6,
+        elevation: 10, // Increased elevation for a stronger shadow
+        height: 220,
+    },
+    neighborhoodImage: {
+        width: 180,
+        height: 180,
+        borderRadius: 10,
+        marginTop: 10,
+        marginBottom: 10,
+    },
+    neighborhoodDetails: {
+        marginLeft: 10,
+        justifyContent: 'center',
+    },
+    neighborhoodName: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 10,
+    },
+    neighborhoodDetailText: {
+        fontSize: 14,
+        color: '#666',
     },
 });
 

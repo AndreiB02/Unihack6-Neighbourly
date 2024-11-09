@@ -1,19 +1,21 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './screens/HomeScreen'; // Update the import path as necessary
-import AddAccount from './screens/CreateAccount/AddAccount'; // Update the import path as necessary
+import HomeScreen from './screens/MainPage/HomeScreen'; // Update the import path as necessary
+import AddAccount from './screens/MainPage/CreateAccount/AddAccount'; // Update the import path as necessary
 import LoginPage from './screens/LoginPage/LoginPage';
 import OfferServiceScreen from './screens/Offer/OfferServiceScreen';
 import AddOfferScreen from './screens/Offer/AddOfferScreen';
 import AddAskScreen from './screens/Ask/AddAskScreen';
 import AskServiceScreen from './screens/Ask/AskServiceScreen';
-import Profile from './screens/Profile';
-import EventServiceScreen from './screens/Events/EventServiceScreen';
-import AddEventScreen from './screens/Events/AddEventScreen';
-import JoinEvent from './screens/Events/JoinEvent';
-import AddCommunityServiceScreen from './screens/Comunty/AddCommunityServiceScreen';
-import CommunityServiceScreen from './screens/Comunty/CommunityServiceScreen';
+import Profile from './screens/MainPage/ProfilePage/Profile';
+import EventServiceScreen from './screens/MainPage/Events/EventServiceScreen';
+import AddEventScreen from './screens/MainPage/Events/AddEventScreen';
+import JoinEvent from './screens/MainPage/Events/JoinEvent';
+import AddCommunityServiceScreen from './screens/MainPage/Comunty/AddCommunityServiceScreen';
+import CommunityServiceScreen from './screens/MainPage/Comunty/CommunityServiceScreen';
+import PossessionsSeeMore from './screens/MainPage/ProfilePage/SeeMore/PossessionsSeeMore';
+import NeighborhoodSeeMore from './screens/MainPage/ProfilePage/SeeMore/NeighborhoodSeeMore';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -33,6 +35,8 @@ const App = () => {
         <Stack.Screen name="JoinEvent" component={JoinEvent} options={{ title: 'Join A New Event' }} />
         <Stack.Screen name="AddComunityScreen" component={AddCommunityServiceScreen} options={{ title: 'Create A New Event' }} />
         <Stack.Screen name="ComunityServiceScreen" component={CommunityServiceScreen} options={{ title: 'Join A New Event' }} />
+        <Stack.Screen name="PossessionsSeeMore" component={PossessionsSeeMore} />
+        <Stack.Screen name="NeighborhoodSeeMore" component={NeighborhoodSeeMore} />
       </Stack.Navigator>
     </NavigationContainer>
   );
