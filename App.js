@@ -16,7 +16,6 @@ import AddCommunityServiceScreen from './screens/MainPage/Comunty/AddCommunitySe
 import CommunityServiceScreen from './screens/MainPage/Comunty/CommunityServiceScreen';
 import PossessionsSeeMore from './screens/MainPage/ProfilePage/SeeMore/PossessionsSeeMore';
 import NeighborhoodSeeMore from './screens/MainPage/ProfilePage/SeeMore/NeighborhoodSeeMore';
-import CoFundScreen from './screens/CoFound/CoFundScreen';
 import NeighbourhoodPortal from './screens/MainPage/ProfilePage/NeighbourhoodPortal';
 import AddAskScreen from './screens/MainPage/Ask/AddAskScreen';
 import AboutApp from './screens/MainPage/AboutApp';
@@ -41,7 +40,6 @@ const App = () => {
         <Stack.Screen name="ComunityServiceScreen" component={CommunityServiceScreen} options={{ title: 'Join A New Event' }} />
         <Stack.Screen name="PossessionsSeeMore" component={PossessionsSeeMore} />
         <Stack.Screen name="NeighborhoodSeeMore" component={NeighborhoodSeeMore} />
-        <Stack.Screen name="CoFundScreen" component={CoFundScreen} options={{ headerShown: false }} />
         <Stack.Screen name="NeighbourhoodPortal" component={NeighbourhoodPortal} options={{ title: 'Neighbourhood' }}  />
         <Stack.Screen name="AboutApp" component={AboutApp} options={{ title: 'About' }} />
       </Stack.Navigator>
