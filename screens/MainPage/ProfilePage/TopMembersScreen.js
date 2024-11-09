@@ -4,14 +4,14 @@ import Icon from 'react-native-vector-icons/Ionicons';  // Using Ionicons for th
 
 const TopMembers = ({navigation}) => {
     const membersData = [
-        { id: '1', name: 'Alice', points: 400, avatar: 'https://www.w3schools.com/w3images/avatar2.png' },
-        { id: '2', name: 'Bob', points: 200, avatar: 'https://www.w3schools.com/w3images/avatar2.png' },
-        { id: '3', name: 'Charlie', points: 150, avatar: 'https://www.w3schools.com/w3images/avatar2.png' },
-        { id: '4', name: 'Diana', points: 50, avatar: 'https://www.w3schools.com/w3images/avatar2.png' },
-        { id: '5', name: 'Eve', points: 100, avatar: 'https://www.w3schools.com/w3images/avatar2.png' },
-        { id: '6', name: 'Frank', points: 80, avatar: 'https://www.w3schools.com/w3images/avatar2.png' },
-        { id: '7', name: 'Grace', points: 120, avatar: 'https://www.w3schools.com/w3images/avatar2.png' },
-        { id: '8', name: 'Hank', points: 300, avatar: 'https://www.w3schools.com/w3images/avatar2.png' },
+        { id: '1', name: 'Alice', points: 400, avatar: 'https://randomuser.me/api/portraits/women/1.jpg' },
+        { id: '2', name: 'Bob', points: 200, avatar: 'https://randomuser.me/api/portraits/men/2.jpg' },
+        { id: '3', name: 'Charlie', points: 150, avatar: 'https://randomuser.me/api/portraits/men/3.jpg' },
+        { id: '4', name: 'Diana', points: 50, avatar: 'https://randomuser.me/api/portraits/women/4.jpg' },
+        { id: '5', name: 'Eve', points: 100, avatar: 'https://randomuser.me/api/portraits/women/5.jpg' },
+        { id: '6', name: 'Frank', points: 80, avatar: 'https://randomuser.me/api/portraits/men/6.jpg' },
+        { id: '7', name: 'Grace', points: 120, avatar: 'https://randomuser.me/api/portraits/women/7.jpg' },
+        { id: '8', name: 'Hank', points: 300, avatar: 'https://randomuser.me/api/portraits/men/8.jpg' },
     ];
 
     // Sort members by points in descending order

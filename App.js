@@ -39,7 +39,7 @@ const App = () => {
         <Stack.Screen name="AddEventScreen" component={AddEventScreen} options={{ title: 'Add New Event' } }/>
         <Stack.Screen name="JoinEvent" component={JoinEvent} options={{ title: 'Join A New Event' }} />
         <Stack.Screen name="AddCommunityServiceScreen" component={AddCommunityServiceScreen} options={{ title: 'Create A New Event' }} />
-        <Stack.Screen name="ComunityServiceScreen" component={CommunityServiceScreen} options={{ title: 'Join A New Event' }} />
+        <Stack.Screen name="ComunityServiceScreen" component={CommunityServiceScreen} options={{ title: 'Help Your Comunity' }} />
         <Stack.Screen name="PossessionsSeeMore" component={PossessionsSeeMore} />
         <Stack.Screen name="NeighborhoodSeeMore" component={NeighborhoodSeeMore} />
         <Stack.Screen name="NeighbourhoodPortal" component={NeighbourhoodPortal} options={{ title: 'Neighbourhood' }}  />

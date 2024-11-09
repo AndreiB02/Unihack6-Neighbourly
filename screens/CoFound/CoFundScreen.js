@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Modal, TextInput, Button } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Modal, TextInput, Button, Image } from 'react-native';
 import ProgressBar from '../MainPage/Components/ProgressBar';
 
 const CoFundScreen = () => {
@@ -7,11 +7,11 @@ const CoFundScreen = () => {
     const [currentAmount, setCurrentAmount] = useState(350);
 
     const [itemsData, setItemsData] = useState([
-        { id: '1', name: 'Lawnmower', price: 200, raised: 50 },
-        { id: '2', name: 'Dining Table', price: 150, raised: 75 },
-        { id: '3', name: 'Cordless Drill', price: 300, raised: 120 },
-        { id: '4', name: 'Office Chair', price: 100, raised: 45 },
-        { id: '5', name: 'Electric Heater', price: 250, raised: 55 },
+        { id: '1', name: 'Lawnmower', price: 200, raised: 50, avatar: 'https://randomuser.me/api/portraits/men/1.jpg' },
+        { id: '2', name: 'Dining Table', price: 150, raised: 75, avatar: 'https://randomuser.me/api/portraits/women/2.jpg' },
+        { id: '3', name: 'Cordless Drill', price: 300, raised: 120, avatar: 'https://randomuser.me/api/portraits/men/3.jpg' },
+        { id: '4', name: 'Office Chair', price: 100, raised: 45, avatar: 'https://randomuser.me/api/portraits/women/4.jpg' },
+        { id: '5', name: 'Electric Heater', price: 250, raised: 55, avatar: 'https://randomuser.me/api/portraits/men/5.jpg' },
     ]);
 
     const [modalVisible, setModalVisible] = useState(false);
@@ -52,7 +52,7 @@ const CoFundScreen = () => {
             return;
         }
 
-        const newItem = { id: (itemsData.length + 1).toString(), name: newItemName, price: parseFloat(newItemPrice), raised: 0 };
+        const newItem = { id: (itemsData.length + 1).toString(), name: newItemName, price: parseFloat(newItemPrice), raised: 0, avatar: 'https://randomuser.me/api/portraits/men/6.jpg' };
         setItemsData([...itemsData, newItem]);
         setModalVisible(false);
         setNewItemName('');
@@ -84,7 +84,10 @@ const CoFundScreen = () => {
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <View style={styles.itemContainer}>
-                        <Text style={styles.itemName}>{item.name}</Text>
+                        <View style={styles.itemHeader}>
+                            <Image source={{ uri: item.avatar }} style={styles.itemAvatar} />
+                            <Text style={styles.itemName}>{item.name}</Text>
+                        </View>
                         <Text style={styles.itemPrice}>{item.raised}$ / {item.price}$</Text>
 
                         <ProgressBar
@@ -255,6 +258,17 @@ const styles = StyleSheet.create({
         elevation: 5,
         position: 'relative',
     },
+    itemHeader: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    itemAvatar: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        marginRight: 15,
+    },
     itemName: {
         fontSize: 20,
         fontWeight: 'bold',
@@ -263,7 +277,6 @@ const styles = StyleSheet.create({
     itemPrice: {
         fontSize: 16,
         color: '#777',
-        marginTop: 5,
     },
     modalOverlay: {
         flex: 1,
@@ -273,32 +286,29 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         backgroundColor: '#fff',
-        padding: 20,
+        padding: 30,
         borderRadius: 10,
         width: '80%',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.2,
-        shadowRadius: 4,
-        elevation: 5,
+        maxWidth: 400,
     },
     modalHeader: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#333',
         marginBottom: 20,
+        color: '#333',
         textAlign: 'center',
     },
     input: {
-        height: 45,
+        height: 40,
         borderColor: '#ccc',
         borderWidth: 1,
-        borderRadius: 8,
+        borderRadius: 5,
         marginBottom: 15,
-        paddingLeft: 12,
+        paddingLeft: 10,
         fontSize: 16,
     },
     modalButtons: {
+        marginTop: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },

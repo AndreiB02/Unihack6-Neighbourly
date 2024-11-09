@@ -16,15 +16,16 @@ const Profile = () => {
     ];
 
     const neighborhoodData = [
-        { id: '1', name: 'Alice' },
-        { id: '2', name: 'Bob' },
-        { id: '3', name: 'Charlie' },
-        { id: '4', name: 'Diana' },
-        { id: '5', name: 'Eve' },
-        { id: '6', name: 'Frank' },
-        { id: '7', name: 'Grace' },
-        { id: '8', name: 'Hank' },
+        { id: '1', name: 'Alice', avatar: 'https://randomuser.me/api/portraits/women/1.jpg' },
+        { id: '2', name: 'Bob', avatar: 'https://randomuser.me/api/portraits/men/2.jpg' },
+        { id: '3', name: 'Charlie', avatar: 'https://randomuser.me/api/portraits/men/3.jpg' },
+        { id: '4', name: 'Diana', avatar: 'https://randomuser.me/api/portraits/women/4.jpg' },
+        { id: '5', name: 'Eve', avatar: 'https://randomuser.me/api/portraits/women/5.jpg' },
+        { id: '6', name: 'Frank', avatar: 'https://randomuser.me/api/portraits/men/6.jpg' },
+        { id: '7', name: 'Grace', avatar: 'https://randomuser.me/api/portraits/women/7.jpg' },
+        { id: '8', name: 'Hank', avatar: 'https://randomuser.me/api/portraits/men/8.jpg' },
     ];
+
 
     const neighborhoodInfo = {
         name: 'GHIRODA',
@@ -41,7 +42,7 @@ const Profile = () => {
             <View style={styles.headerContainer}>
                 <View style={styles.profileContainer}>
                     <Image
-                        source={{ uri: 'https://www.w3schools.com/w3images/avatar2.png' }}
+                        source={{ uri: 'https://randomuser.me/api/portraits/men/9.jpg' }}
                         style={styles.avatar}
                     />
                     <Text style={styles.name}>John Doe</Text>
@@ -93,11 +94,12 @@ const Profile = () => {
                             keyExtractor={(item) => item.id}
                             renderItem={({ item }) => (
                                 <View style={styles.neighborCard}>
-                                    <Icon name="person-circle" size={40} color="#4CAF50" />
+                                    <Image source={{ uri: item.avatar }} style={styles.neighborAvatar} />
                                     <Text style={styles.neighborName}>{item.name}</Text>
                                 </View>
                             )}
                         />
+
                     </View>
                 </TouchableOpacity>
             </View>
@@ -264,9 +266,14 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
-        backgroundColor: '#f0f0f0', // Light background for items
+        backgroundColor: '#f0f0f0',
         borderRadius: 5,
         marginBottom: 10,
+    },
+    neighborAvatar: {
+        width: 40,
+        height: 40,
+        borderRadius: 20,
     },
     neighborName: {
         fontSize: 16,
