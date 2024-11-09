@@ -37,6 +37,12 @@ const HomeScreen = ({ navigation }) => {
             >
                 <Text style={styles.offerButtonText}>Events</Text>
             </TouchableOpacity>
+            <TouchableOpacity
+                style={styles.offerButton}
+                onPress={() => navigation.navigate('ComunityServiceScreen')}
+            >
+                <Text style={styles.offerButtonText}>Comunity</Text>
+            </TouchableOpacity>
         </View>
     );
 };

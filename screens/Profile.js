@@ -4,10 +4,8 @@ import { View, Text, StyleSheet, ScrollView, Image, FlatList } from 'react-nativ
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const Profile = () => {
-    // Starting points for demonstration
     const [points, setPoints] = useState(150);
 
-    // Possessions data (can be dynamic from a database)
     const possessionsData = [
         { id: '1', item: 'Screwdriver', quantity: 1 },
         { id: '2', item: 'Chairs', quantity: 5 },
@@ -16,42 +14,65 @@ const Profile = () => {
         { id: '5', item: 'Books', quantity: 20 },
     ];
 
+    const neighborhoodData = [
+        { id: '1', name: 'Alice' },
+        { id: '2', name: 'Bob' },
+        { id: '3', name: 'Charlie' },
+        { id: '4', name: 'Diana' },
+        { id: '5', name: 'Eve' },
+        { id: '6', name: 'Frank' },
+        { id: '7', name: 'Grace' },
+        { id: '8', name: 'Hank' },
+    ];
+
     return (
         <ScrollView style={styles.container}>
-            <View style={styles.header}>
-                <Image
-                    source={{ uri: 'https://www.w3schools.com/w3images/avatar2.png' }} // Placeholder image
-                    style={styles.avatar}
-                />
-                <Text style={styles.name}>John Doe</Text>
-                <Text style={styles.gender}>Male</Text>
-            </View>
-
-            {/* Points Section */}
-            <View style={styles.pointsSection}>
-                <Text style={styles.sectionTitle}>Your Points</Text>
-                <View style={styles.pointsCard}>
+            <View style={styles.headerContainer}>
+                <View style={styles.profileContainer}>
+                    <Image
+                        source={{ uri: 'https://www.w3schools.com/w3images/avatar2.png' }}
+                        style={styles.avatar}
+                    />
+                    <Text style={styles.name}>John Doe</Text>
+                    <Text style={styles.gender}>Male</Text>
+                </View>
+                <View style={styles.pointsSection}>
                     <Icon name="star" size={30} color="#ffd700" style={styles.pointsIcon} />
                     <Text style={styles.pointsText}>{points} Points</Text>
-                    <Text style={styles.pointsDescription}>Earn points by completing tasks and achievements!</Text>
                 </View>
             </View>
 
-            <View style={styles.profileSection}>
-                <Text style={styles.sectionTitle}>Possessions</Text>
+            <View style={styles.mainContent}>
+                <View style={styles.profileSection}>
+                    <Text style={styles.sectionTitle}>Possessions</Text>
+                    <View style={styles.tableContainer}>
+                        <FlatList
+                            data={possessionsData}
+                            keyExtractor={(item) => item.id}
+                            renderItem={({ item }) => (
+                                <View style={styles.tableRow}>
+                                    <Text style={styles.tableCell}>{item.item}</Text>
+                                    <Text style={styles.tableCell}>{item.quantity}</Text>
+                                </View>
+                            )}
+                        />
+                    </View>
+                </View>
 
-                {/* FlatList for Possessions */}
-                <View style={styles.tableContainer}>
-                    <FlatList
-                        data={possessionsData}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({ item }) => (
-                            <View style={styles.tableRow}>
-                                <Text style={styles.tableCell}>{item.item}</Text>
-                                <Text style={styles.tableCell}>{item.quantity}</Text>
-                            </View>
-                        )}
-                    />
+                <View style={styles.neighborhoodSection}>
+                    <Text style={styles.sectionTitle}>Neighborhood</Text>
+                    <View style={styles.neighborhoodContainer}>
+                        <FlatList
+                            data={neighborhoodData}
+                            keyExtractor={(item) => item.id}
+                            renderItem={({ item }) => (
+                                <View style={styles.neighborCard}>
+                                    <Icon name="person-circle" size={40} color="#4CAF50" />
+                                    <Text style={styles.neighborName}>{item.name}</Text>
+                                </View>
+                            )}
+                        />
+                    </View>
                 </View>
             </View>
         </ScrollView>
@@ -64,33 +85,74 @@ const styles = StyleSheet.create({
         backgroundColor: '#f0f4f7',
         padding: 20,
     },
-    header: {
-        alignItems: 'center',
+    headerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         marginBottom: 30,
     },
+    profileContainer: {
+        flex: 1,
+        backgroundColor: '#ffffff',
+        borderRadius: 10,
+        padding: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 5,
+        alignItems: 'center',
+        marginRight: 10,
+        height: 160,
+    },
     avatar: {
-        width: 120,
-        height: 120,
-        borderRadius: 60,
-        borderWidth: 4,
-        borderColor: '#ffffff',
+        width: 80,
+        height: 80,
+        borderRadius: 40,
         marginBottom: 10,
     },
     name: {
-        fontSize: 28,
+        fontSize: 20,
         fontWeight: 'bold',
         color: '#333',
     },
     gender: {
-        fontSize: 16,
+        fontSize: 14,
         color: '#666',
-        marginBottom: 20,
+    },
+    pointsSection: {
+        flex: 1,
+        backgroundColor: '#fff8dc',
+        borderRadius: 10,
+        padding: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 5,
+        alignItems: 'center',
+        height: 160,
+    },
+    pointsText: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#333',
+    },
+    pointsIcon: {
+        marginBottom: 10,
+    },
+    mainContent: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
     profileSection: {
-        marginBottom: 25,
+        flex: 1,
+        marginRight: 10,
+    },
+    neighborhoodSection: {
+        flex: 1,
     },
     sectionTitle: {
-        fontSize: 24,
+        fontSize: 18,
         fontWeight: 'bold',
         color: '#333',
         marginBottom: 10,
@@ -98,12 +160,13 @@ const styles = StyleSheet.create({
     tableContainer: {
         backgroundColor: '#ffffff',
         borderRadius: 10,
+        padding: 10,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
+        shadowOpacity: 0.2,
         shadowRadius: 4,
         elevation: 5,
-        padding: 10,
+        height: 200,
     },
     tableRow: {
         flexDirection: 'row',
@@ -113,40 +176,31 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ddd',
     },
     tableCell: {
-        fontSize: 18,
+        fontSize: 16,
         color: '#444',
-        flex: 1,
-        textAlign: 'center',
     },
-    pointsSection: {
-        marginBottom: 25,
-    },
-    pointsCard: {
-        backgroundColor: '#fff8dc', // Light golden color for the points card
-        padding: 20,
+    neighborhoodContainer: {
+        backgroundColor: '#ffffff',
         borderRadius: 10,
+        padding: 10,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
-        shadowRadius: 6,
+        shadowRadius: 4,
         elevation: 5,
+        height: 200,
+    },
+    neighborCard: {
+        flexDirection: 'row',
         alignItems: 'center',
+        paddingVertical: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
     },
-    pointsText: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#333',
-        marginTop: 10,
-    },
-    pointsIcon: {
-        marginBottom: 10,
-    },
-    pointsDescription: {
+    neighborName: {
         fontSize: 16,
-        color: '#666',
-        marginTop: 10,
-        textAlign: 'center',
-        paddingHorizontal: 10,
+        color: '#444',
+        marginLeft: 10,
     },
 });
 

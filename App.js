@@ -12,6 +12,8 @@ import Profile from './screens/Profile';
 import EventServiceScreen from './screens/Events/EventServiceScreen';
 import AddEventScreen from './screens/Events/AddEventScreen';
 import JoinEvent from './screens/Events/JoinEvent';
+import AddCommunityServiceScreen from './screens/Comunty/AddCommunityServiceScreen';
+import CommunityServiceScreen from './screens/Comunty/CommunityServiceScreen';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -29,6 +31,8 @@ const App = () => {
         <Stack.Screen name="EventServiceScreen" component={EventServiceScreen} options={{ title: 'Events' }} />
         <Stack.Screen name="AddEventScreen" component={AddEventScreen} options={{ title: 'Add New Event' } }/>
         <Stack.Screen name="JoinEvent" component={JoinEvent} options={{ title: 'Join A New Event' }} />
+        <Stack.Screen name="AddComunityScreen" component={AddCommunityServiceScreen} options={{ title: 'Create A New Event' }} />
+        <Stack.Screen name="ComunityServiceScreen" component={CommunityServiceScreen} options={{ title: 'Join A New Event' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
