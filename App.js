@@ -6,8 +6,7 @@ import AddAccount from './screens/MainPage/CreateAccount/AddAccount'; // Update 
 import LoginPage from './screens/LoginPage/LoginPage';
 import OfferServiceScreen from './screens/Offer/OfferServiceScreen';
 import AddOfferScreen from './screens/Offer/AddOfferScreen';
-import AddAskScreen from './screens/Ask/AddAskScreen';
-import AskServiceScreen from './screens/Ask/AskServiceScreen';
+import AskServiceScreen from './screens/MainPage/Ask/AskServiceScreen';
 import Profile from './screens/MainPage/ProfilePage/Profile';
 import EventServiceScreen from './screens/MainPage/Events/EventServiceScreen';
 import AddEventScreen from './screens/MainPage/Events/AddEventScreen';
@@ -16,6 +15,9 @@ import AddCommunityServiceScreen from './screens/MainPage/Comunty/AddCommunitySe
 import CommunityServiceScreen from './screens/MainPage/Comunty/CommunityServiceScreen';
 import PossessionsSeeMore from './screens/MainPage/ProfilePage/SeeMore/PossessionsSeeMore';
 import NeighborhoodSeeMore from './screens/MainPage/ProfilePage/SeeMore/NeighborhoodSeeMore';
+import CoFundScreen from './screens/CoFound/CoFundScreen';
+import NeighbourhoodPortal from './screens/MainPage/ProfilePage/NeighbourhoodPortal';
+import AddAskScreen from './screens/MainPage/Ask/AddAskScreen';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -33,10 +35,12 @@ const App = () => {
         <Stack.Screen name="EventServiceScreen" component={EventServiceScreen} options={{ title: 'Events' }} />
         <Stack.Screen name="AddEventScreen" component={AddEventScreen} options={{ title: 'Add New Event' } }/>
         <Stack.Screen name="JoinEvent" component={JoinEvent} options={{ title: 'Join A New Event' }} />
-        <Stack.Screen name="AddComunityScreen" component={AddCommunityServiceScreen} options={{ title: 'Create A New Event' }} />
+        <Stack.Screen name="AddCommunityServiceScreen" component={AddCommunityServiceScreen} options={{ title: 'Create A New Event' }} />
         <Stack.Screen name="ComunityServiceScreen" component={CommunityServiceScreen} options={{ title: 'Join A New Event' }} />
         <Stack.Screen name="PossessionsSeeMore" component={PossessionsSeeMore} />
         <Stack.Screen name="NeighborhoodSeeMore" component={NeighborhoodSeeMore} />
+        <Stack.Screen name="CoFundScreen" component={CoFundScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="NeighbourhoodPortal" component={NeighbourhoodPortal} options={{ title: 'Neighbourhood' }}  />
       </Stack.Navigator>
     </NavigationContainer>
   );

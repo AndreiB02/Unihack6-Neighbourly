@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Image, FlatList, Button } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Image, FlatList, Button, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
@@ -26,7 +26,6 @@ const Profile = () => {
         { id: '8', name: 'Hank' },
     ];
 
-    // Updated neighborhood details with additional information
     const neighborhoodInfo = {
         name: 'Ghiroda',
         population: '10,000',
@@ -106,8 +105,7 @@ const Profile = () => {
                 </View>
             </View>
 
-            {/* Updated Neighborhood Frame with shadow and additional info */}
-            <View style={styles.neighborhoodFrame}>
+            <TouchableOpacity style={styles.neighborhoodFrame} onPress={() => navigation.navigate('NeighbourhoodPortal')}>
                 <Image
                     source={{ uri: 'https://via.placeholder.com/100' }}
                     style={styles.neighborhoodImage}
@@ -121,7 +119,7 @@ const Profile = () => {
                     <Text style={styles.neighborhoodDetailText}>Average Income: {neighborhoodInfo.averageIncome}</Text>
                     <Text style={styles.neighborhoodDetailText}>Idk10: {neighborhoodInfo.mainAttractions}</Text>
                 </View>
-            </View>
+            </TouchableOpacity>
         </ScrollView>
     );
 };
@@ -283,7 +281,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.3,
         shadowRadius: 6,
-        elevation: 10, // Increased elevation for a stronger shadow
+        elevation: 10,
         height: 220,
     },
     neighborhoodImage: {
