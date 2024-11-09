@@ -19,6 +19,8 @@ import NeighborhoodSeeMore from './screens/MainPage/ProfilePage/SeeMore/Neighbor
 import NeighbourhoodPortal from './screens/MainPage/ProfilePage/NeighbourhoodPortal';
 import AddAskScreen from './screens/MainPage/Ask/AddAskScreen';
 import AboutApp from './screens/MainPage/AboutApp';
+import CoFundScreen from './screens/CoFound/CoFundScreen'
+import TopMembersScreen from './screens/MainPage/ProfilePage/TopMembersScreen';
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -42,6 +44,8 @@ const App = () => {
         <Stack.Screen name="NeighborhoodSeeMore" component={NeighborhoodSeeMore} />
         <Stack.Screen name="NeighbourhoodPortal" component={NeighbourhoodPortal} options={{ title: 'Neighbourhood' }}  />
         <Stack.Screen name="AboutApp" component={AboutApp} options={{ title: 'About' }} />
+        <Stack.Screen name="CoFundScreen" component={CoFundScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="TopMembersScreen" component={TopMembersScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
 

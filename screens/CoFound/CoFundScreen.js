@@ -154,7 +154,7 @@ const CoFundScreen = () => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 20,
+        marginTop: 30,
         flex: 1,
         padding: 20,
         backgroundColor: '#f7f7f7',

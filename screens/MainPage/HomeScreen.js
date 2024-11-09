@@ -10,50 +10,31 @@ const Stack = createStackNavigator();
 
 const HomeScreen = ({ navigation }) => {
     return (
-<<<<<<< HEAD
-        // SafeAreaView wrapping the entire content to ensure no overlap with system UI
-        <SafeAreaView style={{ flex: 1, marginTop:35, }}>
-            <ScrollView style={styles.container}>
-=======
         <SafeAreaView style={styles.container}>
-            <ScrollView>
->>>>>>> 41e65e50cbd975cc8b8ef6cb5ce2a13dcde8db37
-                {/* Fixed Header */}
-                <View style={styles.header}>
-                    <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-                        <Icon
-                            name="person-circle-outline"
-                            size={40}
-<<<<<<< HEAD
-                            color="black"
-                            style={styles.profileIcon}
-                        />
-                    </TouchableOpacity>
-                    <View style={{ flexWrap: 'wrap', flexDirection: 'column' }}>
-                        <Text style={styles.neighborhoodTitle}>{zone} </Text>
-                        <Text>Neighbourhood</Text>
-=======
-                            color="#4CAF50"
-                            style={styles.profileIcon}
-                        />
-                    </TouchableOpacity>
-                    <View style={styles.headerCenter}>
-                        <Text style={styles.neighborhoodTitle}>{zone}</Text>
-                        <Text style={styles.subHeader}>Neighborhood</Text>
->>>>>>> 41e65e50cbd975cc8b8ef6cb5ce2a13dcde8db37
-                    </View>
-                    <TouchableOpacity onPress={() => navigation.navigate('AboutApp')}>
-                        <Image
-                            source={logo}
-<<<<<<< HEAD
-                            style={{ width: 70, height: 40 }} />
-=======
-                            style={styles.logo}
-                        />
->>>>>>> 41e65e50cbd975cc8b8ef6cb5ce2a13dcde8db37
-                    </TouchableOpacity>
+            {/* Fixed Header */}
+            <View style={styles.header}>
+                <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+                    <Icon
+                        name="person-circle-outline"
+                        size={40}
+                        color="#4CAF50"
+                        style={styles.profileIcon}
+                    />
+                </TouchableOpacity>
+                <View style={styles.headerCenter}>
+                    <Text style={styles.neighborhoodTitle}>{zone}</Text>
+                    <Text style={styles.subHeader}>Neighborhood</Text>
                 </View>
+                <TouchableOpacity onPress={() => navigation.navigate('AboutApp')}>
+                    <Image
+                        source={logo}
+                        style={styles.logo}
+                    />
+                </TouchableOpacity>
+            </View>
 
+            {/* Scrollable Content */}
+            <ScrollView contentContainerStyle={styles.scrollContainer}>
                 {/* CoFunds Section */}
                 <CoFunds navigation={navigation} />
 
@@ -75,12 +56,12 @@ const Sections = ({ navigation }) => (
 
 const Section = ({ title, screenName, navigation }) => (
     <>
-        <View style={styles.sectionHeaderContainer}>
-            <Text style={styles.sectionHeader}>{title}</Text>
-            <TouchableOpacity onPress={() => navigation.navigate(screenName)}>
+        <TouchableOpacity onPress={() => navigation.navigate(screenName)} style={styles.sectionTouchable}>
+            <View style={styles.sectionHeaderContainer}>
+                <Text style={styles.sectionHeader}>{title}</Text>
                 <Icon name="chevron-forward-outline" size={24} color="#4CAF50" style={styles.arrowIcon} />
-            </TouchableOpacity>
-        </View>
+            </View>
+        </TouchableOpacity>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.cardContainer}>
             <MiniCard label="Looking for a babysitter" author="-Karina Barbul" />
             <MiniCard label="Available for pet-sitting" author="-John Doe" />
@@ -106,7 +87,7 @@ const CoFunds = ({ navigation }) => (
         </Text>
         <TouchableOpacity
             style={styles.coFundsButton}
-            onPress={() => navigation.navigate('CoFundScreen')} // Navigate to CoFundsScreen
+            onPress={() => navigation.navigate('CoFundScreen')}
         >
             <Text style={styles.coFundsButtonText}>Get Started</Text>
         </TouchableOpacity>
@@ -114,22 +95,17 @@ const CoFunds = ({ navigation }) => (
 );
 
 const styles = StyleSheet.create({
-    neighborhoodTitle: {
-        fontWeight: '600',
-        fontSize: 22,
-        color: '#2E7D32', // Professional dark green
-        textAlign: 'center',
-    },
-    subHeader: {
-        fontSize: 14,
-        color: '#A5D6A7',
-        fontWeight: '400',
-    },
     container: {
+        marginTop:35,
         flex: 1,
-        backgroundColor: '#F3F7F6', // Light background for a clean look
+        backgroundColor: '#F3F7F6',
+    },
+    scrollContainer: {
+        paddingTop: 100, // Adjusted to leave space for the fixed header
     },
     header: {
+        position: 'absolute',
+        top: 0,
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -144,6 +120,18 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
         shadowRadius: 4,
         elevation: 3,
+        zIndex: 1000, // Ensure header stays on top
+    },
+    neighborhoodTitle: {
+        fontWeight: '600',
+        fontSize: 22,
+        color: '#2E7D32',
+        textAlign: 'center',
+    },
+    subHeader: {
+        fontSize: 14,
+        color: '#A5D6A7',
+        fontWeight: '400',
     },
     headerCenter: {
         flexDirection: 'column',
@@ -159,11 +147,14 @@ const styles = StyleSheet.create({
     sectionsContainer: {
         paddingVertical: 10,
     },
+    sectionTouchable: {
+        paddingHorizontal: 15,
+        paddingVertical: 12,
+        backgroundColor: '#F3F7F6',
+    },
     sectionHeaderContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: 15,
-        marginVertical: 8,
     },
     sectionHeader: {
         fontSize: 18,
@@ -171,7 +162,7 @@ const styles = StyleSheet.create({
         color: '#4CAF50',
     },
     arrowIcon: {
-        marginLeft: 10,
+        marginLeft: 5,
     },
     cardContainer: {
         paddingLeft: 15,
@@ -204,7 +195,7 @@ const styles = StyleSheet.create({
     },
     coFundsContainer: {
         padding: 20,
-        backgroundColor: '#E8F5E9', // Light green for CoFunds section
+        backgroundColor: '#E8F5E9',
         borderBottomWidth: 0.5,
         borderBottomColor: '#ddd',
         alignItems: 'center',

@@ -47,12 +47,15 @@ const Profile = () => {
                     <Text style={styles.name}>John Doe</Text>
                     <Text style={styles.gender}>Male</Text>
                 </View>
-                <View style={styles.pointsSection}>
+
+                {/* Points Section */}
+                <TouchableOpacity style={styles.pointsSection} onPress={() => navigation.navigate('TopMembersScreen')}>
                     <Icon name="star" size={30} color="#ffd700" style={styles.pointsIcon} />
                     <Text style={styles.pointsText}>{points} Points</Text>
-                </View>
+                </TouchableOpacity>
             </View>
 
+            {/* Main Content */}
             <View style={styles.mainContent}>
                 {/* Possessions Section */}
                 <TouchableOpacity
