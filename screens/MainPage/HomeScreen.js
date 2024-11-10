@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, SafeAreaView, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -103,18 +103,14 @@ const mockVolunteers = [
     }
 ];
 
-
-
 const HomeScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
-                    <Icon
-                        name="person-circle-outline"
-                        size={40}
-                        color="#4CAF50"
-                        style={styles.profileIcon}
+                    <Image
+                        source={{ uri: 'https://randomuser.me/api/portraits/men/9.jpg' }}
+                        style={styles.avatar}
                     />
                 </TouchableOpacity>
                 <View style={styles.headerCenter}>
@@ -139,10 +135,10 @@ const HomeScreen = ({ navigation }) => {
 
 const Sections = ({ navigation }) => (
     <View style={styles.sectionsContainer}>
-        <Section title="Offer Service" screenName="OfferServiceScreen" navigation={navigation} mockData={mockOffers} />
-        <Section title="Ask for Service" screenName="AskServiceScreen" navigation={navigation} mockData={mockRequests} />
+        <Section title="Offering Services" screenName="OfferingCardComponent" navigation={navigation} mockData={mockOffers} />
+        <Section title="Requesting Services" screenName="AskServiceScreen" navigation={navigation} mockData={mockRequests} />
         <Section title="Events" screenName="EventServiceScreen" navigation={navigation} mockData={mockEvents} />
-        <Section title="Volunteers Needed" screenName="ComunityServiceScreen" navigation={navigation} mockData={mockVolunteers} />
+        <Section title="Volunteers Needed" screenName="CommunityServiceScreen" navigation={navigation} mockData={mockVolunteers} />
     </View>
 );
 
@@ -161,6 +157,7 @@ const Section = ({ title, screenName, navigation, mockData }) => (
         </ScrollView>
     </>
 );
+
 const MiniCard = ({ item }) => {
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -194,37 +191,28 @@ const MiniCard = ({ item }) => {
                         <Image source={{ uri: item.avatarUrl }} style={styles.modalAvatar} />
                         <Text style={styles.modalTitle}>{item.label}</Text>
                         <Text style={styles.modalDescription}>{item.description}</Text>
-
-                        {/* Phone number section */}
-                        <Text style={styles.modalPhone}>Phone: {item.phone || 'N/A'}</Text>
-
-                        {/* Buttons in the same row */}
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity
-                                style={styles.joinButton}
-                                onPress={() => {
-                                    // Handle Join/Help button press
-                                    console.log('Joined Help');
-                                    setModalVisible(false); // Close modal after action
-                                }}
-                            >
-                                <Text style={styles.joinButtonText}>Join/Help</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity
-                                style={styles.closeButton}
-                                onPress={() => setModalVisible(false)}
-                            >
-                                <Text style={styles.closeButtonText}>Close</Text>
-                            </TouchableOpacity>
-                        </View>
+                        <TouchableOpacity
+                            style={styles.joinButton}
+                            onPress={() => {
+                                // Handle Join/Help button press
+                                console.log('Joined Help');
+                                setModalVisible(false); // Close modal after action
+                            }}
+                        >
+                            <Text style={styles.joinButtonText}>Join/Help</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.closeButton}
+                            onPress={() => setModalVisible(false)}
+                        >
+                            <Text style={styles.closeButtonText}>Close</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>
         </>
     );
 };
-
 
 const CoFunds = ({ navigation }) => (
     <View style={styles.coFundsContainer}>
@@ -240,6 +228,7 @@ const CoFunds = ({ navigation }) => (
         </TouchableOpacity>
     </View>
 );
+
 const styles = StyleSheet.create({
     container: {
         marginTop: 35,
@@ -247,7 +236,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F3F7F6',
     },
     scrollContainer: {
-        paddingTop: 100, // Adjusted to leave space for the fixed header
+        paddingTop: 100,
     },
     header: {
         position: 'absolute',
@@ -266,16 +255,16 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 1 },
         shadowRadius: 4,
         elevation: 3,
-        zIndex: 1000, // Ensure header stays on top
+        zIndex: 1000,
     },
     neighborhoodTitle: {
-        fontWeight: '600',
-        fontSize: 22,
+        fontWeight: '700',
+        fontSize: 24,
         color: '#2E7D32',
         textAlign: 'center',
     },
     subHeader: {
-        fontSize: 14,
+        fontSize: 16,
         color: '#A5D6A7',
         fontWeight: '400',
     },
@@ -283,19 +272,13 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'center',
     },
-    profileIcon: {
-        marginRight: 10,
-    },
     logo: {
         width: 70,
         height: 40,
     },
-    sectionsContainer: {
-        paddingVertical: 10,
-    },
     sectionTouchable: {
         paddingHorizontal: 15,
-        paddingVertical: 12,
+        paddingVertical: 8,
         backgroundColor: '#F3F7F6',
     },
     sectionHeaderContainer: {
@@ -303,41 +286,39 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     sectionHeader: {
-        fontSize: 18,
+        fontSize: 24,
         fontWeight: 'bold',
-        color: '#4CAF50',
+        color: '#388E3C',
     },
     arrowIcon: {
         marginLeft: 5,
     },
     cardContainer: {
-        paddingLeft: 15,
+        paddingLeft: 16,
     },
     card: {
-        width: 150,
-        height: 90,
+        width: 160,
+        height: 110,
         padding: 10,
-        marginVertical: 5,
-        marginHorizontal: 6,
+        marginVertical: 8,
+        marginHorizontal: 8,
         backgroundColor: '#FFFFFF',
-        borderRadius: 10,
+        borderRadius: 12,
         shadowColor: '#000',
         shadowOpacity: 0.1,
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 4,
+        shadowOffset: { width: 0, height: 3 },
+        shadowRadius: 5,
         elevation: 4,
-        borderColor: '#E0E0E0',
-        borderWidth: 0.5,
     },
     cardHeader: {
         flexDirection: 'row',
         alignItems: 'center',
     },
     avatar: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        marginRight: 10,
+        width: 45,
+        height: 45,
+        borderRadius: 22.5,
+        marginRight: 12,
     },
     cardContent: {
         flex: 1,
@@ -353,16 +334,16 @@ const styles = StyleSheet.create({
         color: '#757575',
     },
     coFundsContainer: {
-        padding: 20,
         backgroundColor: '#E8F5E9',
-        borderBottomWidth: 0.5,
-        borderBottomColor: '#ddd',
         alignItems: 'center',
+        padding: 12,
+        borderRadius: 10,
+        margin: 12,
     },
     coFundsHeader: {
-        fontSize: 24,
-        fontWeight: '600',
-        color: '#2E7D32',
+        fontSize: 26,
+        fontWeight: '700',
+        color: '#388E3C',
         marginBottom: 10,
     },
     coFundsText: {
@@ -373,9 +354,13 @@ const styles = StyleSheet.create({
     },
     coFundsButton: {
         backgroundColor: '#4CAF50',
-        paddingVertical: 10,
+        paddingVertical: 12,
         paddingHorizontal: 25,
-        borderRadius: 20,
+        borderRadius: 25,
+        shadowColor: '#000',
+        shadowOpacity: 0.15,
+        shadowOffset: { width: 0, height: 3 },
+        shadowRadius: 5,
         elevation: 3,
     },
     coFundsButtonText: {
@@ -390,68 +375,57 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     modalContent: {
-        width: '85%', // Increased width for a bigger modal
-        backgroundColor: 'white',
-        borderRadius: 12,
-        padding: 20,
+        backgroundColor: '#FFFFFF',
+        padding: 25,
+        borderRadius: 15,
+        width: '80%',
         alignItems: 'center',
-        elevation: 5,
     },
     modalAvatar: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-        marginBottom: 15,
+        width: 90,
+        height: 90,
+        borderRadius: 45,
+        marginBottom: 20,
     },
     modalTitle: {
-        fontSize: 22,
-        fontWeight: 'bold',
-        color: '#333',
-        marginBottom: 10,
+        fontWeight: '700',
+        fontSize: 20,
+        color: '#2E7D32',
     },
     modalDescription: {
-        fontSize: 16,
-        color: '#555',
+        fontSize: 14,
+        color: '#666',
         marginBottom: 20,
         textAlign: 'center',
-    },
-    modalPhone: {
-        fontSize: 16,
-        color: '#777',
-        marginBottom: 20,
-        textAlign: 'center',
-    },
-    buttonContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        width: '100%',
     },
     joinButton: {
         backgroundColor: '#4CAF50',
-        paddingVertical: 10,
-        paddingHorizontal: 25,
-        borderRadius: 20,
+        paddingVertical: 12,
+        paddingHorizontal: 30,
+        borderRadius: 25,
+        marginBottom: 15,
+        shadowColor: '#000',
+        shadowOpacity: 0.1,
+        shadowOffset: { width: 0, height: 3 },
+        shadowRadius: 5,
         elevation: 3,
-        marginRight: 10,
-        flex: 1,
-        alignItems: 'center',
-    },
-    closeButton: {
-        paddingVertical: 10,
-        paddingHorizontal: 25,
-        borderRadius: 20,
-        backgroundColor: '#E0E0E0',
-        flex: 1,
-        alignItems: 'center',
     },
     joinButtonText: {
-        color: 'white',
+        color: '#FFFFFF',
         fontSize: 16,
     },
+    closeButton: {
+        backgroundColor: '#ddd',
+        paddingVertical: 10,
+        paddingHorizontal: 25,
+        borderRadius: 25,
+    },
     closeButtonText: {
-        color: '#333',
+        color: '#555',
         fontSize: 16,
     },
 });
+
+
 
 export default HomeScreen;

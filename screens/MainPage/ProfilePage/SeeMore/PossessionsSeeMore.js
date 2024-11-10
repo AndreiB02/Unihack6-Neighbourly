@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, SafeAreaView, TouchableOpacity, Alert, TextInput, Modal, Button } from 'react-native';
+import { View, Text, StyleSheet, FlatList, SafeAreaView, TouchableOpacity, Alert, TextInput, Modal } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/Ionicons';  // Make sure you have installed this icon library
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const PossessionsSeeMore = () => {
     const [possessions, setPossessions] = useState([
@@ -10,10 +10,6 @@ const PossessionsSeeMore = () => {
         { id: '3', item: 'Table', quantity: 1 },
         { id: '4', item: 'Laptop', quantity: 1 },
         { id: '5', item: 'Books', quantity: 20 },
-        { id: '6', item: 'Hammer', quantity: 3 },
-        { id: '7', item: 'Pencils', quantity: 10 },
-        { id: '8', item: 'Monitor', quantity: 2 },
-        { id: '9', item: 'Notebooks', quantity: 12 },
     ]);
     const [modalVisible, setModalVisible] = useState(false);
     const [newItemName, setNewItemName] = useState('');
@@ -24,49 +20,43 @@ const PossessionsSeeMore = () => {
             Alert.alert('Error', 'Please fill in both fields!');
             return;
         }
-        // Add the new possession to the state
         const newPossession = {
             id: (possessions.length + 1).toString(),
             item: newItemName,
             quantity: parseInt(newItemQuantity),
         };
         setPossessions((prevPossessions) => [...prevPossessions, newPossession]);
-        // Reset form fields and close the modal
         setNewItemName('');
         setNewItemQuantity('');
         setModalVisible(false);
     };
-
-    const AllPossessionsList = () => (
-        <FlatList
-            data={possessions}
-            keyExtractor={(item) => item.id.toString()}
-            numColumns={2}  // This ensures the items are displayed in two columns
-            renderItem={({ item }) => (
-                <View style={styles.card}>
-                    <View style={styles.textContainer}>
-                        <Text style={styles.itemName}>{item.item}</Text>
-                        <Text style={styles.itemQuantity}>Quantity: {item.quantity}</Text>
-                    </View>
-                </View>
-            )}
-        />
-    );
 
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
                 <Text style={styles.possessionTitle}>🛠️ Possessions</Text>
                 <Text style={styles.sectionTitle}>Your Items</Text>
-                <AllPossessionsList />
+                <FlatList
+                    data={possessions}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => (
+                        <View style={styles.card}>
+                            <Text style={styles.itemName}>{item.item}</Text>
+                            <Text style={styles.itemQuantity}>Quantity: {item.quantity}</Text>
+                        </View>
+                    )}
+                    numColumns={2}
+                />
             </ScrollView>
 
-            {/* Floating action button */}
-            <TouchableOpacity style={styles.floatingButton} onPress={() => setModalVisible(true)}>
-                <Icon name="add" size={40} color="#fff" />
+            <TouchableOpacity
+                style={styles.floatingButton}
+                accessibilityLabel="Add new possession"
+                onPress={() => setModalVisible(true)}
+            >
+                <Icon name="add" size={30} color="#fff" />
             </TouchableOpacity>
 
-            {/* Modal for adding a possession */}
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -81,6 +71,7 @@ const PossessionsSeeMore = () => {
                             placeholder="Item Name"
                             value={newItemName}
                             onChangeText={setNewItemName}
+                            placeholderTextColor="#888"
                         />
                         <TextInput
                             style={styles.input}
@@ -88,10 +79,21 @@ const PossessionsSeeMore = () => {
                             keyboardType="numeric"
                             value={newItemQuantity}
                             onChangeText={setNewItemQuantity}
+                            placeholderTextColor="#888"
                         />
                         <View style={styles.modalButtonContainer}>
-                            <Button title="Cancel" onPress={() => setModalVisible(false)} color="#388e3c" />
-                            <Button title="Add" onPress={addPossession} color="#388e3c" />
+                            <TouchableOpacity
+                                style={styles.cancelButton}
+                                onPress={() => setModalVisible(false)}
+                            >
+                                <Text style={styles.buttonText}>Cancel</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                                style={styles.addButton}
+                                onPress={addPossession}
+                            >
+                                <Text style={styles.buttonText}>Add</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
                 </View>
@@ -103,102 +105,109 @@ const PossessionsSeeMore = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff', // Keeping the background color white
+        backgroundColor: '#f3f4f6',
         padding: 20,
     },
     scrollViewContent: {
         paddingBottom: 20,
     },
     possessionTitle: {
-        fontSize: 36,
+        fontSize: 28,
         fontWeight: 'bold',
-        color: '#333',
         marginBottom: 10,
-        textAlign: 'center',
+        color: 'blue',
     },
     sectionTitle: {
-        fontSize: 24,
+        fontSize: 22,
         fontWeight: '600',
-        color: '#555',
-        marginTop: 5,
+        color: 'blue',
         marginBottom: 15,
-        textAlign: 'center',
     },
     card: {
         flex: 1,
-        padding: 15,
-        marginVertical: 8,
-        marginRight: 10,
+        padding: 20,
+        margin: 8,
         backgroundColor: '#ffffff',
-        borderRadius: 12,
-        alignItems: 'flex-start',
+        borderRadius: 10,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
+        shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
-        shadowRadius: 8,
+        shadowRadius: 4,
         elevation: 5,
     },
-    textContainer: {
-        flexDirection: 'column',
-        justifyContent: 'center',
-    },
     itemName: {
-        fontSize: 20,
-        fontWeight: '600',
+        fontSize: 18,
+        fontWeight: 'bold',
         color: '#333',
     },
     itemQuantity: {
         fontSize: 16,
-        color: '#555',
-        marginTop: 5,
+        color: '#666',
+        marginTop: 8,
     },
     floatingButton: {
         position: 'absolute',
         right: 20,
         bottom: 20,
-        backgroundColor: '#388e3c',  // Green color for the floating button
+        backgroundColor: '#4CAF50',
         width: 60,
         height: 60,
         borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.1,
-        shadowRadius: 8,
-        elevation: 5,
     },
     modalOverlay: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.6)',
     },
     modalContainer: {
-        backgroundColor: '#fff',
-        padding: 20,
-        borderRadius: 10,
-        width: 300,
+        backgroundColor: '#ffffff',
+        padding: 25,
+        borderRadius: 12,
+        width: 320,
         alignItems: 'center',
     },
     modalTitle: {
         fontSize: 22,
         fontWeight: 'bold',
+        color: '#4CAF50',
         marginBottom: 15,
-        color: '#388e3c',  // Green text for modal title
     },
     input: {
         width: '100%',
-        padding: 10,
-        marginBottom: 15,
+        padding: 12,
+        marginBottom: 20,
         borderWidth: 1,
-        borderColor: '#388e3c',  // Green border for inputs
-        borderRadius: 5,
+        borderColor: '#4CAF50',
+        borderRadius: 8,
+        backgroundColor: '#f0f0f0',
     },
     modalButtonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
+    },
+    cancelButton: {
+        flex: 1,
+        backgroundColor: '#f44336',
+        paddingVertical: 12,
+        borderRadius: 8,
+        marginRight: 8,
+        alignItems: 'center',
+    },
+    addButton: {
+        flex: 1,
+        backgroundColor: '#4CAF50',
+        paddingVertical: 12,
+        borderRadius: 8,
+        alignItems: 'center',
+    },
+    buttonText: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: '600',
     },
 });
 

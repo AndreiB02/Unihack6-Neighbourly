@@ -1,6 +1,6 @@
 // AddOfferScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ScrollView } from 'react-native';
 
 const AddOfferScreen = ({ navigation }) => {
     const [title, setTitle] = useState('');
@@ -26,24 +26,24 @@ const AddOfferScreen = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.header}>Add a New Offer</Text>
+        <ScrollView contentContainerStyle={styles.container}>
+            <Text style={styles.header}>Create a New Offer</Text>
 
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>Title</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="Offer title"
-                    value={title}
+                    placeholder="E.g. Carpenter service"
                     onChangeText={setTitle}
+                    value={title}
                 />
             </View>
 
             <View style={styles.inputContainer}>
-                <Text style={styles.label}>Brief Description</Text>
+                <Text style={styles.label}>Description</Text>
                 <TextInput
                     style={[styles.input, styles.descriptionInput]}
-                    placeholder="Description (optional)"
+                    placeholder="Briefly describe your request (optional)"
                     value={description}
                     onChangeText={setDescription}
                     multiline
@@ -54,7 +54,7 @@ const AddOfferScreen = ({ navigation }) => {
                 <Text style={styles.label}>Phone Number</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="Your phone number"
+                    placeholder="Enter your phone number"
                     value={phone}
                     onChangeText={setPhone}
                     keyboardType="phone-pad"
@@ -62,62 +62,73 @@ const AddOfferScreen = ({ navigation }) => {
             </View>
 
             <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-                <Text style={styles.submitButtonText}>Submit Offer</Text>
+                <Text style={styles.submitButtonText}>Submit Request</Text>
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         padding: 20,
-        backgroundColor: '#f9fbfc',
+        backgroundColor: '#f4f8f7',
     },
     header: {
-        fontSize: 24,
+        fontSize: 26,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#2E7D32',
+        marginBottom: 15,
         textAlign: 'center',
-        marginVertical: 20,
     },
     inputContainer: {
         marginBottom: 20,
+        backgroundColor: '#ffffff',
+        borderRadius: 8,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+        elevation: 4,
     },
     label: {
-        fontSize: 16,
-        color: '#555',
-        marginBottom: 5,
-        fontWeight: '600',
+        fontSize: 17,
+        color: '#4CAF50',
+        fontWeight: 'bold',
+        marginBottom: 8,
     },
     input: {
-        borderWidth: 1,
+        height: 45,
         borderColor: '#ddd',
-        padding: 15,
-        borderRadius: 8,
-        backgroundColor: '#fff',
+        borderWidth: 1,
+        borderRadius: 5,
+        paddingHorizontal: 10,
         fontSize: 16,
+        backgroundColor: '#FAFAFA',
     },
     descriptionInput: {
-        height: 100,
+        height: 90,
         textAlignVertical: 'top',
+        paddingTop: 10,
     },
     submitButton: {
         backgroundColor: '#4CAF50',
-        paddingVertical: 15,
+        paddingVertical: 16,
         borderRadius: 8,
         alignItems: 'center',
-        marginTop: 30,
+        marginTop: 20,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.3,
-        shadowRadius: 3.5,
-        elevation: 5,
+        shadowRadius: 5,
+        elevation: 6,
     },
     submitButtonText: {
         color: '#fff',
         fontSize: 18,
-        fontWeight: 'bold',
+        fontWeight: '600',
     },
 });
 
