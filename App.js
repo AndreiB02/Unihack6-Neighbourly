@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
 import HomeScreen from './screens/MainPage/HomeScreen'; 
 import AddAccount from './screens/MainPage/CreateAccount/AddAccount'; 
 import LoginPage from './screens/LoginPage/LoginPage';
@@ -20,8 +21,11 @@ import AboutApp from './screens/MainPage/AboutApp';
 import OfferingCardComponent from './screens/MainPage/Components/OfferingCardComponent';
 import CoFundScreen from './screens/CoFound/CoFundScreen';
 import TopMembersScreen from './screens/MainPage/ProfilePage/TopMembersScreen';
+import JoinService from './screens/MainPage/Comunty/JoinService';
+import EditProfileScreen from './screens/MainPage/ProfilePage/EditProfileScreen';
 
 // Initialize the Stack Navigator here
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -42,11 +46,14 @@ const App = () => {
         <Stack.Screen name="CommunityServiceScreen" component={CommunityServiceScreen} options={{ title: 'Join a Volunteering Needed Activity' }} />
         <Stack.Screen name="PossessionsSeeMore" component={PossessionsSeeMore} />
         <Stack.Screen name="NeighborhoodSeeMore" component={NeighborhoodSeeMore} />
+        <Stack.Screen name="NeighbourhoodPortal" component={NeighbourhoodPortal} options={{  headerShown: false  }}  />
         <Stack.Screen name="NeighbourhoodPortal" component={NeighbourhoodPortal} options={{ title: 'Neighbourhood' }} />
         <Stack.Screen name="OfferingCardComponent" component={OfferingCardComponent} options={{ title: 'Offering Services' }} />
         <Stack.Screen name="AboutApp" component={AboutApp} options={{ title: 'About' }} />
         <Stack.Screen name="CoFundScreen" component={CoFundScreen} options={{ title: 'CoFund' }} />
         <Stack.Screen name="TopMembersScreen" component={TopMembersScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="JoinService" component={JoinService} options={{ title: 'Help your comunity' }} />
+        <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ title: 'Help your comunity' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );

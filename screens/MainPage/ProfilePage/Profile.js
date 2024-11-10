@@ -40,14 +40,17 @@ const Profile = () => {
     return (
         <ScrollView style={styles.container}>
             <View style={styles.headerContainer}>
-                <View style={styles.profileContainer}>
+                <TouchableOpacity
+                    style={styles.profileContainer}
+                    onPress={() => navigation.navigate('EditProfileScreen')} // Navigate to EditProfileScreen
+                >
                     <Image
                         source={{ uri: 'https://randomuser.me/api/portraits/men/9.jpg' }}
                         style={styles.avatar}
                     />
                     <Text style={styles.name}>John Doe</Text>
                     <Text style={styles.gender}>Male</Text>
-                </View>
+                </TouchableOpacity>
 
                 {/* Points Section */}
                 <TouchableOpacity style={styles.pointsSection} onPress={() => navigation.navigate('TopMembersScreen')}>

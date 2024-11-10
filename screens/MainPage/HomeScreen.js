@@ -7,26 +7,27 @@ const zone = "GHIRODA";
 const logo = require('../../assets/logo.png');
 
 const Stack = createStackNavigator();
-
-// Mock Data for Offers, Requests, Events, and Volunteers
 const mockOffers = [
     {
         label: 'Available for babysitting',
         author: 'Karina Barbul',
         avatarUrl: 'https://randomuser.me/api/portraits/women/1.jpg',
         description: 'Offering babysitting services for children of all ages. I have over 5 years of experience and I am certified in CPR and first aid. Available for day or night shifts, weekends included.',
+        phone: '+40 712 345 678',
     },
     {
         label: 'Available for pet-sitting',
         author: 'John Doe',
         avatarUrl: 'https://randomuser.me/api/portraits/men/2.jpg',
         description: 'Pet-sitting services for your furry friends. I will take care of your pets as if they were my own. I offer daily walks, feeding, and playtime. Flexible scheduling based on your needs.',
+        phone: '+40 731 456 789',
     },
     {
         label: 'Offering lawn care services',
         author: 'Mike Lee',
         avatarUrl: 'https://randomuser.me/api/portraits/men/3.jpg',
         description: 'Providing lawn mowing, trimming, and yard cleanup services. I have all the necessary equipment to maintain your lawn, ensuring a neat and healthy appearance. Available weekly or as needed.',
+        phone: '+40 734 567 890',
     }
 ];
 
@@ -36,18 +37,21 @@ const mockRequests = [
         author: 'Samantha Clark',
         avatarUrl: 'https://randomuser.me/api/portraits/women/2.jpg',
         description: 'Looking for help to move furniture from one house to another. I need strong hands to lift heavy items such as a couch, bookshelves, and beds. Preferably on a weekend. Willing to pay for your time.',
+        phone: '+40 745 678 901',
     },
     {
         label: 'Looking for a tutor for math',
         author: 'David Smith',
         avatarUrl: 'https://randomuser.me/api/portraits/men/4.jpg',
         description: 'Seeking a tutor for high school-level math, including algebra and calculus. Must be patient and able to explain concepts clearly. I am available on evenings after 5 PM. Looking for someone who is experienced with tutoring.',
+        phone: '+40 746 789 012',
     },
     {
         label: 'Seeking dog walker',
         author: 'Emily White',
         avatarUrl: 'https://randomuser.me/api/portraits/women/3.jpg',
         description: 'Need help walking my dog during the day. My dog is a friendly labrador who loves to go on walks. The walk should be around 45 minutes, and I need someone who can commit to daily walks during weekdays.',
+        phone: '+40 747 890 123',
     }
 ];
 
@@ -57,18 +61,21 @@ const mockEvents = [
         author: 'Sarah Johnson',
         avatarUrl: 'https://randomuser.me/api/portraits/women/4.jpg',
         description: 'Join us for a fun BBQ event at the local park. Enjoy delicious food, live music, and games for the entire family. Everyone is welcome, just bring your favorite dish or beverage. The event is free but donations are appreciated.',
+        phone: '+40 748 901 234',
     },
     {
         label: 'Book Club Meetup',
         author: 'Daniel Brown',
         avatarUrl: 'https://randomuser.me/api/portraits/men/5.jpg',
         description: 'Come join our neighborhood book club to discuss this month’s selection: "The Great Gatsby". We meet once a month at the local coffee shop. New members are always welcome, and we encourage lively discussion and new perspectives.',
+        phone: '+40 749 012 345',
     },
     {
         label: 'Community Yard Sale',
         author: 'Jessica Green',
         avatarUrl: 'https://randomuser.me/api/portraits/women/5.jpg',
         description: 'Participate in the community yard sale this weekend. It’s a great opportunity to declutter your home and find some hidden treasures. The yard sale will run from 8 AM to 2 PM, and everyone is invited to come by and browse or sell items.',
+        phone: '+40 750 123 456',
     }
 ];
 
@@ -78,18 +85,21 @@ const mockVolunteers = [
         author: 'Paul Davis',
         avatarUrl: 'https://randomuser.me/api/portraits/men/6.jpg',
         description: 'Join us for a tree planting event at the local park. We will be planting native trees to help with the environment and beautify the area. The event will run from 9 AM to 1 PM, and lunch will be provided for all volunteers.',
+        phone: '+40 751 234 567',
     },
     {
         label: 'Help with local food drive',
         author: 'Olivia Harris',
         avatarUrl: 'https://randomuser.me/api/portraits/women/6.jpg',
         description: 'Volunteer to help with the local food drive. We are collecting non-perishable food items for families in need. Help is needed for sorting and packing food donations. Volunteers are needed from 10 AM to 4 PM.',
+        phone: '+40 752 345 678',
     },
     {
         label: 'Assist with senior citizens event',
         author: 'James Wilson',
         avatarUrl: 'https://randomuser.me/api/portraits/men/7.jpg',
         description: 'Assist in organizing an event for senior citizens. We will be hosting a community event with games, food, and entertainment. Volunteers are needed to help with setup, serving food, and guiding activities. Event will take place at the local senior center.',
+        phone: '+40 753 456 789',
     }
 ];
 
