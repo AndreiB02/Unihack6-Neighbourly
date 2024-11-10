@@ -1,53 +1,42 @@
-// EventServiceScreen.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import EventCardComponent from '../Components/EventCardComponent'; // Adjust the path if needed
+import { fetchEvents } from '../../../services/events';
+import { useFocusEffect } from '@react-navigation/native'; // Import useFocusEffect
 
 const EventServiceScreen = ({ navigation }) => {
-    const events = [
-        {
-            id: '1',
-            title: 'Community Clean-up',
-            organizer: 'John Doe',
-            phone: '123-456-7890',
-            description: 'Join us for a community clean-up event.',
-            date: '2024-11-20',
-            location: 'Park Avenue, NY',
-            profileImage: 'https://www.w3schools.com/w3images/avatar2.png',
-            needs: [
-                { item: 'Chairs', fulfilled: 1, total: 5 },
-                { item: 'Tables', fulfilled: 3, total: 4 },
-            ],
-        },
-        {
-            id: '2',
-            title: 'Yoga Session',
-            organizer: 'Jane Smith',
-            phone: '987-654-3210',
-            description: 'Outdoor yoga for beginners. All levels welcome!',
-            date: '2024-11-22',
-            location: 'Sunset Park, NY',
-            profileImage: 'https://www.w3schools.com/w3images/avatar5.png',
-            needs: [
-                { item: 'Yoga mats', fulfilled: 3, total: 5 },
-                { item: 'Water bottles', fulfilled: 2, total: 5 },
-            ],
-        },
-    ];
+    const [events, setEvents] = useState([]);
+
+    // Function to load events
+    const loadEvents = async () => {
+        try {
+            const response = await fetchEvents();
+            // Ensure the response is always an array
+            console.log('Fetched events:', response);
+            setEvents(Array.isArray(response) ? response : []);
+        } catch (error) {
+            console.error('Error fetching events:', error);
+            setEvents([]); // Set to empty array if error occurs
+        }
+    };
+
+    // Fetch events when component mounts or when the screen comes into focus
+    useFocusEffect(
+        React.useCallback(() => {
+            loadEvents(); // Refetch events when screen is focused
+        }, [])
+    );
 
     return (
         <View style={styles.container}>
-            <Text style={styles.header}>Upcoming Community Events</Text>
             <ScrollView contentContainerStyle={styles.scrollContainer}>
-                {events.map((event) => (
-                    <TouchableOpacity 
-                        key={event.id} 
-                        style={styles.eventCardContainer}
-                        onPress={() => navigation.navigate('JoinEventScreen', { event })}
-                    >
-                        <EventCardComponent event={event} />
-                    </TouchableOpacity>
-                ))}
+                {events.length > 0 ? (
+                    events.map((event) => (
+                        <EventCardComponent key={event.id} event={event} />
+                    ))
+                ) : (
+                    <Text>No events available</Text> // You can add a fallback UI
+                )}
             </ScrollView>
 
             <TouchableOpacity
@@ -65,53 +54,30 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 20,
         paddingHorizontal: 20,
-        },
-    header: {
-        fontSize: 30,
-        fontWeight: 'bold',
-        color: '#2E7D32',
-        textAlign: 'center',
-        marginVertical: 10,
-        paddingBottom: 5,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
     },
     scrollContainer: {
-        paddingBottom: 100,
+        paddingBottom: 20,
     },
     addButton: {
         position: 'absolute',
         bottom: 30,
         right: 30,
-        backgroundColor: '#43a047',
-        width: 65,
-        height: 65,
-        borderRadius: 32.5,
+        backgroundColor: '#4CAF50',
+        width: 60,
+        height: 60,
+        borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center',
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 3 },
+        shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.3,
-        shadowRadius: 4,
-        elevation: 6,
+        shadowRadius: 3.5,
+        elevation: 5,
     },
     addButtonText: {
-        fontSize: 36,
-        color: '#FFF',
+        fontSize: 40,
+        color: '#fff',
         fontWeight: 'bold',
-    },
-    eventCardContainer: {
-        marginBottom: 20,
-        backgroundColor: '#FFFFFF',
-        borderRadius: 12,
-        padding: 15,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
-        elevation: 2,
-        borderWidth: 0.5,
-        borderColor: '#cfd8dc',
     },
 });
 

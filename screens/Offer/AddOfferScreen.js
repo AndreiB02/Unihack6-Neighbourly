@@ -1,13 +1,15 @@
 // AddOfferScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { createOffer } from '../../services/offers';
 
 const AddOfferScreen = ({ navigation }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [phone, setPhone] = useState('');
+    const [author, setAuthor] = useState('');
 
-    const handleSubmit = () => {
+    const handleSubmit = async ()  => {
         if (!title || !phone) {
             Alert.alert("Error", "Title and phone number are required.");
             return;
@@ -18,32 +20,34 @@ const AddOfferScreen = ({ navigation }) => {
             title,
             description,
             phone,
+            author,
         };
         console.log("Submitted Offer:", newOffer);
 
+        const response = await createOffer(newOffer);
         // Navigate back to OfferServiceScreen or wherever you want after submission
         navigation.goBack();
     };
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.header}>Create a New Offer</Text>
+        <View style={styles.container}>
+            <Text style={styles.header}>Add a New Offer</Text>
 
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>Title</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="E.g. Carpenter service"
-                    onChangeText={setTitle}
+                    placeholder="Offer title"
                     value={title}
+                    onChangeText={setTitle}
                 />
             </View>
 
             <View style={styles.inputContainer}>
-                <Text style={styles.label}>Description</Text>
+                <Text style={styles.label}>Brief Description</Text>
                 <TextInput
                     style={[styles.input, styles.descriptionInput]}
-                    placeholder="Briefly describe your request (optional)"
+                    placeholder="Description (optional)"
                     value={description}
                     onChangeText={setDescription}
                     multiline
@@ -54,81 +58,80 @@ const AddOfferScreen = ({ navigation }) => {
                 <Text style={styles.label}>Phone Number</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="Enter your phone number"
+                    placeholder="Your phone number"
                     value={phone}
                     onChangeText={setPhone}
                     keyboardType="phone-pad"
                 />
             </View>
 
+            <View style={styles.inputContainer}>
+                <Text style={styles.label}>Author</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Author"
+                    value={author}
+                    onChangeText={setAuthor}
+                />
+            </View>
+
             <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-                <Text style={styles.submitButtonText}>Submit Request</Text>
+                <Text style={styles.submitButtonText}>Submit Offer</Text>
             </TouchableOpacity>
-        </ScrollView>
+        </View>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flexGrow: 1,
+        flex: 1,
         padding: 20,
-        backgroundColor: '#f4f8f7',
+        backgroundColor: '#f9fbfc',
     },
     header: {
-        fontSize: 26,
+        fontSize: 24,
         fontWeight: 'bold',
-        color: '#2E7D32',
-        marginBottom: 15,
+        color: '#333',
         textAlign: 'center',
+        marginVertical: 20,
     },
     inputContainer: {
         marginBottom: 20,
-        backgroundColor: '#ffffff',
-        borderRadius: 8,
-        paddingHorizontal: 15,
-        paddingVertical: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-        elevation: 4,
     },
     label: {
-        fontSize: 17,
-        color: '#4CAF50',
-        fontWeight: 'bold',
-        marginBottom: 8,
+        fontSize: 16,
+        color: '#555',
+        marginBottom: 5,
+        fontWeight: '600',
     },
     input: {
-        height: 45,
-        borderColor: '#ddd',
         borderWidth: 1,
-        borderRadius: 5,
-        paddingHorizontal: 10,
+        borderColor: '#ddd',
+        padding: 15,
+        borderRadius: 8,
+        backgroundColor: '#fff',
         fontSize: 16,
-        backgroundColor: '#FAFAFA',
     },
     descriptionInput: {
-        height: 90,
+        height: 100,
         textAlignVertical: 'top',
-        paddingTop: 10,
     },
     submitButton: {
         backgroundColor: '#4CAF50',
-        paddingVertical: 16,
+        paddingVertical: 15,
         borderRadius: 8,
         alignItems: 'center',
-        marginTop: 20,
+        marginTop: 30,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 3 },
+        shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.3,
-        shadowRadius: 5,
-        elevation: 6,
+        shadowRadius: 3.5,
+        elevation: 5,
     },
     submitButtonText: {
         color: '#fff',
         fontSize: 18,
-        fontWeight: '600',
+        fontWeight: 'bold',
     },
 });
 

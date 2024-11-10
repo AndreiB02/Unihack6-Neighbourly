@@ -23,6 +23,7 @@ import CoFundScreen from './screens/CoFound/CoFundScreen';
 import TopMembersScreen from './screens/MainPage/ProfilePage/TopMembersScreen';
 import JoinService from './screens/MainPage/Comunty/JoinService';
 import EditProfileScreen from './screens/MainPage/ProfilePage/EditProfileScreen';
+import OfferServiceScreen from './screens/Offer/OfferServiceScreen';
 
 // Initialize the Stack Navigator here
 
@@ -47,7 +48,7 @@ const App = () => {
         <Stack.Screen name="PossessionsSeeMore" component={PossessionsSeeMore} />
         <Stack.Screen name="NeighborhoodSeeMore" component={NeighborhoodSeeMore} />
         <Stack.Screen name="NeighbourhoodPortal" component={NeighbourhoodPortal} options={{  headerShown: false  }}  />
-        <Stack.Screen name="OfferingCardComponent" component={OfferingCardComponent} options={{ title: 'Offering Services' }} />
+        <Stack.Screen name="OfferServiceScreen" component={OfferServiceScreen} options={{ title: 'Offering Services' }} />
         <Stack.Screen name="AboutApp" component={AboutApp} options={{ title: 'About' }} />
         <Stack.Screen name="CoFundScreen" component={CoFundScreen} options={{ title: 'CoFund' }} />
         <Stack.Screen name="TopMembersScreen" component={TopMembersScreen} options={{ headerShown: false }} />

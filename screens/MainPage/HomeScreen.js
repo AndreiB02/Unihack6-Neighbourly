@@ -135,7 +135,7 @@ const HomeScreen = ({ navigation }) => {
 
 const Sections = ({ navigation }) => (
     <View style={styles.sectionsContainer}>
-        <Section title="Offering Services" screenName="OfferingCardComponent" navigation={navigation} mockData={mockOffers} />
+        <Section title="Offering Services" screenName="OfferServiceScreen" navigation={navigation} mockData={mockOffers} />
         <Section title="Requesting Services" screenName="AskServiceScreen" navigation={navigation} mockData={mockRequests} />
         <Section title="Events" screenName="EventServiceScreen" navigation={navigation} mockData={mockEvents} />
         <Section title="Volunteers Needed" screenName="CommunityServiceScreen" navigation={navigation} mockData={mockVolunteers} />

@@ -3,12 +3,12 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const AskCardComponent = ({ name, profileImage, phone, description, title }) => {
+const AskCardComponent = ({ name, profileImage, phone, description, title, id }) => {
     return (
         <View style={styles.cardContainer}>
             {/* Profile Header */}
             <View style={styles.header}>
-                <Image source={{ uri: profileImage }} style={styles.profileImage} />
+                <Image source={{ uri: `https://randomuser.me/api/portraits/men/${id%5+1}.jpg` }} style={styles.profileImage} />
                 <View style={styles.profileDetails}>
                     <Text style={styles.cardTitle}>{title}</Text>
                     <Text style={styles.cardName}>{name}</Text>
