@@ -1,9 +1,12 @@
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native'; // Import the useNavigation hook
 
 const CommunityCardComponent = ({ service }) => {
+    const navigation = useNavigation();  // Get the navigation prop using the hook
+
     const handleJoinService = () => {
-        console.log('Joined service:', service.title);
+        navigation.navigate('JoinService', { service });  // Pass the service data to the next screen
     };
 
     return (
