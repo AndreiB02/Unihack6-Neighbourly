@@ -1,4 +1,4 @@
-const Address = 'localhost';  // Your address here
+const Address = '192.168.4.162';  // Your address here
 const baseUrl = `http://${Address}/my_database/db_operations.php`;  // No trailing slash after PHP file
 
 export const getItemIdByName = async (itemName) => {

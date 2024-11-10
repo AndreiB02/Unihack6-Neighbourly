@@ -8,7 +8,7 @@ const AskCardComponent = ({ name, profileImage, phone, description, title, id })
         <View style={styles.cardContainer}>
             {/* Profile Header */}
             <View style={styles.header}>
-                <Image source={{ uri: `https://randomuser.me/api/portraits/men/${id%5+1}.jpg` }} style={styles.profileImage} />
+                <Image source={{ uri: `https://randomuser.me/api/portraits/men/6.jpg` }} style={styles.profileImage} />
                 <View style={styles.profileDetails}>
                     <Text style={styles.cardTitle}>{title}</Text>
                     <Text style={styles.cardName}>{name}</Text>

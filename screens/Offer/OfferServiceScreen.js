@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity,Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import OfferingCardComponent from '../../screens/MainPage/Components/OfferingCardComponent';
 
@@ -34,6 +34,7 @@ const OfferServiceScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.HeaderTitle}>Offering Services</Text>  
             <ScrollView contentContainerStyle={styles.offersContainer}>
                 {offers.map((offer, index) => (
                     <OfferingCardComponent
@@ -62,6 +63,13 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f0f4f7',
+    },
+    HeaderTitle: {
+        fontSize: 30,
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: '#388E3C',
+        padding: 17,
     },
     offersContainer: {
         padding: 20,

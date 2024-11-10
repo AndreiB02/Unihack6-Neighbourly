@@ -36,6 +36,7 @@ const CommunityServiceScreen = ({ navigation }) => {
     return (
         <View style={styles.screenContainer}>
             <Text style={styles.header}>Community Services</Text>
+            
             <ScrollView contentContainerStyle={styles.container}>
                 {services.map((service) => (
                     <TouchableOpacity

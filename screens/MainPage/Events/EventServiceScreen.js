@@ -29,6 +29,8 @@ const EventServiceScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
+            <Text style={styles.HeaderTitle}>Upcoming Events</Text>  
+
             <ScrollView contentContainerStyle={styles.scrollContainer}>
                 {events.length > 0 ? (
                     events.map((event) => (
@@ -54,6 +56,13 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 20,
         paddingHorizontal: 20,
+    },
+    HeaderTitle: {
+        fontSize: 30,
+        textAlign: 'center',
+        fontWeight: 'bold',
+        color: '#388E3C',
+        padding: 17,
     },
     scrollContainer: {
         paddingBottom: 20,
