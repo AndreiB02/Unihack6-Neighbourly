@@ -231,7 +231,7 @@ const CoFunds = ({ navigation }) => (
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 35,
+        marginTop: 5,
         flex: 1,
         backgroundColor: '#F3F7F6',
     },
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     },
     card: {
         width: 160,
-        height: 110,
+        height: 80,
         padding: 10,
         marginVertical: 8,
         marginHorizontal: 8,
