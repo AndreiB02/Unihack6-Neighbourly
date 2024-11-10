@@ -45,15 +45,15 @@ const App = () => {
         <Stack.Screen name="JoinEvent" component={JoinEvent} options={{ title: 'Join a New Event' }} />
         <Stack.Screen name="AddCommunityServiceScreen" component={AddCommunityServiceScreen} options={{ title: 'Create a Volunteers Needed Activities' }} />
         <Stack.Screen name="CommunityServiceScreen" component={CommunityServiceScreen} options={{ title: 'Join a Volunteering Needed Activity' }} />
-        <Stack.Screen name="PossessionsSeeMore" component={PossessionsSeeMore} />
-        <Stack.Screen name="NeighborhoodSeeMore" component={NeighborhoodSeeMore} />
+        <Stack.Screen name="PossessionsSeeMore" component={PossessionsSeeMore} options={{title: 'Possessions'}} />
+        <Stack.Screen name="NeighborhoodSeeMore" component={NeighborhoodSeeMore} options={{title: 'Neighbourhood'}}/>
         <Stack.Screen name="NeighbourhoodPortal" component={NeighbourhoodPortal} options={{  headerShown: false  }}  />
         <Stack.Screen name="OfferServiceScreen" component={OfferServiceScreen} options={{ title: 'Offering Services' }} />
         <Stack.Screen name="AboutApp" component={AboutApp} options={{ title: 'About' }} />
         <Stack.Screen name="CoFundScreen" component={CoFundScreen} options={{ title: 'CoFund' }} />
         <Stack.Screen name="TopMembersScreen" component={TopMembersScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="JoinService" component={JoinService} options={{ title: 'Help your comunity' }} />
-        <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ title: 'Help your comunity' }} />
+        <Stack.Screen name="JoinService" component={JoinService} options={{ title: 'Points' }} />
+        <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ title: 'Profile' }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
