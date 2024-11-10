@@ -1,10 +1,8 @@
-// NeighborhoodSeeMore.js
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, FlatList, Image, SafeAreaView } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const NeighborhoodSeeMore = () => {
-
     const neighborhoodData = [
         { id: '1', name: 'Aayan Ramirez', phone: '0249-437 030', profilePhoto: { uri: 'https://www.w3schools.com/w3images/avatar2.png' }, address: 'Street B, Nb 20' },
         { id: '2', name: 'Riley Wall', phone: '0722-457 706 ', profilePhoto: { uri: 'https://www.w3schools.com/w3images/avatar2.png' }, address: 'Street A, Nb 19' },
@@ -33,11 +31,9 @@ const NeighborhoodSeeMore = () => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
-                <View>
-                    <Text style={styles.neighbourhoodName}>🏠GHIRODA</Text>
-                    <Text style={styles.sectionTitle}>Members</Text>
-                    <AllMembersList />
-                </View>
+                <Text style={styles.neighbourhoodName}>🏠 GHIRODA</Text>
+                <Text style={styles.sectionTitle}>Members</Text>
+                <AllMembersList />
             </ScrollView>
         </SafeAreaView>
     );
@@ -57,9 +53,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         padding: 10,
         marginVertical: 5,
-        backgroundColor: '#f8f8f8',
-        borderRadius: 8,
+        backgroundColor: '#ffffff',
+        borderRadius: 10,
         alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 3,
     },
     profilePhoto: {
         width: 60,
@@ -68,20 +69,25 @@ const styles = StyleSheet.create({
         marginRight: 15,
     },
     neighbourhoodName: {
-        fontSize: 35,
+        fontSize: 28,
         fontWeight: 'bold',
+        color: '#4CAF50',
+        marginBottom: 10,
     },
     sectionTitle: {
         fontSize: 20,
         fontWeight: 'bold',
-        marginTop: 10,
+        color: '#4CAF50',
+        marginBottom: 10,
     },
     name: {
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: 'bold',
+        color: '#333',
     },
     member: {
         fontSize: 15,
+        color: '#555',
     },
 });
 

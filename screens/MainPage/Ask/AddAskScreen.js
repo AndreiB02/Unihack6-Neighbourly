@@ -1,6 +1,6 @@
 // AddAskScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ScrollView } from 'react-native';
 
 const AddAskScreen = ({ navigation }) => {
     const [title, setTitle] = useState('');
@@ -13,37 +13,34 @@ const AddAskScreen = ({ navigation }) => {
             return;
         }
 
-        // Replace this with actual database logic, e.g., Firebase or API call
         const newAsk = {
             title,
             description,
             phone,
         };
         console.log("Submitted Ask:", newAsk);
-
-        // Navigate back to AskServiceScreen or wherever you want after submission
         navigation.goBack();
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.header}>Add a New Ask</Text>
+        <ScrollView contentContainerStyle={styles.container}>
+            <Text style={styles.header}>Create a New Request</Text>
 
             <View style={styles.inputContainer}>
                 <Text style={styles.label}>Title</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="Ask title"
-                    value={title}
+                    placeholder="E.g. Need a carpenter"
                     onChangeText={setTitle}
+                    value={title}
                 />
             </View>
 
             <View style={styles.inputContainer}>
-                <Text style={styles.label}>Brief Description</Text>
+                <Text style={styles.label}>Description</Text>
                 <TextInput
                     style={[styles.input, styles.descriptionInput]}
-                    placeholder="Description (optional)"
+                    placeholder="Briefly describe your request (optional)"
                     value={description}
                     onChangeText={setDescription}
                     multiline
@@ -54,7 +51,7 @@ const AddAskScreen = ({ navigation }) => {
                 <Text style={styles.label}>Phone Number</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="Your phone number"
+                    placeholder="Enter your phone number"
                     value={phone}
                     onChangeText={setPhone}
                     keyboardType="phone-pad"
@@ -62,55 +59,73 @@ const AddAskScreen = ({ navigation }) => {
             </View>
 
             <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-                <Text style={styles.submitButtonText}>Submit Ask</Text>
+                <Text style={styles.submitButtonText}>Submit Request</Text>
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         padding: 20,
-        backgroundColor: '#f9fbfc',
+        backgroundColor: '#f4f8f7',
     },
     header: {
-        fontSize: 24,
+        fontSize: 26,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#2E7D32',
+        marginBottom: 15,
         textAlign: 'center',
-        marginVertical: 20,
     },
     inputContainer: {
         marginBottom: 20,
+        backgroundColor: '#ffffff',
+        borderRadius: 8,
+        paddingHorizontal: 15,
+        paddingVertical: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 3,
+        elevation: 4,
     },
     label: {
-        fontSize: 16,
-        color: '#555',
+        fontSize: 17,
+        color: '#4CAF50',
+        fontWeight: 'bold',
+        marginBottom: 8,
     },
     input: {
-        height: 40,
-        borderColor: '#ccc',
+        height: 45,
+        borderColor: '#ddd',
         borderWidth: 1,
         borderRadius: 5,
         paddingHorizontal: 10,
         fontSize: 16,
-        marginTop: 5,
+        backgroundColor: '#FAFAFA',
     },
     descriptionInput: {
-        height: 80,
+        height: 90,
         textAlignVertical: 'top',
+        paddingTop: 10,
     },
     submitButton: {
         backgroundColor: '#4CAF50',
-        paddingVertical: 15,
+        paddingVertical: 16,
         borderRadius: 8,
         alignItems: 'center',
+        marginTop: 20,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.3,
+        shadowRadius: 5,
+        elevation: 6,
     },
     submitButtonText: {
         color: '#fff',
         fontSize: 18,
-        fontWeight: 'bold',
+        fontWeight: '600',
     },
 });
 

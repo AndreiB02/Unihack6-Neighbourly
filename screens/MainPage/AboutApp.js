@@ -1,4 +1,3 @@
-// AboutApp.js
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -60,19 +59,19 @@ const styles = StyleSheet.create({
         backgroundColor: '#f9f9f9',
     },
     scrollContainer: {
-        padding: 7,
+        padding: 15,
         alignItems: 'center',
     },
     logo: {
         width: 170,
         height: 100,
         borderRadius: 20,
-        marginBottom: 8,
+        marginBottom: 10,
     },
     mainTitle: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#2E7D32',
         textAlign: 'center',
         marginBottom: 20,
     },
@@ -81,22 +80,22 @@ const styles = StyleSheet.create({
         padding: 15,
         marginBottom: 15,
         borderRadius: 10,
-        width: '100%',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
         elevation: 3,
+        width: '100%',
     },
     sectionTitle: {
-        fontSize: 20,
+        fontSize: 25,
         fontWeight: '600',
-        color: '#333',
+        color: '#4CAF50',
         marginBottom: 8,
     },
     sectionDescription: {
-        fontSize: 16,
-        color: '#666',
+        fontSize: 17,
+        color: 'black',
         lineHeight: 22,
     },
 });

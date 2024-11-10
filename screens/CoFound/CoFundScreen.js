@@ -19,12 +19,10 @@ const CoFundScreen = () => {
     const [newItemPrice, setNewItemPrice] = useState('');
     const [donationAmount, setDonationAmount] = useState('');
 
-    const calculateItemProgress = (item) => {
-        return item.raised / item.price;
-    };
+    const calculateItemProgress = (item) => item.raised / item.price;
 
     const calculateAverageProgress = () => {
-        const totalProgress = itemsData.reduce((acc, item) => acc + item.raised / item.price, 0);
+        const totalProgress = itemsData.reduce((acc, item) => acc + calculateItemProgress(item), 0);
         return totalProgress / itemsData.length;
     };
 
@@ -35,12 +33,9 @@ const CoFundScreen = () => {
             return;
         }
 
-        const updatedItems = itemsData.map(item => {
-            if (item.id === itemId) {
-                return { ...item, raised: item.raised + donation };
-            }
-            return item;
-        });
+        const updatedItems = itemsData.map(item =>
+            item.id === itemId ? { ...item, raised: item.raised + donation } : item
+        );
         setItemsData(updatedItems);
         setDonationAmount('');
         Alert.alert('Donation', `You donated ${donation} units to ${itemsData.find(item => item.id === itemId).name}!`);
@@ -157,25 +152,28 @@ const CoFundScreen = () => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 30,
         flex: 1,
+        backgroundColor: '#F5F5F5',
         padding: 20,
-        backgroundColor: '#f7f7f7',
     },
     header: {
-        fontSize: 36,
+        fontSize: 26,
         fontWeight: 'bold',
-        color: '#333',
-        textAlign: 'center',
+        color: '#2E7D32',
         marginBottom: 20,
-        letterSpacing: 1.2,
+        textAlign: 'center',
     },
     goalContainer: {
         marginBottom: 30,
+        padding: 15,
+        backgroundColor: '#FFFFFF',
+        borderRadius: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
+        elevation: 4,
         alignItems: 'center',
-        borderBottomWidth: 2,
-        borderBottomColor: '#ccc',
-        paddingBottom: 20,
     },
     goalText: {
         fontSize: 20,
@@ -191,7 +189,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
         height: 15,
         borderRadius: 10,
-        backgroundColor: '#e0e0e0',
+        backgroundColor: '#E0E0E0',
     },
     goalAchievedText: {
         fontSize: 18,
@@ -199,55 +197,14 @@ const styles = StyleSheet.create({
         marginTop: 10,
         fontWeight: 'bold',
     },
-    donateContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        position: 'absolute',
-        top: 10,
-        right: 15,
-    },
-    donationInput: {
-        height: 40,
-        width: 80,
-        borderColor: '#ccc',
-        borderWidth: 1,
-        borderRadius: 5,
-        paddingLeft: 10,
-        fontSize: 16,
-        marginRight: 10,
-    },
-    donateButton: {
-        backgroundColor: '#4CAF50',
-        paddingVertical: 8,
-        paddingHorizontal: 15,
-        borderRadius: 5,
-    },
-    donateButtonText: {
-        color: '#fff',
-        fontSize: 16,
-        fontWeight: 'bold',
-    },
-    addItemButton: {
-        backgroundColor: '#007BFF',
-        paddingVertical: 12,
-        paddingHorizontal: 25,
-        borderRadius: 5,
-        alignSelf: 'center',
-        marginTop: 20,
-    },
-    addItemButtonText: {
-        color: '#fff',
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
     itemsHeader: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#4CAF50',
         marginBottom: 10,
     },
     itemContainer: {
-        backgroundColor: '#fff',
+        backgroundColor: '#FFFFFF',
         padding: 15,
         marginBottom: 20,
         borderRadius: 8,
@@ -255,8 +212,7 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 5,
-        position: 'relative',
+        elevation: 4,
     },
     itemHeader: {
         flexDirection: 'row',
@@ -278,39 +234,79 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#777',
     },
+    donateContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    donationInput: {
+        height: 40,
+        borderColor: '#E0E0E0',
+        borderWidth: 1,
+        borderRadius: 6,
+        paddingLeft: 10,
+        flex: 1,
+        marginRight: 10,
+    },
+    donateButton: {
+        backgroundColor: '#4CAF50',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        borderRadius: 6,
+    },
+    donateButtonText: {
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight: 'bold',
+    },
+    addItemButton: {
+        backgroundColor: '#2E7D32',
+        paddingVertical: 15,
+        borderRadius: 8,
+        alignItems: 'center',
+        marginTop: 20,
+    },
+    addItemButtonText: {
+        color: '#FFFFFF',
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
     modalOverlay: {
         flex: 1,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     modalContainer: {
-        backgroundColor: '#fff',
-        padding: 30,
+        width: '85%',
+        padding: 20,
+        backgroundColor: '#FFFFFF',
         borderRadius: 10,
-        width: '80%',
-        maxWidth: 400,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 6,
+        elevation: 5,
     },
     modalHeader: {
-        fontSize: 24,
+        fontSize: 22,
         fontWeight: 'bold',
-        marginBottom: 20,
         color: '#333',
-        textAlign: 'center',
+        marginBottom: 20,
     },
     input: {
         height: 40,
-        borderColor: '#ccc',
+        borderColor: '#E0E0E0',
         borderWidth: 1,
-        borderRadius: 5,
-        marginBottom: 15,
+        borderRadius: 6,
+        width: '100%',
         paddingLeft: 10,
-        fontSize: 16,
+        marginBottom: 15,
     },
     modalButtons: {
-        marginTop: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        width: '100%',
     },
 });
 
