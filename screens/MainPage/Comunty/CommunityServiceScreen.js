@@ -39,10 +39,11 @@ const CommunityServiceScreen = ({ navigation }) => {
                 {services.map((service) => (
                     <TouchableOpacity
                         key={service.id}
-                        onPress={() => navigation.navigate('JoinService')}
+                        onPress={() => navigation.navigate('JoinService', { service: service })} // Pass the service object as a parameter
                     >
                         <CommunityCardComponent service={service} />
                     </TouchableOpacity>
+
                 ))}
             </ScrollView>
 
