@@ -3,15 +3,15 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const AskCardComponent = ({ ask }) => {
+const AskCardComponent = ({ name, profileImage, phone, description, title }) => {
     return (
         <View style={styles.cardContainer}>
             {/* Profile Header */}
             <View style={styles.header}>
-                <Image source={{ uri: ask.profileImage }} style={styles.profileImage} />
+                <Image source={{ uri: profileImage }} style={styles.profileImage} />
                 <View style={styles.profileDetails}>
-                    <Text style={styles.cardTitle}>{ask.title}</Text>
-                    <Text style={styles.cardName}>{ask.name}</Text>
+                    <Text style={styles.cardTitle}>{title}</Text>
+                    <Text style={styles.cardName}>{name}</Text>
                 </View>
             </View>
 
@@ -19,9 +19,9 @@ const AskCardComponent = ({ ask }) => {
             <View style={styles.content}>
                 <View style={styles.phoneSection}>
                     <Icon name="call" size={18} color="#4CAF50" />
-                    <Text style={styles.phoneText}>{ask.phone}</Text>
+                    <Text style={styles.phoneText}>{phone}</Text>
                 </View>
-                {ask.description && <Text style={styles.description}>{ask.description}</Text>}
+                {description && <Text style={styles.description}>{description}</Text>}
             </View>
         </View>
     );
@@ -45,21 +45,21 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     profileImage: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
+        width: 70,
+        height: 70,
+        borderRadius: 35,
         marginRight: 10,
     },
     profileDetails: {
         flex: 1,
     },
     cardTitle: {
-        fontSize: 18,
+        fontSize: 23,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#4CAF50',
     },
     cardName: {
-        fontSize: 16,
+        fontSize: 18,
         color: '#666',
     },
     content: {
@@ -71,13 +71,13 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     phoneText: {
-        fontSize: 16,
+        fontSize: 17,
         color: '#333',
         marginLeft: 5,
     },
     description: {
-        fontSize: 14,
-        color: '#555',
+        fontSize: 17,
+        color: '#333',
     },
 });
 
