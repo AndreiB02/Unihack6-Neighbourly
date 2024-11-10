@@ -221,7 +221,7 @@ const CoFunds = ({ navigation }) => (
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 5,
+        marginTop: 30,
         flex: 1,
         backgroundColor: '#F3F7F6',
     },

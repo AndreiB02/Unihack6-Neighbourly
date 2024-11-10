@@ -197,20 +197,11 @@ const CoFundScreen = () => {
 };
 
 const styles = StyleSheet.create({
-<<<<<<< HEAD
-     heatmapContainer: { marginVertical: 20 },
-=======
     heatmapContainer: { marginVertical: 20 },
->>>>>>> 3da4c2bb99c3f9b41e8210a88e83c3c568f15b66
     heatmapHeader: { fontSize: 20, fontWeight: 'bold', color: '#333', marginBottom: 10 },
     heatmapGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' },
     heatmapCell: { width: 30, height: 30, margin: 2, alignItems: 'center', justifyContent: 'center', borderRadius: 5 },
     heatmapCellText: { color: '#fff', fontSize: 10 },
-<<<<<<< HEAD
-    
-=======
-
->>>>>>> 3da4c2bb99c3f9b41e8210a88e83c3c568f15b66
     container: {
         marginTop: 20,
         flex: 1,
