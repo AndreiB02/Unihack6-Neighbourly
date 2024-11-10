@@ -81,19 +81,19 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#ffc400',
         textAlign: 'center',
     },
     description: {
         fontSize: 16,
-        color: '#666',
+        color: 'black',
         textAlign: 'center',
         marginTop: 5,
     },
     topMember: {
         alignItems: 'center',
         marginBottom: 20,
-        backgroundColor: '#ffe0b2', // Light orange background for highlight
+        backgroundColor: '#fcf39d', // Light orange background for highlight
         padding: 15,
         borderRadius: 15,
         elevation: 5,
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     sectionTitle: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#ffc400',
         marginBottom: 15,
     },
     memberCard: {
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     },
     button: {
         marginTop: 20,
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#ffc400',
         paddingVertical: 12,
         paddingHorizontal: 40,
         borderRadius: 30,

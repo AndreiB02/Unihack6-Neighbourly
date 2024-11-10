@@ -6,33 +6,33 @@ const AboutApp = () => {
     const sections = [
         {
             id: '1',
-            title: 'What is Our Community Sharing App?',
+            title: 'What is Neighbourly?',
             description:
-                'Our app connects community members, allowing them to share, borrow, and give away items they no longer need. By fostering a sharing culture, we help reduce waste and encourage sustainable living.',
+                '   Neighbourly is an app designed to bring people in your community together by sharing resources and offering services. Instead of owning items you rarely use, like lawnmowers or grills, share them with others to save money and reduce waste. Beyond sharing items, the app features a "Volunteers Needed" section, where members can report neighborhood issues, and others can volunteer to help resolve them. It’s about building a sustainable, responsible community.',
         },
         {
             id: '2',
             title: 'How It Works',
             description:
-                'Browse items shared by others in your community, post items you want to share, and easily manage your own shared items. Communicate directly with others to arrange pickups and drop-offs.',
+                '   Browse and share items, post what you need, and arrange exchanges directly with your neighbors. It’s simple, fast, and easy to get involved.',
         },
         {
             id: '3',
             title: 'Why Join?',
             description:
-                'Joining the app helps you save money, reduce clutter, and contribute to a sustainable environment by giving new life to items that others might need.',
+                '   Save money, reduce clutter, and contribute to a greener environment by sharing items and services that others might need.',
         },
         {
             id: '4',
             title: 'Community Guidelines',
             description:
-                'We aim to create a safe, respectful environment. Please ensure all shared items are in usable condition, and communicate politely with other community members.',
+                '   We encourage a safe and respectful environment. Please ensure all shared items are in good condition, and communicate politely with fellow members.',
         },
         {
             id: '5',
             title: 'Get Started',
             description:
-                'Download the app, create an account, and start sharing today! Together, we can make a positive impact on our environment and community.',
+                '   Download the app, create an account, and start sharing today. Together, we can build a stronger, more sustainable community.',
         },
     ];
 
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     mainTitle: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: '#2E7D32',
+        color: '#2451e3',
         textAlign: 'center',
         marginBottom: 20,
     },
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     sectionTitle: {
         fontSize: 25,
         fontWeight: '600',
-        color: '#4CAF50',
+        color: '#559fed',
         marginBottom: 8,
     },
     sectionDescription: {
