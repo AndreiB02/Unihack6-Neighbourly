@@ -13,6 +13,7 @@ Save Money: Avoid buying items you’ll only use occasionally.
 Reduce Clutter: Keep your space organized and free from infrequently used items.
 Build a Greener Community: Every shared item contributes to a more sustainable world.
 Make Connections: Attend events to meet and collaborate with your neighbors!
+
 🧩 Community Features
 Item Sharing: Share tools, appliances, sports equipment, and more.
 Volunteers Needed: Post local issues or challenges, and offer your skills to help resolve them. Together, we can tackle anything from neighborhood clean-ups to community support tasks.
