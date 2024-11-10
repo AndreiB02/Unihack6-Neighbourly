@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
         marginRight: 15, // Ensure it has space between details
         elevation: 5, // Adding some shadow for depth
         marginTop: 10,
-        marginBottom:12,
+        marginBottom: 12,
     },
     neighborhoodFrame: {
         flexDirection: 'row',

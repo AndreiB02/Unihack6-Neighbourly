@@ -1,7 +1,7 @@
 // CommunityServiceScreen.js
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import CommunityCardComponent from '../Components/CommunityCardComponent'; // You will create this component
+import CommunityCardComponent from '../Components/CommunityCardComponent';
 
 const CommunityServiceScreen = ({ navigation }) => {
     const services = [
@@ -35,11 +35,12 @@ const CommunityServiceScreen = ({ navigation }) => {
 
     return (
         <View style={styles.screenContainer}>
-            <ScrollView style={styles.container}>
+            <Text style={styles.header}>Community Services</Text>
+            <ScrollView contentContainerStyle={styles.container}>
                 {services.map((service) => (
                     <TouchableOpacity
                         key={service.id}
-                        onPress={() => navigation.navigate('JoinService')}
+                        onPress={() => navigation.navigate('ServiceDetailsScreen', { service })}
                     >
                         <CommunityCardComponent service={service} />
                     </TouchableOpacity>
@@ -59,33 +60,40 @@ const CommunityServiceScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     screenContainer: {
         flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'stretch',
+    },
+    header: {
+        fontSize: 30,
+        fontWeight: 'bold',
+        color: '#2E7D32',
+        textAlign: 'center',
+        marginVertical: 10,
+        paddingBottom: 5,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
     },
     container: {
-        flex: 1,
-        paddingTop: 20,
+        paddingBottom: 100,
         paddingHorizontal: 20,
     },
     addButton: {
         position: 'absolute',
         bottom: 30,
         right: 30,
-        backgroundColor: '#4CAF50',
-        width: 60,
-        height: 60,
-        borderRadius: 30,
+        backgroundColor: '#4CAF50', 
+        width: 65,
+        height: 65,
+        borderRadius: 32.5,
         justifyContent: 'center',
         alignItems: 'center',
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.3,
-        shadowRadius: 3.5,
-        elevation: 5,
+        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.4,
+        shadowRadius: 4,
+        elevation: 7,
     },
     addButtonText: {
-        fontSize: 40,
-        color: '#fff',
+        fontSize: 36,
+        color: '#ffffff',
         fontWeight: 'bold',
     },
 });

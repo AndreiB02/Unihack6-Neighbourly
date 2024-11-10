@@ -1,5 +1,6 @@
+// AddCommunityServiceScreen.js
 import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
 
 const AddCommunityServiceScreen = ({ navigation }) => {
     const [title, setTitle] = useState('');
@@ -7,10 +8,10 @@ const AddCommunityServiceScreen = ({ navigation }) => {
     const [phone, setPhone] = useState('');
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
-    const [needs, setNeeds] = useState([{ item: '', fulfilled: 0, total: 0 }]); // Initialize with one need
+    const [needs, setNeeds] = useState([{ item: '', fulfilled: 0, total: 0 }]);
 
     const handleAddNeed = () => {
-        setNeeds([...needs, { item: '', fulfilled: 0, total: 0 }]); // Add a new need row
+        setNeeds([...needs, { item: '', fulfilled: 0, total: 0 }]);
     };
 
     const handleNeedChange = (index, field, value) => {
@@ -24,18 +25,14 @@ const AddCommunityServiceScreen = ({ navigation }) => {
             Alert.alert('Error', 'Please fill in all fields.');
             return;
         }
-
-        // Handle submission to the database
-        // For now, just navigate back
         Alert.alert('Community Service Created', 'Your community service has been successfully created!');
         navigation.goBack();
     };
 
     return (
-        <View style={styles.container}>
+        <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.header}>Create Community Service</Text>
 
-            {/* Community Service Information */}
             <TextInput
                 style={styles.input}
                 placeholder="Community Service Title"
@@ -43,7 +40,7 @@ const AddCommunityServiceScreen = ({ navigation }) => {
                 onChangeText={setTitle}
             />
             <TextInput
-                style={styles.input}
+                style={[styles.input, styles.multiLineInput]}
                 placeholder="Description (optional)"
                 value={description}
                 onChangeText={setDescription}
@@ -58,7 +55,7 @@ const AddCommunityServiceScreen = ({ navigation }) => {
             />
             <TextInput
                 style={styles.input}
-                placeholder="Event Date"
+                placeholder="Event Date (e.g. YYYY-MM-DD)"
                 value={date}
                 onChangeText={setDate}
             />
@@ -69,9 +66,8 @@ const AddCommunityServiceScreen = ({ navigation }) => {
                 onChangeText={setLocation}
             />
 
-            {/* Event Needs */}
             <View style={styles.needsContainer}>
-                <Text style={styles.needsTitle}>Needs:</Text>
+                <Text style={styles.needsTitle}>Event Needs</Text>
                 {needs.map((need, index) => (
                     <View key={index} style={styles.needItem}>
                         <TextInput
@@ -82,14 +78,14 @@ const AddCommunityServiceScreen = ({ navigation }) => {
                         />
                         <View style={styles.row}>
                             <TextInput
-                                style={[styles.input, { flex: 1 }]}
+                                style={[styles.input, styles.quantityInput]}
                                 placeholder="Total Quantity"
                                 value={need.total.toString()}
                                 keyboardType="numeric"
                                 onChangeText={(text) => handleNeedChange(index, 'total', text)}
                             />
                             <TextInput
-                                style={[styles.input, { flex: 1 }]}
+                                style={[styles.input, styles.quantityInput]}
                                 placeholder="Fulfilled Quantity"
                                 value={need.fulfilled.toString()}
                                 keyboardType="numeric"
@@ -99,74 +95,91 @@ const AddCommunityServiceScreen = ({ navigation }) => {
                     </View>
                 ))}
                 <TouchableOpacity style={styles.addNeedButton} onPress={handleAddNeed}>
-                    <Text style={styles.addNeedButtonText}>+ Add Need</Text>
+                    <Text style={styles.addNeedButtonText}>+ Add Another Need</Text>
                 </TouchableOpacity>
             </View>
 
-            {/* Submit Button */}
             <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
                 <Text style={styles.submitButtonText}>Submit</Text>
             </TouchableOpacity>
-        </View>
+        </ScrollView>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flexGrow: 1,
         padding: 20,
-        backgroundColor: '#fff',
+        backgroundColor: '#f4f8f7',
     },
     header: {
-        fontSize: 28,
+        fontSize: 26,
         fontWeight: 'bold',
-        color: '#333',
-        marginBottom: 20,
+        color: '#2E7D32',
+        marginBottom: 15,
+        textAlign: 'center',
     },
     input: {
-        height: 40,
-        borderColor: '#ddd',
+        height: 45,
+        borderColor: '#d0d0d0',
         borderWidth: 1,
-        marginBottom: 10,
-        paddingLeft: 10,
-        borderRadius: 5,
+        padding: 10,
+        borderRadius: 8,
+        backgroundColor: '#fff',
+        marginBottom: 12,
+        fontSize: 16,
+    },
+    multiLineInput: {
+        height: 80,
+        textAlignVertical: 'top',
     },
     row: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        marginTop: 10,
     },
     needsContainer: {
         marginTop: 20,
     },
     needsTitle: {
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: 'bold',
         color: '#333',
+        marginBottom: 10,
     },
     needItem: {
         marginBottom: 15,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ddd',
+        paddingBottom: 10,
+    },
+    quantityInput: {
+        flex: 1,
+        marginHorizontal: 5,
     },
     addNeedButton: {
-        backgroundColor: '#4CAF50',
-        padding: 12,
-        borderRadius: 5,
-        marginTop: 10,
+        backgroundColor: '#2E7D32',
+        paddingVertical: 10,
+        borderRadius: 8,
         alignItems: 'center',
+        marginTop: 15,
     },
     addNeedButtonText: {
         color: '#fff',
         fontWeight: 'bold',
+        fontSize: 16,
     },
     submitButton: {
         backgroundColor: '#4CAF50',
-        padding: 15,
-        borderRadius: 5,
+        paddingVertical: 12,
+        borderRadius: 8,
         alignItems: 'center',
-        marginTop: 20,
+        marginTop: 30,
     },
     submitButtonText: {
         color: '#fff',
         fontWeight: 'bold',
+        fontSize: 18,
     },
 });
 

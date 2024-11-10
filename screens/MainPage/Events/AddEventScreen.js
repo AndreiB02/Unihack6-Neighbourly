@@ -1,3 +1,4 @@
+// AddEventScreen.js
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
 
@@ -7,22 +8,20 @@ const AddEventScreen = ({ navigation }) => {
     const [phone, setPhone] = useState('');
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
-    const [needs, setNeeds] = useState([{ item: '', fulfilled: '', total: '' }]); // Initialize with one need
+    const [needs, setNeeds] = useState([{ item: '', fulfilled: '', total: '' }]);
 
     const handleSubmit = () => {
         if (!title || !phone || !date || !location || needs.some(need => !need.item || !need.total)) {
-            Alert.alert('Error', 'Please fill in all fields.');
+            Alert.alert('Error', 'Please fill in all required fields.');
             return;
         }
 
-        // Handle event submission to the database or API here
-        // For now, just navigate back
         Alert.alert('Event Created', 'Your event has been successfully created!');
         navigation.goBack();
     };
 
     const handleAddNeed = () => {
-        setNeeds([...needs, { item: '', fulfilled: 0, total: 0 }]); // Add a new need row
+        setNeeds([...needs, { item: '', fulfilled: 0, total: 0 }]);
     };
 
     const handleNeedChange = (index, field, value) => {
@@ -33,14 +32,13 @@ const AddEventScreen = ({ navigation }) => {
 
     return (
         <ScrollView style={styles.container}>
-            <Text style={styles.header}>Create Event</Text>
+            <Text style={styles.header}>Create a New Event</Text>
 
-            {/* Event Info Section */}
             <View style={styles.sectionContainer}>
                 <Text style={styles.sectionTitle}>Event Information</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="Event Title"
+                    placeholder="Event Title "
                     value={title}
                     onChangeText={setTitle}
                 />
@@ -53,7 +51,7 @@ const AddEventScreen = ({ navigation }) => {
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder="Phone Number"
+                    placeholder="Phone Number "
                     value={phone}
                     onChangeText={setPhone}
                     keyboardType="phone-pad"
@@ -72,27 +70,26 @@ const AddEventScreen = ({ navigation }) => {
                 />
             </View>
 
-            {/* Needs Section */}
             <View style={styles.sectionContainer}>
                 <Text style={styles.sectionTitle}>Event Needs</Text>
                 {needs.map((need, index) => (
                     <View key={index} style={styles.needItem}>
                         <TextInput
                             style={styles.input}
-                            placeholder="Item (e.g. Chairs)"
+                            placeholder="Item (e.g., Chairs)"
                             value={need.item}
                             onChangeText={(text) => handleNeedChange(index, 'item', text)}
                         />
                         <View style={styles.row}>
                             <TextInput
-                                style={[styles.input, { flex: 1 }]}
+                                style={[styles.input, styles.halfInput]}
                                 placeholder="Total Quantity"
                                 value={need.total.toString()}
                                 keyboardType="numeric"
                                 onChangeText={(text) => handleNeedChange(index, 'total', text)}
                             />
                             <TextInput
-                                style={[styles.input, { flex: 1 }]}
+                                style={[styles.input, styles.halfInput]}
                                 placeholder="Fulfilled Quantity"
                                 value={need.fulfilled.toString()}
                                 keyboardType="numeric"
@@ -102,13 +99,12 @@ const AddEventScreen = ({ navigation }) => {
                     </View>
                 ))}
                 <TouchableOpacity style={styles.addNeedButton} onPress={handleAddNeed}>
-                    <Text style={styles.addNeedButtonText}>+ Add Need</Text>
+                    <Text style={styles.addNeedButtonText}>+ Add Additional Need</Text>
                 </TouchableOpacity>
             </View>
 
-            {/* Submit Button */}
             <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
-                <Text style={styles.submitButtonText}>Submit</Text>
+                <Text style={styles.submitButtonText}>Create Event</Text>
             </TouchableOpacity>
         </ScrollView>
     );
@@ -117,70 +113,76 @@ const AddEventScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#F5F5F5',
         padding: 20,
     },
-    header: {
-        fontSize: 28,
+   header: {
+        fontSize: 26,
         fontWeight: 'bold',
-        color: '#333',
-        marginBottom: 20,
+        color: '#2E7D32',
+        marginBottom: 15,
+        textAlign: 'center',    
     },
     sectionContainer: {
-        marginBottom: 25,
-        backgroundColor: '#f9f9f9',
+        marginBottom: 20,
         padding: 15,
+        backgroundColor: '#FFFFFF',
         borderRadius: 10,
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 4 },
+        shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 6,
-        elevation: 3,
+        elevation: 4,
     },
     sectionTitle: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        color: '#333',
-        marginBottom: 10,
+        fontSize: 18,
+        fontWeight: '600',
+        color: '#4CAF50',
+        marginBottom: 15,
     },
     input: {
-        height: 45,
-        borderColor: '#ddd',
+        height: 48,
+        borderColor: '#E0E0E0',
         borderWidth: 1,
-        marginBottom: 10,
         paddingLeft: 10,
-        borderRadius: 5,
-        fontSize: 16,
-        backgroundColor: '#fff',
+        borderRadius: 6,
+        fontSize: 15,
+        backgroundColor: '#F9F9F9',
+        marginBottom: 12,
     },
     row: {
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
+    halfInput: {
+        flex: 0.48,
+    },
     needItem: {
         marginBottom: 15,
     },
     addNeedButton: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#2E7D32',
         padding: 12,
-        borderRadius: 5,
-        marginTop: 10,
+        borderRadius: 6,
         alignItems: 'center',
+        marginTop: 5,
     },
     addNeedButtonText: {
-        color: '#fff',
-        fontWeight: 'bold',
+        color: '#FFFFFF',
+        fontWeight: '600',
+        fontSize: 15,
     },
     submitButton: {
         backgroundColor: '#4CAF50',
-        padding: 15,
-        borderRadius: 5,
+        paddingVertical: 16,
+        borderRadius: 6,
         alignItems: 'center',
         marginTop: 20,
     },
     submitButtonText: {
-        color: '#fff',
-        fontWeight: 'bold',
+        color: '#FFFFFF',
+        fontSize: 18,
+        fontWeight: '700',
     },
 });
 
