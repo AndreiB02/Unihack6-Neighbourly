@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#c2271f',
         marginBottom: 20,
         textAlign: 'center',
     },
@@ -93,7 +93,8 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16,
-        color: '#333',
+        color: '#f72f25',
+        fontWeight: 'bold',
         marginBottom: 8,
     },
     input: {
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     saveButton: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#d14943',
         paddingVertical: 15,
         borderRadius: 8,
         marginTop: 20,

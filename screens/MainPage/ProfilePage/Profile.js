@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 30,
-        backgroundColor: '#eceff1', // Light background for contrast
+        backgroundColor: '#fcd44e', // Light background for contrast
         borderRadius: 15,
         padding: 10,
         shadowColor: '#000',
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     },
     pointsSection: {
         flex: 1,
-        backgroundColor: '#ffeb3b', // Subtle yellow accent
+        backgroundColor: '#fcf39d', // Subtle yellow accent
         padding: 20,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     possessionsTitleContainer: {
-        backgroundColor: '#607d8b', // Dark grey-blue for contrast
+        backgroundColor: '#ed9c55', 
         paddingVertical: 5,
         paddingHorizontal: 10,
         borderTopLeftRadius: 10,
@@ -293,7 +293,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff', // Updated to white background
     },
     neighborhoodTitleContainer: {
-        backgroundColor: '#607d8b',
+        backgroundColor: '#559fed',
         paddingVertical: 5,
         paddingHorizontal: 10,
         borderTopLeftRadius: 10,
@@ -314,7 +314,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 10,
         padding: 15,
-        backgroundColor: '#607d8b', // Green background to make it pop
+        backgroundColor: '#5acc5e', // Green background to make it pop
         borderRadius: 20, // Larger border radius for a more modern look
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 5 },

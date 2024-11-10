@@ -4,11 +4,11 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 const NeighborhoodSeeMore = () => {
     const neighborhoodData = [
-        { id: '1', name: 'Aayan Ramirez', phone: '0249-437 030', profilePhoto: { uri: 'https://www.w3schools.com/w3images/avatar2.png' }, address: 'Street B, Nb 20' },
-        { id: '2', name: 'Riley Wall', phone: '0722-457 706 ', profilePhoto: { uri: 'https://www.w3schools.com/w3images/avatar2.png' }, address: 'Street A, Nb 19' },
-        { id: '3', name: 'Ella Peters', phone: '0723-605 613 ', profilePhoto: { uri: 'https://www.w3schools.com/w3images/avatar2.png' }, address: 'Street A, Nb 18' },
-        { id: '4', name: 'Miles Lowe', phone: '0744-872 202', profilePhoto: { uri: 'https://www.w3schools.com/w3images/avatar2.png' }, address: 'Street A, Nb 17' },
-        { id: '5', name: 'Brithney Sraeps', phone: '0788-798 234', profilePhoto: { uri: 'https://www.w3schools.com/w3images/avatar2.png' }, address: 'Street C, Nb 2' },
+        { id: '1', name: 'Aayan Ramirez', phone: '0249-437 030', profilePhoto: { uri: 'https://randomuser.me/api/portraits/men/1.jpg' }, address: 'Street B, Nb 20' },
+        { id: '2', name: 'Riley Wall', phone: '0722-457 706 ', profilePhoto: { uri: 'https://randomuser.me/api/portraits/men/7.jpg' }, address: 'Street A, Nb 19' },
+        { id: '3', name: 'Ella Peters', phone: '0723-605 613 ', profilePhoto: { uri: 'https://randomuser.me/api/portraits/men/3.jpg' }, address: 'Street A, Nb 18' },
+        { id: '4', name: 'Miles Lowe', phone: '0744-872 202', profilePhoto: { uri: 'https://randomuser.me/api/portraits/men/5.jpg' }, address: 'Street A, Nb 17' },
+        { id: '5', name: 'Brithney Sraeps', phone: '0788-798 234', profilePhoto: { uri: 'https://randomuser.me/api/portraits/men/4.jpg' }, address: 'Street C, Nb 2' },
     ];
 
     const AllMembersList = () => (
@@ -69,21 +69,20 @@ const styles = StyleSheet.create({
         marginRight: 15,
     },
     neighbourhoodName: {
-        fontSize: 28,
+        fontSize: 30,
         fontWeight: 'bold',
-        color: '#4CAF50',
+        color: '#559fed',
         marginBottom: 10,
     },
     sectionTitle: {
-        fontSize: 20,
+        fontSize: 23,
         fontWeight: 'bold',
-        color: '#4CAF50',
-        marginBottom: 10,
+        color: '#3e57d6',
     },
     name: {
         fontSize: 18,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#3e57d6',
     },
     member: {
         fontSize: 15,
