@@ -22,6 +22,8 @@ import AboutApp from './screens/MainPage/AboutApp';
 import CoFundScreen from './screens/CoFound/CoFundScreen'
 import TopMembersScreen from './screens/MainPage/ProfilePage/TopMembersScreen';
 import JoinService from './screens/MainPage/Comunty/JoinService';
+import EditProfileScreen from './screens/MainPage/ProfilePage/EditProfileScreen';
+
 const Stack = createStackNavigator();
 
 const App = () => {
