@@ -66,6 +66,7 @@ const CoFundScreen = () => {
             Alert.alert('Error', 'Please enter a valid name and price.');
             return;
         }
+
         const newItem = { id: (itemsData.length + 1).toString(), name: newItemName, price: parseFloat(newItemPrice), raised: 0, avatar: 'https://randomuser.me/api/portraits/men/6.jpg' };
         setItemsData([...itemsData, newItem]);
         setModalVisible(false);
@@ -95,17 +96,7 @@ const CoFundScreen = () => {
                         <Text style={styles.goalAchievedText}>Goal Achieved! 🎉</Text>
                     )}
                 </View>
-            <Text style={styles.itemsHeader}>Items for Fundraising</Text>
-            <FlatList
-                data={itemsData}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <View style={styles.itemContainer}>
-                    <View style={styles.itemHeader}>
-                            <Image source={{ uri: item.avatar }} style={styles.itemAvatar} />
-                            <Text style={styles.itemName}>{item.name}</Text>
-                        </View>
-                        <Text style={styles.itemPrice}>{item.raised}$ / {item.price}$</Text>
+
                 {/* Heatmap Section */}
                 <View style={styles.heatmapContainer}>
                     <Text style={styles.heatmapHeader}>Contribution Heatmap</Text>
@@ -123,6 +114,7 @@ const CoFundScreen = () => {
                         ))}
                     </View>
                 </View>
+
                 <Text style={styles.itemsHeader}>Items for Fundraising</Text>
                 <FlatList
                     data={itemsData}
@@ -160,9 +152,6 @@ const CoFundScreen = () => {
                                 </TouchableOpacity>
                             </View>
                         </View>
-                    </View>
-                    )}
-            />
                     )}
                 />
 
@@ -206,15 +195,15 @@ const CoFundScreen = () => {
         </KeyboardAvoidingView>
     );
 };
+
 const styles = StyleSheet.create({
-     heatmapContainer: { marginVertical: 20 },
+    heatmapContainer: { marginVertical: 20 },
     heatmapHeader: { fontSize: 20, fontWeight: 'bold', color: '#333', marginBottom: 10 },
     heatmapGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' },
     heatmapCell: { width: 30, height: 30, margin: 2, alignItems: 'center', justifyContent: 'center', borderRadius: 5 },
     heatmapCellText: { color: '#fff', fontSize: 10 },
-    
+
     container: {
-        marginTop: 30,
         marginTop: 20,
         flex: 1,
         padding: 20,
@@ -344,10 +333,6 @@ const styles = StyleSheet.create({
     },
     modalContainer: {
         backgroundColor: '#fff',
-        padding: 30,
-        borderRadius: 10,
-        width: '80%',
-        maxWidth: 400,
         padding: 20,
         borderRadius: 10,
         width: '80%',
@@ -360,17 +345,8 @@ const styles = StyleSheet.create({
     modalHeader: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 20,
         color: '#333',
-        textAlign: 'center',
-    },
-    input: {
-        height: 40,
-        borderColor: '#ccc',
-        borderWidth: 1,
-        borderRadius: 5,
-        marginBottom: 15,
-        paddingLeft: 10,
+        marginBottom: 20,
         textAlign: 'center',
     },
     input: {
@@ -383,7 +359,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     modalButtons: {
-        marginTop: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
