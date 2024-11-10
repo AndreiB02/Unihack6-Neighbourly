@@ -1,23 +1,30 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Modal, TextInput, Button, Image } from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Alert, Modal, TextInput, Button, ScrollView, KeyboardAvoidingView, Platform, Image } from 'react-native';
 import ProgressBar from '../MainPage/Components/ProgressBar';
 
 const CoFundScreen = () => {
     const goalAmount = 1000;
     const [currentAmount, setCurrentAmount] = useState(350);
 
+    const [contributions, setContributions] = useState(Array.from({ length: 30 }, (_, index) => ({
+        date: `2023-11-${(index + 1).toString().padStart(2, '0')}`,
+        amount: Math.floor(Math.random() * 20), // Random contribution amount (0-19)
+    })));
+
     const [itemsData, setItemsData] = useState([
         { id: '1', name: 'Lawnmower', price: 200, raised: 50, avatar: 'https://randomuser.me/api/portraits/men/1.jpg' },
         { id: '2', name: 'Dining Table', price: 150, raised: 75, avatar: 'https://randomuser.me/api/portraits/women/2.jpg' },
         { id: '3', name: 'Cordless Drill', price: 300, raised: 120, avatar: 'https://randomuser.me/api/portraits/men/3.jpg' },
         { id: '4', name: 'Office Chair', price: 100, raised: 45, avatar: 'https://randomuser.me/api/portraits/women/4.jpg' },
-        { id: '5', name: 'Electric Heater', price: 250, raised: 55, avatar: 'https://randomuser.me/api/portraits/men/5.jpg' },
+        { id: '5', name: 'Electric Sit', price: 250, raised: 55, avatar: 'https://randomuser.me/api/portraits/men/5.jpg' },
     ]);
 
     const [modalVisible, setModalVisible] = useState(false);
     const [newItemName, setNewItemName] = useState('');
     const [newItemPrice, setNewItemPrice] = useState('');
     const [donationAmount, setDonationAmount] = useState('');
+
+    const maxContribution = Math.max(...contributions.map((day) => day.amount));
 
     const calculateItemProgress = (item) => {
         return item.raised / item.price;
@@ -27,6 +34,15 @@ const CoFundScreen = () => {
         const totalProgress = itemsData.reduce((acc, item) => acc + item.raised / item.price, 0);
         return totalProgress / itemsData.length;
     };
+
+    const getColorIntensity = (amount) => {
+        if (amount <= 10) {
+            return 'rgba(169, 169, 169, 1)'; // Gray color for 0 contribution
+        }
+        const intensity = amount / maxContribution;
+        return `rgba(76, 175, 80, ${intensity})`; // Adjusts the green color based on intensity
+    };
+
 
     const handleDonateToItem = (itemId) => {
         const donation = parseFloat(donationAmount);
@@ -43,7 +59,6 @@ const CoFundScreen = () => {
         });
         setItemsData(updatedItems);
         setDonationAmount('');
-        Alert.alert('Donation', `You donated ${donation} units to ${itemsData.find(item => item.id === itemId).name}!`);
     };
 
     const handleAddItem = () => {
@@ -56,27 +71,30 @@ const CoFundScreen = () => {
         setModalVisible(false);
         setNewItemName('');
         setNewItemPrice('');
-        Alert.alert('Item Added', `You added ${newItem.name} with a price of ${newItem.price} units.`);
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.header}>CoFund Project</Text>
+        <KeyboardAvoidingView
+            style={styles.container}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
+        >
+            <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+                <Text style={styles.header}>CoFund Project</Text>
 
-            <View style={styles.goalContainer}>
-                <Text style={styles.goalText}>Goal: ${goalAmount}</Text>
-                <Text style={styles.progressText}>Raised: ${currentAmount} of ${goalAmount}</Text>
+                <View style={styles.goalContainer}>
+                    <Text style={styles.goalText}>Goal: ${goalAmount}</Text>
+                    <Text style={styles.progressText}>Raised: ${currentAmount} of ${goalAmount}</Text>
 
-                <ProgressBar
-                    progress={calculateAverageProgress()}
-                    color={calculateAverageProgress() === 1 ? "#00C853" : "#4CAF50"}
-                    style={styles.progressBar}
-                />
-                {calculateAverageProgress() === 1 && (
-                    <Text style={styles.goalAchievedText}>Goal Achieved! 🎉</Text>
-                )}
-            </View>
-
+                    <ProgressBar
+                        progress={calculateAverageProgress()}
+                        color={calculateAverageProgress() === 1 ? "#00C853" : "#4CAF50"}
+                        style={styles.progressBar}
+                    />
+                    {calculateAverageProgress() === 1 && (
+                        <Text style={styles.goalAchievedText}>Goal Achieved! 🎉</Text>
+                    )}
+                </View>
             <Text style={styles.itemsHeader}>Items for Fundraising</Text>
             <FlatList
                 data={itemsData}
@@ -88,35 +106,70 @@ const CoFundScreen = () => {
                             <Text style={styles.itemName}>{item.name}</Text>
                         </View>
                         <Text style={styles.itemPrice}>{item.raised}$ / {item.price}$</Text>
-
-                        <ProgressBar
-                            progress={calculateItemProgress(item)}
-                            color={calculateItemProgress(item) === 1 ? "#00C853" : "#4CAF50"}
-                            style={styles.progressBar}
-                        />
-
-                        <View style={styles.donateContainer}>
-                            <TextInput
-                                style={styles.donationInput}
-                                placeholder="Enter amount"
-                                value={donationAmount}
-                                onChangeText={setDonationAmount}
-                                keyboardType="numeric"
-                            />
-                            <TouchableOpacity
-                                style={styles.donateButton}
-                                onPress={() => handleDonateToItem(item.id)}
+                {/* Heatmap Section */}
+                <View style={styles.heatmapContainer}>
+                    <Text style={styles.heatmapHeader}>Contribution Heatmap</Text>
+                    <View style={styles.heatmapGrid}>
+                        {contributions.map((day, index) => (
+                            <View
+                                key={index}
+                                style={[
+                                    styles.heatmapCell,
+                                    { backgroundColor: getColorIntensity(day.amount) },
+                                ]}
                             >
-                                <Text style={styles.donateButtonText}>Donate</Text>
-                            </TouchableOpacity>
+                                <Text style={styles.heatmapCellText}>{day.date.split('-').pop()}</Text>
+                            </View>
+                        ))}
+                    </View>
+                </View>
+                <Text style={styles.itemsHeader}>Items for Fundraising</Text>
+                <FlatList
+                    data={itemsData}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => (
+                        <View style={styles.itemContainer}>
+                            <View style={styles.itemHeader}>
+                                <Image
+                                    source={{ uri: item.avatar }}
+                                    style={styles.itemAvatar}
+                                />
+                                <Text style={styles.itemName}>{item.name}</Text>
+                            </View>
+                            <Text style={styles.itemPrice}>{item.raised}$ / {item.price}$</Text>
+
+                            <ProgressBar
+                                progress={calculateItemProgress(item)}
+                                color={calculateItemProgress(item) === 1 ? "#00C853" : "#4CAF50"}
+                                style={styles.progressBar}
+                            />
+
+                            <View style={styles.donateContainer}>
+                                <TextInput
+                                    style={styles.donationInput}
+                                    placeholder="Enter amount"
+                                    value={donationAmount}
+                                    onChangeText={setDonationAmount}
+                                    keyboardType="numeric"
+                                />
+                                <TouchableOpacity
+                                    style={styles.donateButton}
+                                    onPress={() => handleDonateToItem(item.id)}
+                                >
+                                    <Text style={styles.donateButtonText}>Donate</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
                     )}
             />
+                    )}
+                />
 
-            <TouchableOpacity style={styles.addItemButton} onPress={() => setModalVisible(true)}>
-                <Text style={styles.addItemButtonText}>Add New Item</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.addItemButton} onPress={() => setModalVisible(true)}>
+                    <Text style={styles.addItemButtonText}>Add New Item</Text>
+                </TouchableOpacity>
+            </ScrollView>
 
             <Modal
                 animationType="slide"
@@ -150,12 +203,19 @@ const CoFundScreen = () => {
                     </View>
                 </View>
             </Modal>
-        </View>
+        </KeyboardAvoidingView>
     );
 };
 const styles = StyleSheet.create({
+     heatmapContainer: { marginVertical: 20 },
+    heatmapHeader: { fontSize: 20, fontWeight: 'bold', color: '#333', marginBottom: 10 },
+    heatmapGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' },
+    heatmapCell: { width: 30, height: 30, margin: 2, alignItems: 'center', justifyContent: 'center', borderRadius: 5 },
+    heatmapCellText: { color: '#fff', fontSize: 10 },
+    
     container: {
         marginTop: 30,
+        marginTop: 20,
         flex: 1,
         padding: 20,
         backgroundColor: '#f7f7f7',
@@ -259,7 +319,6 @@ const styles = StyleSheet.create({
     itemHeader: {
         flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 10,
     },
     itemAvatar: {
         width: 40,
@@ -275,6 +334,7 @@ const styles = StyleSheet.create({
     itemPrice: {
         fontSize: 16,
         color: '#777',
+        marginTop: 5,
     },
     modalOverlay: {
         flex: 1,
@@ -288,6 +348,14 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         width: '80%',
         maxWidth: 400,
+        padding: 20,
+        borderRadius: 10,
+        width: '80%',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 2 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 5,
     },
     modalHeader: {
         fontSize: 24,
@@ -303,6 +371,15 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginBottom: 15,
         paddingLeft: 10,
+        textAlign: 'center',
+    },
+    input: {
+        height: 45,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        borderRadius: 8,
+        marginBottom: 15,
+        paddingLeft: 12,
         fontSize: 16,
     },
     modalButtons: {
