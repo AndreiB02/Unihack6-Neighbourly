@@ -17,6 +17,7 @@ const TopMembers = ({navigation}) => {
     // Sort members by points in descending order
     const sortedMembers = membersData.sort((a, b) => b.points - a.points);
 
+    
     return (
         <View style={styles.container}>
             {/* Introduction Section */}
