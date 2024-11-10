@@ -1,46 +1,42 @@
-// EventServiceScreen.js
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import EventCardComponent from '../Components/EventCardComponent'; // Adjust the path if needed
+import { fetchEvents } from '../../services/events';
+import { useFocusEffect } from '@react-navigation/native'; // Import useFocusEffect
 
 const EventServiceScreen = ({ navigation }) => {
-    const events = [
-        {
-            id: '1',
-            title: 'Community Clean-up',
-            organizer: 'John Doe',
-            phone: '123-456-7890',
-            description: 'Join us for a community clean-up event.',
-            date: '2024-11-20',
-            location: 'Park Avenue, NY',
-            profileImage: 'https://www.w3schools.com/w3images/avatar2.png',
-            needs: [
-                { item: 'Chairs', fulfilled: 1, total: 5 },
-                { item: 'Tables', fulfilled: 3, total: 4 },
-            ],
-        },
-        {
-            id: '2',
-            title: 'Yoga Session',
-            organizer: 'Jane Smith',
-            phone: '987-654-3210',
-            description: 'Outdoor yoga for beginners. All levels welcome!',
-            date: '2024-11-22',
-            location: 'Sunset Park, NY',
-            profileImage: 'https://www.w3schools.com/w3images/avatar2.png',
-            needs: [
-                { item: 'Yoga mats', fulfilled: 3, total: 5 },
-                { item: 'Water bottles', fulfilled: 2, total: 5 },
-            ],
-        },
-    ];
+    const [events, setEvents] = useState([]);
+
+    // Function to load events
+    const loadEvents = async () => {
+        try {
+            const response = await fetchEvents();
+            // Ensure the response is always an array
+            console.log('Fetched events:', response);
+            setEvents(Array.isArray(response) ? response : []);
+        } catch (error) {
+            console.error('Error fetching events:', error);
+            setEvents([]); // Set to empty array if error occurs
+        }
+    };
+
+    // Fetch events when component mounts or when the screen comes into focus
+    useFocusEffect(
+        React.useCallback(() => {
+            loadEvents(); // Refetch events when screen is focused
+        }, [])
+    );
 
     return (
         <View style={styles.container}>
             <ScrollView contentContainerStyle={styles.scrollContainer}>
-                {events.map((event) => (
-                    <EventCardComponent key={event.id} event={event} />
-                ))}
+                {events.length > 0 ? (
+                    events.map((event) => (
+                        <EventCardComponent key={event.id} event={event} />
+                    ))
+                ) : (
+                    <Text>No events available</Text> // You can add a fallback UI
+                )}
             </ScrollView>
 
             <TouchableOpacity
@@ -58,6 +54,9 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 20,
         paddingHorizontal: 20,
+    },
+    scrollContainer: {
+        paddingBottom: 20,
     },
     addButton: {
         position: 'absolute',

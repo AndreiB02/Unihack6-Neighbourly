@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
+import { createEvent } from '../../services/events';
+import { createEventNeeds } from '../../services/events';
+import { getItemIdByName } from '../../services/item';
 
 const AddEventScreen = ({ navigation }) => {
     const [title, setTitle] = useState('');
@@ -7,28 +10,66 @@ const AddEventScreen = ({ navigation }) => {
     const [phone, setPhone] = useState('');
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
-    const [needs, setNeeds] = useState([{ item: '', fulfilled: '', total: '' }]); // Initialize with one need
+    const [organizer, setOrganizer] = useState('');
+    const [needs, setNeeds] = useState([{ itemId: '', itemName: '', fulfilled: 0, total: 0 }]); // Initialize with default values
 
-    const handleSubmit = () => {
-        if (!title || !phone || !date || !location || needs.some(need => !need.item || !need.total)) {
-            Alert.alert('Error', 'Please fill in all fields.');
-            return;
+    const handleSubmit = async () => {
+        // First, retrieve the item IDs for all needs
+        const updatedNeeds = await Promise.all(needs.map(async (need) => {
+            // Retrieve the itemId based on itemName
+            const itemId = await getItemIdByName(need.itemName);
+            return {
+                ...need,
+                itemId,  // Add the itemId to the need
+            };
+        }));
+
+        const eventData = {
+            title,
+            description,
+            phone,
+            date,
+            location,
+            organizer,
+            needs: updatedNeeds,  // Use the updated needs with itemIds
+        };
+
+        try {
+            // 1. Create the event first
+            const eventResponse = await createEvent(eventData);
+
+            // 2. Use the event ID from the event creation to insert the needs into eventneeds table
+            const eventId = eventResponse.id;  // Assuming the response includes event_id
+            
+            // 3. Create event needs
+            for (const need of updatedNeeds) {
+                await createEventNeeds(eventId, need);
+            }
+
+            // Show success message
+            Alert.alert('Event Created', 'Your event and needs have been successfully created!');
+            navigation.goBack();  // Navigate back to the previous screen
+
+        } catch (error) {
+            Alert.alert('Error', 'There was an issue creating your event and needs.');
+            console.error(error);
         }
-
-        // Handle event submission to the database or API here
-        // For now, just navigate back
-        Alert.alert('Event Created', 'Your event has been successfully created!');
-        navigation.goBack();
     };
 
     const handleAddNeed = () => {
-        setNeeds([...needs, { item: '', fulfilled: 0, total: 0 }]); // Add a new need row
+        setNeeds([...needs, { itemId: '', itemName: '', fulfilled: 0, total: 0 }]); // Add a new need row
     };
 
     const handleNeedChange = (index, field, value) => {
         const updatedNeeds = [...needs];
-        updatedNeeds[index][field] = value;
-        setNeeds(updatedNeeds);
+
+        if (field === 'total' || field === 'fulfilled') {
+            updatedNeeds[index][field] = parseInt(value, 10) || 0;
+        } else {
+            updatedNeeds[index][field] = value;
+        }
+
+        setNeeds(updatedNeeds);  // Update the needs state
     };
 
     return (
@@ -70,6 +111,13 @@ const AddEventScreen = ({ navigation }) => {
                     value={location}
                     onChangeText={setLocation}
                 />
+                {/* New Organizer Field */}
+                <TextInput
+                    style={styles.input}
+                    placeholder="Organizer"
+                    value={organizer}
+                    onChangeText={setOrganizer}
+                />
             </View>
 
             {/* Needs Section */}
@@ -80,8 +128,8 @@ const AddEventScreen = ({ navigation }) => {
                         <TextInput
                             style={styles.input}
                             placeholder="Item (e.g. Chairs)"
-                            value={need.item}
-                            onChangeText={(text) => handleNeedChange(index, 'item', text)}
+                            value={need.itemName}
+                            onChangeText={(text) => handleNeedChange(index, 'itemName', text)}
                         />
                         <View style={styles.row}>
                             <TextInput
@@ -101,6 +149,7 @@ const AddEventScreen = ({ navigation }) => {
                         </View>
                     </View>
                 ))}
+
                 <TouchableOpacity style={styles.addNeedButton} onPress={handleAddNeed}>
                     <Text style={styles.addNeedButtonText}>+ Add Need</Text>
                 </TouchableOpacity>

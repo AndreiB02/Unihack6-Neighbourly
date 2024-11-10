@@ -1,28 +1,51 @@
-// JoinEventScreen.js
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
-
+import { updateItemCount } from '../../services/events';
 const JoinEvent = ({ route, navigation }) => {
-    const { event } = route.params; // Retrieve the event object passed from the previous screen
+    const { event, needs } = route.params;
 
-    const [updatedNeeds, setUpdatedNeeds] = useState(event.needs); // State to manage the updated needs
+    // State to hold the initial needs data
+    const [updatedNeeds, setUpdatedNeeds] = useState(needs || []);
+    // State to temporarily store user input for each need
+    const [inputValues, setInputValues] = useState(Array(needs.length).fill(''));
 
-    const handleAddNeed = (index, newQuantity) => {
-        const updatedList = [...updatedNeeds];
-        updatedList[index].fulfilled += parseInt(newQuantity, 10); // Update the fulfilled needs
-        setUpdatedNeeds(updatedList); // Update state with the new list
+    // Handle input change for each need item
+    const handleInputChange = (index, value) => {
+        const updatedInputs = [...inputValues];
+        updatedInputs[index] = value;
+        setInputValues(updatedInputs);
     };
 
+    // Function to handle joining event and updating fulfilled count
     const handleJoinEvent = () => {
-        // Here you would send the updated needs to your database or API
-        Alert.alert('You have joined the event!', `You have added to the event needs.`);
-        navigation.goBack(); // Go back to the previous screen after joining
+        const updatedList = updatedNeeds.map((need, index) => {
+            const inputQuantity = parseInt(inputValues[index], 10) || 0;
+            if (inputQuantity > 0) {
+                return {
+                    ...need,
+                    fulfilled: need.fulfilled + inputQuantity,
+                };
+            }
+            return need;
+        });
+        
+        setUpdatedNeeds(updatedList); // Update the state with the new fulfilled counts
+
+        // Call updateItemCount with item_id for each need that was updated
+        updatedList.forEach((item) => {
+            console.log("ITEM B4 COUNT", item.item_id, item); // Confirm item_id and updated need item details
+            updateItemCount(item.item_id, item, event.id);
+        });
+        
+        Alert.alert('You have joined the event!', 'You have added to the event needs.');
+        navigation.goBack(); // Go back to the previous screen
     };
+
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
             <Text style={styles.title}>{event.title}</Text>
-            <Text style={styles.subtitle}>Organized by: {event.organizer}</Text>
+            <Text style={styles.subtitle}>Organized by: {event.host}</Text>
 
             <Text style={styles.sectionTitle}>Event Details</Text>
             <View style={styles.eventDetails}>
@@ -36,19 +59,24 @@ const JoinEvent = ({ route, navigation }) => {
 
             <View style={styles.needsContainer}>
                 <Text style={styles.needsTitle}>Event Needs:</Text>
-                {updatedNeeds.map((need, index) => (
-                    <View key={index} style={styles.needItem}>
-                        <Text style={styles.needItemText}>
-                            {need.fulfilled} / {need.total} {need.item}
-                        </Text>
-                        <TextInput
-                            style={styles.input}
-                            placeholder={`Add more ${need.item}`}
-                            keyboardType="numeric"
-                            onChangeText={(text) => handleAddNeed(index, text)}
-                        />
-                    </View>
-                ))}
+                {updatedNeeds.length > 0 ? (
+                    updatedNeeds.map((need, index) => (
+                        <View key={index} style={styles.needItem}>
+                            <Text style={styles.needItemText}>
+                                {need.fulfilled} / {need.total} {need.itemName}
+                            </Text>
+                            <TextInput
+                                style={styles.input}
+                                placeholder={`Add more ${need.itemName}`}
+                                keyboardType="numeric"
+                                value={inputValues[index]}
+                                onChangeText={(text) => handleInputChange(index, text)}
+                            />
+                        </View>
+                    ))
+                ) : (
+                    <Text>No needs listed for this event</Text>
+                )}
             </View>
 
             <TouchableOpacity style={styles.joinButton} onPress={handleJoinEvent}>
