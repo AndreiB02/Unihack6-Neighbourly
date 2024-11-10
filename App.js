@@ -45,11 +45,12 @@ const App = () => {
         <Stack.Screen name="ComunityServiceScreen" component={CommunityServiceScreen} options={{ title: 'Help Your Comunity' }} />
         <Stack.Screen name="PossessionsSeeMore" component={PossessionsSeeMore} />
         <Stack.Screen name="NeighborhoodSeeMore" component={NeighborhoodSeeMore} />
-        <Stack.Screen name="NeighbourhoodPortal" component={NeighbourhoodPortal} options={{ title: 'Neighbourhood' }}  />
+        <Stack.Screen name="NeighbourhoodPortal" component={NeighbourhoodPortal} options={{  headerShown: false  }}  />
         <Stack.Screen name="AboutApp" component={AboutApp} options={{ title: 'About' }} />
         <Stack.Screen name="CoFundScreen" component={CoFundScreen} options={{ headerShown: false }} />
         <Stack.Screen name="TopMembersScreen" component={TopMembersScreen} options={{ headerShown: false }} />
         <Stack.Screen name="JoinService" component={JoinService} options={{ title: 'Help your comunity' }} />
+        <Stack.Screen name="EditProfileScreen" component={EditProfileScreen} options={{ title: 'Help your comunity' }} />
       </Stack.Navigator>
     </NavigationContainer>
 
