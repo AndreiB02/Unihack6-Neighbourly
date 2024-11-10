@@ -3,15 +3,15 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const OfferingCardComponent = ({ name, profileImage, phone, description, title }) => {
+const OfferingCardComponent = ({ author, profileImage, phone, description, title }) => {
     return (
         <View style={styles.cardContainer}>
             {/* Profile Header */}
             <View style={styles.header}>
-                <Image source={{ uri: profileImage }} style={styles.profileImage} />
+                <Image source={{ uri: "https://www.w3schools.com/w3images/avatar5.png" }} style={styles.profileImage} />
                 <View style={styles.profileDetails}>
                     <Text style={styles.cardTitle}>{title}</Text>
-                    <Text style={styles.cardName}>{name}</Text>
+                    <Text style={styles.cardAuthor}>{author}</Text>
                 </View>
             </View>
 
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#333',
     },
-    cardName: {
+    cardAuthor: {
         fontSize: 16,
         color: '#666',
     },

@@ -1,13 +1,15 @@
 // AddOfferScreen.js
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { createOffer } from '../../services/offers';
 
 const AddOfferScreen = ({ navigation }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [phone, setPhone] = useState('');
+    const [author, setAuthor] = useState('');
 
-    const handleSubmit = () => {
+    const handleSubmit = async ()  => {
         if (!title || !phone) {
             Alert.alert("Error", "Title and phone number are required.");
             return;
@@ -18,9 +20,11 @@ const AddOfferScreen = ({ navigation }) => {
             title,
             description,
             phone,
+            author,
         };
         console.log("Submitted Offer:", newOffer);
 
+        const response = await createOffer(newOffer);
         // Navigate back to OfferServiceScreen or wherever you want after submission
         navigation.goBack();
     };
@@ -58,6 +62,16 @@ const AddOfferScreen = ({ navigation }) => {
                     value={phone}
                     onChangeText={setPhone}
                     keyboardType="phone-pad"
+                />
+            </View>
+
+            <View style={styles.inputContainer}>
+                <Text style={styles.label}>Author</Text>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Author"
+                    value={author}
+                    onChangeText={setAuthor}
                 />
             </View>
 
