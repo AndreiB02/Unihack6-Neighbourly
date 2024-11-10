@@ -17,17 +17,6 @@ Make Connections: Attend events to meet and collaborate with your neighbors!
 Item Sharing: Share tools, appliances, sports equipment, and more.
 Volunteers Needed: Post local issues or challenges, and offer your skills to help resolve them. Together, we can tackle anything from neighborhood clean-ups to community support tasks.
 Event Planning: Create and promote events to strengthen neighborhood bonds and support community projects.
-📜 Community Guidelines
-To keep Neighbourly safe and welcoming for everyone, please follow these guidelines:
 
-Respect Others: Communicate politely and professionally with fellow members.
-Ensure Quality: Only share items that are in good, usable condition.
-Foster Trust: Be honest and respectful in all interactions to build lasting neighborhood connections.
 Ready to Start?
 Join Neighbourly and be part of a movement that values sustainability, community, and cooperation.
-
-
-
-
-
-
