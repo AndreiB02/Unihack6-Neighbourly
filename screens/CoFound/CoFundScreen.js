@@ -6,6 +6,11 @@ const CoFundScreen = () => {
     const goalAmount = 1000;
     const [currentAmount, setCurrentAmount] = useState(350);
 
+    const [contributions, setContributions] = useState(Array.from({ length: 30 }, (_, index) => ({
+        date: `2023-11-${(index + 1).toString().padStart(2, '0')}`,
+        amount: Math.floor(Math.random() * 20), // Random contribution amount (0-19)
+    })));
+
     const [itemsData, setItemsData] = useState([
         { id: '1', name: 'Lawnmower', price: 200, raised: 50, avatar: 'https://randomuser.me/api/portraits/men/1.jpg' },
         { id: '2', name: 'Dining Table', price: 150, raised: 75, avatar: 'https://randomuser.me/api/portraits/women/2.jpg' },
@@ -19,6 +24,8 @@ const CoFundScreen = () => {
     const [newItemPrice, setNewItemPrice] = useState('');
     const [donationAmount, setDonationAmount] = useState('');
 
+    const maxContribution = Math.max(...contributions.map((day) => day.amount));
+
     const calculateItemProgress = (item) => {
         return item.raised / item.price;
     };
@@ -27,6 +34,15 @@ const CoFundScreen = () => {
         const totalProgress = itemsData.reduce((acc, item) => acc + item.raised / item.price, 0);
         return totalProgress / itemsData.length;
     };
+
+    const getColorIntensity = (amount) => {
+        if (amount <= 10) {
+            return 'rgba(169, 169, 169, 1)'; // Gray color for 0 contribution
+        }
+        const intensity = amount / maxContribution;
+        return `rgba(76, 175, 80, ${intensity})`; // Adjusts the green color based on intensity
+    };
+
 
     const handleDonateToItem = (itemId) => {
         const donation = parseFloat(donationAmount);
@@ -79,6 +95,24 @@ const CoFundScreen = () => {
                     {calculateAverageProgress() === 1 && (
                         <Text style={styles.goalAchievedText}>Goal Achieved! 🎉</Text>
                     )}
+                </View>
+
+                {/* Heatmap Section */}
+                <View style={styles.heatmapContainer}>
+                    <Text style={styles.heatmapHeader}>Contribution Heatmap</Text>
+                    <View style={styles.heatmapGrid}>
+                        {contributions.map((day, index) => (
+                            <View
+                                key={index}
+                                style={[
+                                    styles.heatmapCell,
+                                    { backgroundColor: getColorIntensity(day.amount) },
+                                ]}
+                            >
+                                <Text style={styles.heatmapCellText}>{day.date.split('-').pop()}</Text>
+                            </View>
+                        ))}
+                    </View>
                 </View>
 
                 <Text style={styles.itemsHeader}>Items for Fundraising</Text>
@@ -163,6 +197,12 @@ const CoFundScreen = () => {
 };
 
 const styles = StyleSheet.create({
+     heatmapContainer: { marginVertical: 20 },
+    heatmapHeader: { fontSize: 20, fontWeight: 'bold', color: '#333', marginBottom: 10 },
+    heatmapGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center' },
+    heatmapCell: { width: 30, height: 30, margin: 2, alignItems: 'center', justifyContent: 'center', borderRadius: 5 },
+    heatmapCellText: { color: '#fff', fontSize: 10 },
+    
     container: {
         marginTop: 20,
         flex: 1,
