@@ -160,11 +160,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#f7f7f7',
     },
     header: {
-        fontSize: 36,
+        fontSize: 38,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#2E7D32',
         textAlign: 'center',
-        marginBottom: 20,
         letterSpacing: 1.2,
     },
     goalContainer: {
@@ -176,7 +175,6 @@ const styles = StyleSheet.create({
     },
     goalText: {
         fontSize: 20,
-        color: '#333',
     },
     progressText: {
         fontSize: 18,
@@ -225,7 +223,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     addItemButton: {
-        backgroundColor: '#007BFF',
+        backgroundColor: '#2E7D32',
         paddingVertical: 12,
         paddingHorizontal: 25,
         borderRadius: 5,
