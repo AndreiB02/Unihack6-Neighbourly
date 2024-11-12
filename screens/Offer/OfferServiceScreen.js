@@ -1,14 +1,31 @@
 import React, { useState, useCallback } from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity,Text } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import OfferingCardComponent from '../../screens/MainPage/Components/OfferingCardComponent';
-
-// Import the fetchService function
+import MYOfferingCardComponent from '../../screens/MainPage/Components/MYOfferingCardComponent';
 import { fetchService } from '../../services/offers';
 import { useFocusEffect } from '@react-navigation/native';
 
 const OfferServiceScreen = ({ navigation }) => {
     const [offers, setOffers] = useState([]);
+
+    // Sample hardcoded offers for MYOfferingCardComponent
+    const myOffers = [
+        {
+            id: 1,
+            title: "Plumbing Services",
+            description: "Experienced plumber offering quick and reliable services.",
+            phone: "123-456-7890",
+            author: "John Doe",
+        },
+        {
+            id: 2,
+            title: "House Cleaning",
+            description: "Thorough and affordable cleaning services for your home.",
+            phone: "987-654-3210",
+            author: "Jane Smith",
+        },
+    ];
 
     // Use useFocusEffect to fetch data when the screen is focused
     useFocusEffect(
@@ -18,24 +35,34 @@ const OfferServiceScreen = ({ navigation }) => {
             const fetchOffers = async () => {
                 try {
                     const fetchedOffers = await fetchService();
-
-                    // Filter to include only offers where is_offered is true
                     const filteredOffers = fetchedOffers.filter(offer => offer.is_offered);
-
-                    setOffers(filteredOffers); // Update state with the filtered data
+                    setOffers(filteredOffers);
                 } catch (error) {
                     console.error("Error fetching offers:", error);
                 }
             };
 
             fetchOffers();
-        }, []) // Empty dependency array ensures this runs only when the screen is focused
+        }, [])
     );
 
     return (
         <View style={styles.container}>
-            <Text style={styles.HeaderTitle}>Offering Services</Text>  
+            <Text style={styles.HeaderTitle}>Offering Services</Text>
+
             <ScrollView contentContainerStyle={styles.offersContainer}>
+                {/* New custom MYOfferingCardComponent cards */}
+                {myOffers.map((offer, index) => (
+                    <MYOfferingCardComponent
+                        key={`my-${index}`}
+                        title={offer.title}
+                        description={offer.description}
+                        phone={offer.phone}
+                        author={offer.author}
+                    />
+                ))}
+
+                {/* Original OfferingCardComponent cards */}
                 {offers.map((offer, index) => (
                     <OfferingCardComponent
                         key={index}

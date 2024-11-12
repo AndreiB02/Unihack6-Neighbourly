@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import AskCardComponent from '../Components/AskCardComponent';
+import MYAskCardComponent from '../Components/MYAskCardComponent';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const AskServiceScreen = ({ navigation }) => {
@@ -22,20 +23,38 @@ const AskServiceScreen = ({ navigation }) => {
             description: 'I need help assembling some furniture.',
             profileImage: 'https://www.w3schools.com/w3images/avatar5.png',
         },
+    ];
+
+    const myAsks = [
         {
             id: '3',
             title: 'Need Flour for Cake',
             name: 'Marie Small',
             phone: '934-241-6756',
-            description: 'I need help with the cake I am making',
+            description: 'I need help with the cake I am making.',
             profileImage: 'https://www.w3schools.com/w3images/avatar6.png',
         },
     ];
 
     return (
         <View style={styles.container}>
-            <Text style={styles.header}>Community Requests</Text>
+            <Text style={styles.header}>Your Requests</Text>
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
+                {myAsks.map((ask) => (
+                    <MYAskCardComponent
+                        key={ask.id}
+                        title={ask.title}
+                        name={ask.name}
+                        phone={ask.phone}
+                        description={ask.description}
+                        profileImage={ask.profileImage}
+                        onModify={() => console.log(`Modify ${ask.id}`)}
+                        onDelete={() => console.log(`Delete ${ask.id}`)}
+                        onPause={() => console.log(`Pause ${ask.id}`)}
+                    />
+                ))}
+
+                <Text style={styles.header}>Community Requests</Text>
                 {asks.map((ask) => (
                     <AskCardComponent
                         key={ask.id}
@@ -57,6 +76,7 @@ const AskServiceScreen = ({ navigation }) => {
         </View>
     );
 };
+
 
 const styles = StyleSheet.create({
     container: {
