@@ -1,4 +1,4 @@
-const Address = '192.168.190.162';
+const Address = '192.168.1.134';
 const baseUrl = `http://${Address}/my_database/db_operations.php`;
 
 export const fetchService = async () => {
