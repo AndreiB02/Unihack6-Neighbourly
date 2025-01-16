@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     },
     phoneText: {
         fontSize: 17,
-        color: '#333',
+        color: '#333', 
         marginLeft: 5,
     },
     description: {
