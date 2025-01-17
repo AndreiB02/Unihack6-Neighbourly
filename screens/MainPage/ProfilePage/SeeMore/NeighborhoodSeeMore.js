@@ -1,92 +1,105 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList, Image, SafeAreaView } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import { View, Text, StyleSheet, FlatList, Image, SafeAreaView, Dimensions } from 'react-native';
 
 const NeighborhoodSeeMore = () => {
     const neighborhoodData = [
         { id: '1', name: 'Aayan Ramirez', phone: '0249-437 030', profilePhoto: { uri: 'https://randomuser.me/api/portraits/men/1.jpg' }, address: 'Street B, Nb 20' },
-        { id: '2', name: 'Riley Wall', phone: '0722-457 706 ', profilePhoto: { uri: 'https://randomuser.me/api/portraits/men/7.jpg' }, address: 'Street A, Nb 19' },
-        { id: '3', name: 'Ella Peters', phone: '0723-605 613 ', profilePhoto: { uri: 'https://randomuser.me/api/portraits/men/3.jpg' }, address: 'Street A, Nb 18' },
+        { id: '2', name: 'Riley Wall', phone: '0722-457 706', profilePhoto: { uri: 'https://randomuser.me/api/portraits/men/7.jpg' }, address: 'Street A, Nb 19' },
+        { id: '3', name: 'Ella Peters', phone: '0723-605 613', profilePhoto: { uri: 'https://randomuser.me/api/portraits/men/3.jpg' }, address: 'Street A, Nb 18' },
         { id: '4', name: 'Miles Lowe', phone: '0744-872 202', profilePhoto: { uri: 'https://randomuser.me/api/portraits/men/5.jpg' }, address: 'Street A, Nb 17' },
         { id: '5', name: 'Brithney Sraeps', phone: '0788-798 234', profilePhoto: { uri: 'https://randomuser.me/api/portraits/men/4.jpg' }, address: 'Street C, Nb 2' },
     ];
 
-    const AllMembersList = () => (
-        <FlatList
-            data={neighborhoodData}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-                <View style={styles.card}>
-                    <Image source={item.profilePhoto} style={styles.profilePhoto} />
-                    <View style={styles.textContainer}>
-                        <Text style={styles.name}>{item.name}</Text>
-                        <Text style={styles.member}>{item.address}</Text>
-                        <Text style={styles.member}>{item.phone}</Text>
-                    </View>
+    const renderMemberCard = ({ item }) => (
+        <View style={styles.cardContainer}>
+            <View style={styles.card}>
+                <Image source={item.profilePhoto} style={styles.profilePhoto} />
+                <View style={styles.cardContent}>
+                    <Text style={styles.name}>{item.name}</Text>
+                    <Text style={styles.address}>{item.address}</Text>
+                    <Text style={styles.phone}>{item.phone}</Text>
                 </View>
-            )}
-        />
+            </View>
+        </View>
     );
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView>
-                <Text style={styles.neighbourhoodName}>🏠 GHIRODA</Text>
-                <Text style={styles.sectionTitle}>Members</Text>
-                <AllMembersList />
-            </ScrollView>
+            <Text style={styles.title}>🏠 Neighborhood: Ghiroda</Text>
+            <FlatList
+                data={neighborhoodData}
+                renderItem={renderMemberCard}
+                keyExtractor={(item) => item.id}
+                contentContainerStyle={styles.listContainer}
+                numColumns={2}
+                showsVerticalScrollIndicator={false}
+            />
         </SafeAreaView>
     );
 };
 
+const { width } = Dimensions.get('window');
+const cardWidth = (width - 50) / 2; // Adjusted for proper alignment
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f0f4f7',
+        backgroundColor: '#f9faff',
         padding: 20,
     },
-    textContainer: {
-        flexDirection: 'column',
-        justifyContent: 'center',
+    title: {
+        fontSize: 24,
+        fontWeight: 'bold',
+        color: '#34495e',
+        textAlign: 'center',
+        marginBottom: 20,
     },
-    card: {
-        flexDirection: 'row',
-        padding: 10,
-        marginVertical: 5,
-        backgroundColor: '#ffffff',
-        borderRadius: 10,
-        alignItems: 'center',
+    listContainer: {
+        paddingHorizontal: 5,
+        paddingBottom: 20,
+    },
+    cardContainer: {
+        width: cardWidth,
+        margin: 5,
+        borderRadius: 12,
+        backgroundColor: '#2c3e50',
         shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
+        shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.1,
-        shadowRadius: 4,
+        shadowRadius: 6,
         elevation: 3,
     },
-    profilePhoto: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-        marginRight: 15,
+    card: {
+        padding: 15,
+        alignItems: 'center',
     },
-    neighbourhoodName: {
-        fontSize: 30,
-        fontWeight: 'bold',
-        color: '#559fed',
+    profilePhoto: {
+        width: 80,
+        height: 80,
+        borderRadius: 40,
         marginBottom: 10,
     },
-    sectionTitle: {
-        fontSize: 23,
-        fontWeight: 'bold',
-        color: '#3e57d6',
+    cardContent: {
+        alignItems: 'center',
     },
     name: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        color: '#3e57d6',
+        fontSize: 16,
+        fontWeight: '600',
+        color: '#ecf0f1',
+        textAlign: 'center',
+        marginBottom: 5,
     },
-    member: {
-        fontSize: 15,
-        color: '#555',
+    address: {
+        fontSize: 14,
+        color: '#bdc3c7',
+        textAlign: 'center',
+        marginBottom: 5,
+    },
+    phone: {
+        fontSize: 14,
+        color: '#559fed',
+        textAlign: 'center',
+        fontWeight: '500',
     },
 });
 
