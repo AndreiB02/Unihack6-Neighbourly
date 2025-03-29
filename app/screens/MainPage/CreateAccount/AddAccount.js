@@ -1,6 +1,7 @@
 // AddAccount.js
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { createMember } from '../../../services/login';
 
 const AddAccount = ({ navigation }) => {
     const [name, setName] = useState('');
@@ -8,14 +9,31 @@ const AddAccount = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleCreateAccount = () => {
-        if (name && communityCode && email && password) {
-            Alert.alert('Account Created', 'Your account has been created successfully!');
-            navigation.goBack(); // Go back to the previous screen (Login Page)
-        } else {
-            Alert.alert('Error', 'Please fill in all fields.');
+    const handleCreateAccount = async () => {
+        console.log(name, email, password);
+        
+        if (!name || !email || !password) {
+            setErrorMessage('Please enter username, password, and email.');
+            return;
+        }
+    
+        try {
+            const response = await createMember(name, email, password);
+            console.log("response from createMember:", response);
+            
+            if (response?.id) { // Ensure response has an ID (valid account creation)
+                Alert.alert('Account Created', 'Your account has been created successfully!');
+                navigation.goBack(); // Move navigation outside the alert
+            } else {
+                Alert.alert('Error', 'Failed to create account.');
+            }
+        } catch (error) {
+            console.error('Error creating account:', error);
+            Alert.alert('Error', 'Something went wrong.');
         }
     };
+    
+    
 
     return (
         <View style={styles.container}>
@@ -28,13 +46,13 @@ const AddAccount = ({ navigation }) => {
                     value={name}
                     onChangeText={setName}
                 />
-                <TextInput
+                {/* <TextInput
                     style={styles.input}
                     placeholder="Community Code"
                     placeholderTextColor="#aaa"
                     value={communityCode}
                     onChangeText={setCommunityCode}
-                />
+                /> */}
                 <TextInput
                     style={styles.input}
                     placeholder="Email"
