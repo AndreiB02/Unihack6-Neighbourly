@@ -37,3 +37,27 @@ export const createMember = async (name,email,password) => {
         throw error;
     }
 };
+export const login = async (name) => {
+    try {
+        const response = await fetch(`${baseUrl}/?action=read&table=member&name=${name}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+
+        const responseText = await response.text();
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}, response: ${responseText}`);
+        }
+
+        const responseData = JSON.parse(responseText);
+        console.log("Parsed Response Data:", responseData);
+
+        return responseData;
+        
+    } catch (error) {
+        console.error('Error creating member', error);
+        throw error;
+    }
+};

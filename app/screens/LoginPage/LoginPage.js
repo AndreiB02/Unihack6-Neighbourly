@@ -1,17 +1,29 @@
 // LoginPage.js
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { login } from '../../services/login';
 
 const LoginPage = ({ navigation }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleLogin = () => {
-        if (username === '' && password === '') {
-            navigation.navigate('Home');
-        } else {
-            Alert.alert('Invalid Credentials', 'Username or password is incorrect.');
-        }
+    const handleLogin = async () => {
+
+        console.log(username,password);
+        try {
+                    const response = await login(username);
+                    if(response[0].password == password) 
+                    {
+                        navigation.navigate('Home', {username: response[0].name, points: response[0].points});
+                    }
+                    else{
+                        Alert.alert('Invalid Credentials', 'Username or password is incorrect.');
+                    }
+                    console.log(response);
+                } catch (error) {
+                    console.error('Error creating account:', error);
+                    Alert.alert('Error', 'Something went wrong.');
+                }
     };
 
     return (

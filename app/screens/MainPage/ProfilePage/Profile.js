@@ -3,10 +3,10 @@ import { View, Text, StyleSheet, ScrollView, Image, FlatList, TouchableOpacity }
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 
-const Profile = () => {
-    const [points, setPoints] = useState(150);
+const Profile = ({route}) => {
     const navigation = useNavigation();
-
+    const username = route.params?.username;
+    const points = route.params?.points;
     const possessionsData = [
         { id: '1', item: 'Screwdriver', quantity: 1 },
         { id: '2', item: 'Chairs', quantity: 5 },
@@ -48,8 +48,7 @@ const Profile = () => {
                         source={{ uri: 'https://randomuser.me/api/portraits/men/9.jpg' }}
                         style={styles.avatar}
                     />
-                    <Text style={styles.name}>John Doe</Text>
-                    <Text style={styles.gender}>Male</Text>
+                    <Text style={styles.name}>{username}</Text>
                 </TouchableOpacity>
 
                 {/* Points Section */}

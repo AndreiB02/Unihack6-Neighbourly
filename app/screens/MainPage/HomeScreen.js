@@ -93,12 +93,15 @@ const mockVolunteers = [
     }
 ];
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation, route}) => {
+    const username = route.params?.username;
+    const points = route.params?.points;
+    console.log("IN HOMESCREEN", username);
     return (
         
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+                <TouchableOpacity onPress={() => navigation.navigate('Profile',{username:username,points:points})}>
                     <Image
                         source={{ uri: 'https://randomuser.me/api/portraits/men/9.jpg' }}
                         style={styles.avatar}
