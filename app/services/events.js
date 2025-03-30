@@ -1,4 +1,5 @@
-const Address = 'info.tm.edu.ro:8088/~abarsescu/Neighbourly';
+//const Address = 'info.tm.edu.ro:8088/~abarsescu/Neighbourly';
+const Address = 'localhost';
 const baseUrl = `http://${Address}/my_database/db_operations.php/`;
 
 export const fetchEvents = async () => {

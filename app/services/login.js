@@ -2,7 +2,7 @@
 const Address = 'localhost';
 const baseUrl = `http://${Address}/my_database/db_operations.php/`;
 
-export const createMember = async (name,email,password) => {
+export const createMember = async (name,email,password, neighbourhood_id) => {
     try {
         console.log(name,email,password, " --> in createMember");
         const response = await fetch(`${baseUrl}/?action=create`, {
@@ -15,7 +15,8 @@ export const createMember = async (name,email,password) => {
                 fields: {
                     name:name,
                     password:password,
-                    email:email
+                    email:email,
+                    neighbourhood_id: neighbourhood_id,
                 }
             })
         });

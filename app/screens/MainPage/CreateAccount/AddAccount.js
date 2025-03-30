@@ -1,24 +1,59 @@
 // AddAccount.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import RNPickerSelect from "react-native-picker-select";
 import { createMember } from '../../../services/login';
+import { fetchNeighbourhood, fetchNeighbourhoodData} from '../../../services/neighbourhood';
 
 const AddAccount = ({ navigation }) => {
     const [name, setName] = useState('');
     const [communityCode, setCommunityCode] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [neighbourhood_id, setNeighbourhood_id] = useState('');
+    const [neighbourhoods, setNeighbourhoods] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchNeighbourhoods = async () => {
+            try {
+                const response = await fetchNeighbourhoodData();
+                
+                // Ensure response is valid and properly formatted
+                if (!response || !Array.isArray(response)) {
+                    throw new Error("Invalid response data");
+                }
+    
+                const formattedData = response.map(item => ({
+                    label: item.name,
+                    value: item.id, 
+                }));
+    
+                console.log("Formatted Data:", formattedData); // Debugging
+    
+                setNeighbourhoods(formattedData); // Set state with formatted data
+            } catch (error) {
+                console.error("Error fetching neighbourhoods:", error);
+                Alert.alert("Error", "Failed to load neighborhoods.");
+            } finally {
+                setLoading(false);
+            }
+        };
+    
+        fetchNeighbourhoods();
+    }, []);
+    
 
     const handleCreateAccount = async () => {
         console.log(name, email, password);
         
-        if (!name || !email || !password) {
+        if (!name || !email || !password || !neighbourhood_id) {
             setErrorMessage('Please enter username, password, and email.');
             return;
         }
     
         try {
-            const response = await createMember(name, email, password);
+            const response = await createMember(name, email, password, neighbourhood_id);
             console.log("response from createMember:", response);
             
             if (response?.id) { // Ensure response has an ID (valid account creation)
@@ -32,8 +67,7 @@ const AddAccount = ({ navigation }) => {
             Alert.alert('Error', 'Something went wrong.');
         }
     };
-    
-    
+
 
     return (
         <View style={styles.container}>
@@ -69,13 +103,20 @@ const AddAccount = ({ navigation }) => {
                     onChangeText={setPassword}
                     secureTextEntry
                 />
+                    <RNPickerSelect
+                        onValueChange={(value) => setNeighbourhood_id(value)}
+                        items={neighbourhoods}
+                        placeholder={{ label: "Choose a neighbourhood...", value: '' }}
+                        style={pickerSelectStyles}
+                    />
+
                 <TouchableOpacity style={styles.createAccountButton} onPress={handleCreateAccount}>
                     <Text style={styles.createAccountButtonText}>Create Account</Text>
                 </TouchableOpacity>
             </View>
         </View>
     );
-};
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -129,5 +170,40 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
 });
+
+const pickerSelectStyles = {
+    inputIOS: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#2E7D32',
+        marginBottom: 10,
+        textAlign: 'center',
+        borderWidth: 1,
+        borderColor: 'gray',
+        paddingRight: 30,
+        width: '200%',
+        height: 50,
+        backgroundColor: '#f9f9f9',
+        borderRadius: 8,
+        paddingHorizontal: 15,
+    },
+    inputAndroid: {
+        fontSize: 16,
+        paddingVertical: 12,
+        paddingHorizontal: 10,
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 4,
+        color: 'black',
+        paddingRight: 30,
+        marginBottom: 16,
+        width: '100%',
+        height: 50,
+        backgroundColor: '#f9f9f9',
+        color: '#333',
+        borderRadius: 8,
+        paddingHorizontal: 15,
+    },
+};
 
 export default AddAccount;
