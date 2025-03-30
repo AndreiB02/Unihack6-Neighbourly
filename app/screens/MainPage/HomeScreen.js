@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, SafeAreaView, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { fetchNeighbourhood } from '../../services/neighbourhood';
 
-const zone = "GHIRODA";
 const logo = require('../../../assets/logo.png');
 
 const Stack = createStackNavigator();
@@ -96,6 +96,28 @@ const mockVolunteers = [
 const HomeScreen = ({ navigation, route}) => {
     const username = route.params?.username;
     const points = route.params?.points;
+    const neighbourhood_id = route.params?.neighbourhood_id;
+
+    console.log("Neighbourhood id in homescreen: ", neighbourhood_id)
+
+    const [neighbourhoodName, setNeighbourhoodName] = useState("");
+
+    useEffect(() => {
+        fetch_Neighbourhood();
+    }, [neighbourhood_id]); // Depend on `neighbourhood_id` instead of `neighbourhoodName`
+
+    const fetch_Neighbourhood = async () => {
+        try {
+            const response = await fetchNeighbourhood(neighbourhood_id);
+            if (response.length > 0) {
+                setNeighbourhoodName(response[0].name); // Use state instead of global variable
+            }
+        } catch (error) {
+            console.error('Error fetching neighbourhood', error);
+            Alert.alert('Error', 'Something went wrong.');
+        }
+    };
+
     console.log("IN HOMESCREEN", username);
     return (
         
@@ -108,8 +130,8 @@ const HomeScreen = ({ navigation, route}) => {
                     />
                 </TouchableOpacity>
                 <View style={styles.headerCenter}>
-                    <Text style={styles.neighborhoodTitle}>{zone}</Text>
-                    <Text style={styles.subHeader}>Neighborhood</Text>
+                    <Text style={styles.neighborhoodTitle}>{neighbourhoodName}</Text>
+                    <Text style={styles.subHeader}>Neighbourhood</Text>
                 </View>
                 <TouchableOpacity onPress={() => navigation.navigate('AboutApp')}>
                     <Image
