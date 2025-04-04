@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import EventCardComponent from '../Components/EventCardComponent'; // Adjust the path if needed
 import { fetchEvents } from '../../../services/events';
-import { useFocusEffect } from '@react-navigation/native'; // Import useFocusEffect
+import { useFocusEffect } from '@react-navigation/native';
 
-const EventServiceScreen = ({ navigation }) => {
+const EventServiceScreen = ({ navigation, route }) => {
     const [events, setEvents] = useState([]);
+    console.log("routeparams in event service screen",route.params?.neighbourhood_id);
+    const neighbourhood_id = route.params?.neighbourhood_id;
 
     // Function to load events
     const loadEvents = async () => {
         try {
-            const response = await fetchEvents();
+            const response = await fetchEvents(neighbourhood_id);
             // Ensure the response is always an array
             console.log('Fetched events:', response);
             setEvents(Array.isArray(response) ? response : []);
@@ -43,7 +45,7 @@ const EventServiceScreen = ({ navigation }) => {
 
             <TouchableOpacity
                 style={styles.addButton}
-                onPress={() => navigation.navigate('AddEventScreen')}
+                onPress={() => navigation.navigate('AddEventScreen', {neighbourhood_id:neighbourhood_id})}
             >
                 <Text style={styles.addButtonText}>+</Text>
             </TouchableOpacity>

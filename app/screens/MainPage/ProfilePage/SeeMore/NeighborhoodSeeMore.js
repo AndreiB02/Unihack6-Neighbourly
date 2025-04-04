@@ -1,22 +1,28 @@
 import React from 'react';
 import { View, Text, StyleSheet, FlatList, Image, SafeAreaView, Dimensions } from 'react-native';
 
-const NeighborhoodSeeMore = () => {
-    const neighborhoodData = [
+const NeighborhoodSeeMore = ({route}) => {
+    const members = route.params?.members;
+    const neighbourhoodName = route.params?.neighbourhoodName;
+    console.log(members);
+
+
+    /*const neighborhoodData = [
         { id: '1', name: 'Aayan Ramirez', phone: '0249-437 030', profilePhoto: { uri: 'https://randomuser.me/api/portraits/men/1.jpg' }, address: 'Street B, Nb 20' },
         { id: '2', name: 'Riley Wall', phone: '0722-457 706', profilePhoto: { uri: 'https://randomuser.me/api/portraits/men/7.jpg' }, address: 'Street A, Nb 19' },
         { id: '3', name: 'Ella Peters', phone: '0723-605 613', profilePhoto: { uri: 'https://randomuser.me/api/portraits/men/3.jpg' }, address: 'Street A, Nb 18' },
         { id: '4', name: 'Miles Lowe', phone: '0744-872 202', profilePhoto: { uri: 'https://randomuser.me/api/portraits/men/5.jpg' }, address: 'Street A, Nb 17' },
         { id: '5', name: 'Brithney Sraeps', phone: '0788-798 234', profilePhoto: { uri: 'https://randomuser.me/api/portraits/men/4.jpg' }, address: 'Street C, Nb 2' },
-    ];
+    ];*/
 
+    //change profile image
     const renderMemberCard = ({ item }) => (
         <View style={styles.cardContainer}>
             <View style={styles.card}>
-                <Image source={item.profilePhoto} style={styles.profilePhoto} />
+                <Image source='https://randomuser.me/api/portraits/men/1.jpg' style={styles.profilePhoto} /> 
                 <View style={styles.cardContent}>
                     <Text style={styles.name}>{item.name}</Text>
-                    <Text style={styles.address}>{item.address}</Text>
+                    <Text style={styles.address}>{item.points}</Text>
                     <Text style={styles.phone}>{item.phone}</Text>
                 </View>
             </View>
@@ -25,9 +31,9 @@ const NeighborhoodSeeMore = () => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>🏠 Neighborhood: Ghiroda</Text>
+            <Text style={styles.title}>🏠 Neighborhood: {neighbourhoodName}</Text>
             <FlatList
-                data={neighborhoodData}
+                data={members}
                 renderItem={renderMemberCard}
                 keyExtractor={(item) => item.id}
                 contentContainerStyle={styles.listContainer}

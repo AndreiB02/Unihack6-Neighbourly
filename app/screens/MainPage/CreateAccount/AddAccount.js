@@ -14,6 +14,7 @@ const AddAccount = ({ navigation }) => {
     const [neighbourhoods, setNeighbourhoods] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    //drop down box
     useEffect(() => {
         const fetchNeighbourhoods = async () => {
             try {
@@ -43,7 +44,7 @@ const AddAccount = ({ navigation }) => {
         fetchNeighbourhoods();
     }, []);
     
-
+    //create account
     const handleCreateAccount = async () => {
         console.log(name, email, password);
         
@@ -113,6 +114,11 @@ const AddAccount = ({ navigation }) => {
                 <TouchableOpacity style={styles.createAccountButton} onPress={handleCreateAccount}>
                     <Text style={styles.createAccountButtonText}>Create Account</Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate('LoginPage')}>
+                    <Text style={{marginTop: 20, marginBottom: 10, color: '#2E7D32', fontSize: 16, textDecorationLine: 'underline',}}>
+                        Log in
+                    </Text>
+                </TouchableOpacity>
             </View>
         </View>
     );
@@ -171,6 +177,7 @@ const styles = StyleSheet.create({
     },
 });
 
+//make pretty?
 const pickerSelectStyles = {
     inputIOS: {
         fontSize: 28,

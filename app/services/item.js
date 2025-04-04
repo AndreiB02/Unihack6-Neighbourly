@@ -1,4 +1,5 @@
-const Address = 'info.tm.edu.ro:8088/~abarsescu/Neighbourly';  // Your address here
+//const Address = 'info.tm.edu.ro:8088/~abarsescu/Neighbourly'; 
+const Address = 'localhost';
 const baseUrl = `http://${Address}/my_database/db_operations.php`;  // No trailing slash after PHP file
 
 export const getItemIdByName = async (itemName) => {

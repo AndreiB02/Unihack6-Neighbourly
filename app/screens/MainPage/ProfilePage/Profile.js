@@ -1,12 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image, FlatList, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+import { fetchNeighbourhood } from '../../../services/neighbourhood';
+import { fetchMember } from '../../../services/member';
 
 const Profile = ({route}) => {
     const navigation = useNavigation();
     const username = route.params?.username;
     const points = route.params?.points;
+    const neighbourhood_id = route.params?.neighbourhood_id;
+
+    const [members, setMembers] = useState([]);
+
+    const [neighbourhoodName, setNeighbourhoodName] = useState("");
+        useEffect(() => {
+            fetch_Neighbourhood();
+            fetchMembers();
+        }, [neighbourhood_id]);
+    
+        const fetch_Neighbourhood = async () => {
+            try {
+                const response = await fetchNeighbourhood(neighbourhood_id);
+                if (response.length > 0) {
+                    setNeighbourhoodName(response[0].name);
+                }
+            } catch (error) {
+                console.error('Error fetching neighbourhood', error);
+                Alert.alert('Error', 'Something went wrong.');
+            }
+        };
+
+    const fetchMembers = async () => {
+        try {
+            const response = await fetchMember(neighbourhood_id)
+            if (response) {
+                setMembers(response);
+            }
+        } catch (error) {
+            console.error('Error fetching members', error);
+        }
+    };
+
+    console.log(members);
+    
     const possessionsData = [
         { id: '1', item: 'Screwdriver', quantity: 1 },
         { id: '2', item: 'Chairs', quantity: 5 },
@@ -15,20 +52,8 @@ const Profile = ({route}) => {
         { id: '5', item: 'Books', quantity: 20 },
     ];
 
-    const neighborhoodData = [
-        { id: '1', name: 'Alice', avatar: 'https://randomuser.me/api/portraits/women/1.jpg' },
-        { id: '2', name: 'Bob', avatar: 'https://randomuser.me/api/portraits/men/2.jpg' },
-        { id: '3', name: 'Charlie', avatar: 'https://randomuser.me/api/portraits/men/3.jpg' },
-        { id: '4', name: 'Diana', avatar: 'https://randomuser.me/api/portraits/women/4.jpg' },
-        { id: '5', name: 'Eve', avatar: 'https://randomuser.me/api/portraits/women/5.jpg' },
-        { id: '6', name: 'Frank', avatar: 'https://randomuser.me/api/portraits/men/6.jpg' },
-        { id: '7', name: 'Grace', avatar: 'https://randomuser.me/api/portraits/women/7.jpg' },
-        { id: '8', name: 'Hank', avatar: 'https://randomuser.me/api/portraits/men/8.jpg' },
-    ];
-
-
     const neighborhoodInfo = {
-        name: 'GHIRODA',
+        name: neighbourhoodName,
         population: '10,000',
         area: '50 km²',
         established: '1850',
@@ -85,23 +110,22 @@ const Profile = ({route}) => {
                 {/* Neighborhood Section */}
                 <TouchableOpacity
                     style={styles.neighborhoodSection}
-                    onPress={() => navigation.navigate('NeighborhoodSeeMore')}
+                    onPress={() => navigation.navigate('NeighborhoodSeeMore', {members: members, neighbourhoodName: neighbourhoodName})}
                 >
                     <View style={styles.neighborhoodTitleContainer}>
                         <Text style={styles.possessionsTitle}>Neighborhood</Text>
                     </View>
                     <View style={styles.neighborhoodContainer}>
                         <FlatList
-                            data={neighborhoodData}
-                            keyExtractor={(item) => item.id}
+                            data={members}
+                            keyExtractor={(item) => item.id.toString()}
                             renderItem={({ item }) => (
                                 <View style={styles.neighborCard}>
-                                    <Image source={{ uri: item.avatar }} style={styles.neighborAvatar} />
+                                    <Image source={{ uri: item.avatar || 'https://randomuser.me/api/portraits/men/1.jpg' }} style={styles.neighborAvatar} />
                                     <Text style={styles.neighborName}>{item.name}</Text>
                                 </View>
                             )}
                         />
-
                     </View>
                 </TouchableOpacity>
             </View>
@@ -141,7 +165,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 30,
-        backgroundColor: '#fcd44e', // Light background for contrast
+        backgroundColor: '#fcd44e',
         borderRadius: 15,
         padding: 10,
         shadowColor: '#000',

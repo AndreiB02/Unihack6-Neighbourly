@@ -2,10 +2,11 @@
 const Address = 'localhost';
 const baseUrl = `http://${Address}/my_database/db_operations.php/`;
 
-export const fetchEvents = async () => {
+export const fetchEvents = async (neighbourhood_id) => {
 
     try {
-        const response = await fetch(`${baseUrl}/?action=read&table=event`, {
+        console.log("fetchEvents:", `${baseUrl}/?action=read&table=event&neighbourhood_id=${neighbourhood_id}`);
+        const response = await fetch(`${baseUrl}/?action=read&table=event&neighbourhood_id=${neighbourhood_id}`, {
             method: 'GET',
         });
 
