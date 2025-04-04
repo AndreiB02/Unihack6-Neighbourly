@@ -1,4 +1,4 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.anonymous.idk10">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.anonymous.neighbourly">
   <uses-permission android:name="android.permission.CAMERA"/>
   <uses-permission android:name="android.permission.INTERNET"/>
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
@@ -25,8 +25,8 @@
         <action android:name="android.intent.action.VIEW"/>
         <category android:name="android.intent.category.DEFAULT"/>
         <category android:name="android.intent.category.BROWSABLE"/>
-        <data android:scheme="com.anonymous.idk10"/>
-        <data android:scheme="exp+idk10"/>
+        <data android:scheme="com.anonymous.neighbourly"/>
+        <data android:scheme="exp+neighbourly"/>
       </intent-filter>
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" android:exported="false"/>

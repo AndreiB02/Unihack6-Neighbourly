@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Camera App",
+    "name": "Neighbourly",
     "plugins": [
       [
         "react-native-vision-camera",
@@ -9,7 +9,7 @@
         }
       ]
     ],
-    "slug": "idk10",
+    "slug": "neighbourly",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -24,14 +24,14 @@
       "infoPlist": {
         "NSCameraUsageDescription": "$(PRODUCT_NAME) needs access to your Camera."
       },
-      "bundleIdentifier": "com.anonymous.idk10"
+      "bundleIdentifier": "com.anonymous.neighbourly"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.anonymous.idk10",
+      "package": "com.anonymous.neighbourly",
       "permissions": [
         "android.permission.CAMERA"
       ]
@@ -41,8 +41,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "85d13c5c-4a94-4e91-91ac-82563e2af174"
+        "projectId": "6710dae7-d3f5-4d0c-bb33-24b800ae6a7f"
       }
-    }
+    },
+    "owner": "andrei_02"
   }
 }
