@@ -1,7 +1,7 @@
 // AddOfferScreen.js
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { createOffer } from '../../services/offers';
+import { createOffer } from '../../services/services';
 
 const AddOfferScreen = ({ navigation }) => {
     const [title, setTitle] = useState('');

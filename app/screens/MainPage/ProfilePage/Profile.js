@@ -10,6 +10,7 @@ const Profile = ({route}) => {
     const username = route.params?.username;
     const points = route.params?.points;
     const neighbourhood_id = route.params?.neighbourhood_id;
+    const profileImage = route.params?.profileImage;
 
     const [members, setMembers] = useState([]);
 
@@ -70,7 +71,7 @@ const Profile = ({route}) => {
                     onPress={() => navigation.navigate('EditProfileScreen')} // Navigate to EditProfileScreen
                 >
                     <Image
-                        source={{ uri: 'https://randomuser.me/api/portraits/men/9.jpg' }}
+                        source={{ uri: profileImage ? profileImage: 'https://pbs.twimg.com/media/EEUy6MCU0AErfve.png' }}
                         style={styles.avatar}
                     />
                     <Text style={styles.name}>{username}</Text>
@@ -121,7 +122,7 @@ const Profile = ({route}) => {
                             keyExtractor={(item) => item.id.toString()}
                             renderItem={({ item }) => (
                                 <View style={styles.neighborCard}>
-                                    <Image source={{ uri: item.avatar || 'https://randomuser.me/api/portraits/men/1.jpg' }} style={styles.neighborAvatar} />
+                                    <Image source={{ uri: item.profileImage || 'https://pbs.twimg.com/media/EEUy6MCU0AErfve.png' }} style={styles.neighborAvatar} />
                                     <Text style={styles.neighborName}>{item.name}</Text>
                                 </View>
                             )}

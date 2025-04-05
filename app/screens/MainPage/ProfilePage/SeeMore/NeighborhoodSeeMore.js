@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, FlatList, Image, SafeAreaView, Dimensions } fro
 const NeighborhoodSeeMore = ({route}) => {
     const members = route.params?.members;
     const neighbourhoodName = route.params?.neighbourhoodName;
+    const profileImage = route.param?.profileImage;
     console.log(members);
 
 
@@ -19,7 +20,7 @@ const NeighborhoodSeeMore = ({route}) => {
     const renderMemberCard = ({ item }) => (
         <View style={styles.cardContainer}>
             <View style={styles.card}>
-                <Image source='https://randomuser.me/api/portraits/men/1.jpg' style={styles.profilePhoto} /> 
+                <Image source={{uri: item.profileImage ? item.profileImage: 'https://pbs.twimg.com/media/EEUy6MCU0AErfve.png'}} style={styles.profilePhoto} /> 
                 <View style={styles.cardContent}>
                     <Text style={styles.name}>{item.name}</Text>
                     <Text style={styles.address}>{item.points}</Text>

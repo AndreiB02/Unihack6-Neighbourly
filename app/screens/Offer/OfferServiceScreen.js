@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView, TouchableOpacity, Text } from 'react-nati
 import Icon from 'react-native-vector-icons/Ionicons';
 import OfferingCardComponent from '../../screens/MainPage/Components/OfferingCardComponent';
 import MYOfferingCardComponent from '../../screens/MainPage/Components/MYOfferingCardComponent';
-import { fetchService } from '../../services/offers';
+import { fetchService } from '../../services/services';
 import { useFocusEffect } from '@react-navigation/native';
 
 const OfferServiceScreen = ({ navigation }) => {

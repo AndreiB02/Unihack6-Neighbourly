@@ -14,7 +14,7 @@ const LoginPage = ({ navigation }) => {
                     const response = await login(username);
                     if(response[0].password == password) 
                     {
-                        navigation.navigate('Home', {username: response[0].name, points: response[0].points, neighbourhood_id: response[0].neighbourhood_id});
+                        navigation.navigate('Home', {username: response[0].name, points: response[0].points, neighbourhood_id: response[0].neighbourhood_id, profileImage: response[0].profileImage});
                     }
                     else{
                         Alert.alert('Invalid Credentials', 'Username or password is incorrect.');

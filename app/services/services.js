@@ -1,10 +1,10 @@
-const Address = 'info.tm.edu.ro:8088/~abarsescu/Neighbourly';
-const baseUrl = `http://${Address}/my_database/db_operations.php`;
+//const Address = 'info.tm.edu.ro:8088/~abarsescu/Neighbourly';
+const Address = 'localhost';
+const baseUrl = `http://${Address}/my_database/db_operations.php/`;
 
-export const fetchService = async () => {
-
+export const fetchService = async (neighbourhood_id) => {
     try {
-        const response = await fetch(`${baseUrl}/?action=read&table=service`, {
+        const response = await fetch(`${baseUrl}/?action=readJoined&table1=service&table2=member&join_on_1=service.creator_id&join_on_2=member.id&fields=service.id,service.name,service.description,member.profileImage,member.neighbourhood_id,member.name%20as%20host&neighbourhood_id=${neighbourhood_id}`, {
             method: 'GET',
         });
 
@@ -20,7 +20,7 @@ export const fetchService = async () => {
         console.error('Error fetching service', error);
     }
 };
-export const createOffer = async (data) => {
+export const createService = async (data) => {
     try {
         const response = await fetch(`${baseUrl}/?action=create&table=service`, {
             method: 'POST',

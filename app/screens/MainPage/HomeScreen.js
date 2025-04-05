@@ -4,73 +4,12 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, SafeAreaVi
 import Icon from 'react-native-vector-icons/Ionicons';
 import { fetchNeighbourhood } from '../../services/neighbourhood';
 import { fetchEvents } from '../../services/events';
+import { fetchProblems } from '../../services/problems';
+import { fetchService } from '../../services/services';
 
 const logo = require('../../../assets/logo.png');
 
 const Stack = createStackNavigator();
-
-const mockOffers = [
-    {
-        name: 'Available for babysitting',
-        host: 'Karina Barbul',
-        profileImage: 'https://randomuser.me/api/portraits/women/1.jpg',
-        description: 'Offering babysitting services for children of all ages. I have over 5 years of experience and I am certified in CPR and first aid. Available for day or night shifts, weekends included.',
-    },
-    {
-        name: 'Available for pet-sitting',
-        host: 'John Doe',
-        profileImage: 'https://randomuser.me/api/portraits/men/2.jpg',
-        description: 'Pet-sitting services for your furry friends. I will take care of your pets as if they were my own. I offer daily walks, feeding, and playtime. Flexible scheduling based on your needs.',
-    },
-    {
-        name: 'Offering lawn care services',
-        host: 'Mike Lee',
-        profileImage: 'https://randomuser.me/api/portraits/men/3.jpg',
-        description: 'Providing lawn mowing, trimming, and yard cleanup services. I have all the necessary equipment to maintain your lawn, ensuring a neat and healthy appearance. Available weekly or as needed.',
-    }
-];
-
-const mockRequests = [
-    {
-        name: 'Need help moving furniture',
-        host: 'Samantha Clark',
-        profileImage: 'https://randomuser.me/api/portraits/women/2.jpg',
-        description: 'Looking for help to move furniture from one house to another. I need strong hands to lift heavy items such as a couch, bookshelves, and beds. Preferably on a weekend. Willing to pay for your time.',
-    },
-    {
-        name: 'Looking for a tutor for math',
-        host: 'David Smith',
-        profileImage: 'https://randomuser.me/api/portraits/men/4.jpg',
-        description: 'Seeking a tutor for high school-level math, including algebra and calculus. Must be patient and able to explain concepts clearly. I am available on evenings after 5 PM. Looking for someone who is experienced with tutoring.',
-    },
-    {
-        name: 'Seeking dog walker',
-        host: 'Emily White',
-        profileImage: 'https://randomuser.me/api/portraits/women/3.jpg',
-        description: 'Need help walking my dog during the day. My dog is a friendly labrador who loves to go on walks. The walk should be around 45 minutes, and I need someone who can commit to daily walks during weekdays.',
-    }
-];
-
-const mockEvents = [
-    {
-        name: 'Neighborhood BBQ',
-        host: 'Sarah Johnson',
-        profileImage: 'https://randomuser.me/api/portraits/women/4.jpg',
-        description: 'Join us for a fun BBQ event at the local park. Enjoy delicious food, live music, and games for the entire family. Everyone is welcome, just bring your favorite dish or beverage. The event is free but donations are appreciated.',
-    },
-    {
-        name: 'Book Club Meetup',
-        host: 'Daniel Brown',
-        profileImage: 'https://randomuser.me/api/portraits/men/5.jpg',
-        description: 'Come join our neighborhood book club to discuss this month’s selection: "The Great Gatsby". We meet once a month at the local coffee shop. New members are always welcome, and we encourage lively discussion and new perspectives.',
-    },
-    {
-        name: 'Community Yard Sale',
-        host: 'Jessica Green',
-        profileImage: 'https://randomuser.me/api/portraits/women/5.jpg',
-        description: 'Participate in the community yard sale this weekend. It’s a great opportunity to declutter your home and find some hidden treasures. The yard sale will run from 8 AM to 2 PM, and everyone is invited to come by and browse or sell items.',
-    }
-];
 
 const mockVolunteers = [
     {
@@ -98,14 +37,19 @@ const HomeScreen = ({ navigation, route}) => {
     const username = route.params?.username;
     const points = route.params?.points;
     const neighbourhood_id = route.params?.neighbourhood_id;
+    const profileImage = route.params?.profileImage;
 
     const [events, setEvents] = useState([]);
+    const [problems, setProblems] = useState([]);
+    const [services, setServices] = useState([]);
 
     //title of heighbourhood displayed on top of home screen
     const [neighbourhoodName, setNeighbourhoodName] = useState("");
     useEffect(() => {
         fetch_Neighbourhood();
         fetch_Events();
+        fetch_Problems();
+        fetch_Services();
     }, [neighbourhood_id]);
 
     const fetch_Neighbourhood = async () => {
@@ -122,9 +66,31 @@ const HomeScreen = ({ navigation, route}) => {
 
     const fetch_Events = async () => {
         try {
-            const response = await fetchEvents(neighbourhood_id)
+            const response = await fetchEvents(neighbourhood_id);
             if (response) {
                 setEvents(response);
+            }
+        } catch (error) {
+            console.error('Error fetching members', error);
+        }
+    };
+
+    const fetch_Problems = async () => {
+        try {
+            const response = await fetchProblems(neighbourhood_id);
+            if (response) {
+                setProblems(response);
+            }
+        } catch (error) {
+            console.error('Error fetching members', error);
+        }
+    };
+
+    const fetch_Services = async () => {
+        try {
+            const response = await fetchService(neighbourhood_id);
+            if (response) {
+                setServices(response);
             }
         } catch (error) {
             console.error('Error fetching members', error);
@@ -137,14 +103,14 @@ const HomeScreen = ({ navigation, route}) => {
         
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.navigate('Profile',{username:username,points:points, neighbourhood_id: neighbourhood_id})}>
+                <TouchableOpacity onPress={() => navigation.navigate('Profile',{username:username,points:points, neighbourhood_id: neighbourhood_id, profileImage: profileImage})}>
                     <Image
-                        source={{ uri: 'https://randomuser.me/api/portraits/men/9.jpg' }}
+                        source={{ uri: profileImage ? profileImage:'https://pbs.twimg.com/media/EEUy6MCU0AErfve.png'}}
                         style={styles.avatar}
                     />
                 </TouchableOpacity>
                 <View style={styles.headerCenter}>
-                    <Text style={styles.neighborhoodTitle}>{neighbourhoodName}</Text>
+                    <Text style={styles.neighborhoodTitle}>🏠{neighbourhoodName}</Text>
                     <Text style={styles.subHeader}>Neighbourhood</Text>
                 </View>
                 <TouchableOpacity onPress={() => navigation.navigate('AboutApp')}>
@@ -157,16 +123,16 @@ const HomeScreen = ({ navigation, route}) => {
 
             <ScrollView contentContainerStyle={styles.scrollContainer}>
                 <CoFunds navigation={navigation} />
-                <Sections navigation={navigation} neighbourhood_id={neighbourhood_id} events={events}/>
+                <Sections navigation={navigation} neighbourhood_id={neighbourhood_id} events={events} problems={problems} services={services}/>
             </ScrollView>
         </SafeAreaView>
     );
 };
 
-const Sections = ({ navigation, neighbourhood_id, events}) => (
+const Sections = ({ navigation, neighbourhood_id, events, problems, services}) => (
     <View style={styles.sectionsContainer}>
-        <Section title="Offering Services" screenName="OfferServiceScreen" navigation={navigation} data={mockOffers} />
-        <Section title="Requesting Services" screenName="AskServiceScreen" navigation={navigation} data={mockRequests} />
+        <Section title="Services" screenName="OfferServiceScreen" navigation={navigation} data={services} />
+        <Section title="Problems" screenName="AskServiceScreen" navigation={navigation} data={problems} />
         <Section title="Events" screenName="EventServiceScreen" navigation={navigation} data={events} neighbourhood_id={neighbourhood_id}/>
         <Section title="Volunteers Needed" screenName="CommunityServiceScreen" navigation={navigation} data={mockVolunteers} />
     </View>
@@ -200,10 +166,10 @@ const MiniCard = ({ item }) => {
             <TouchableOpacity onPress={handlePress}>
                 <View style={styles.card}>
                     <View style={styles.cardHeader}>
-                        <Image source={{ uri: item.profileImage }} style={styles.avatar} />
+                        <Image source={{ uri: item.profileImage ? item.profileImage:'https://pbs.twimg.com/media/EEUy6MCU0AErfve.png'}} style={styles.avatar} />
                         <View style={styles.cardContent}>
                             <Text style={styles.cardTitle} numberOfLines={2}>{item.name}</Text>
-                            <Text style={styles.cardhost}>{item.host}</Text>
+                            <Text style={styles.cardhost} numberOfLines={1}>{item.host}</Text>
                         </View>
                     </View>
                 </View>
@@ -218,7 +184,7 @@ const MiniCard = ({ item }) => {
             >
                 <View style={styles.modalBackground}>
                     <View style={styles.modalContent}>
-                        <Image source={{ uri: item.profileImage }} style={styles.modalAvatar} />
+                        <Image source={{ uri: item.profileImage ? item.profileImage: 'https://upload.wikimedia.org/wikipedia/commons/b/b1/Missing-image-232x150.png' }} style={styles.modalAvatar} />
                         <Text style={styles.modalTitle}>{item.name}</Text>
                         <Text style={styles.modalDescription}>{item.description}</Text>
                         <TouchableOpacity
