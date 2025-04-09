@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, TextInput, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const MYOfferingCardComponent = ({ title, description, phone, author }) => {
+const MYOfferingCardComponent = ({ name, description, contact, host, profileImage, onModify, onDelete}) => {
     const [isPaused, setIsPaused] = useState(false);
     const [editModalVisible, setEditModalVisible] = useState(false);
     const [deleteModalVisible, setDeleteModalVisible] = useState(false);
@@ -17,10 +17,10 @@ const MYOfferingCardComponent = ({ title, description, phone, author }) => {
     return (
         <View style={styles.cardContainer}>
             <View style={styles.header}>
-                <Image source={{ uri: 'https://randomuser.me/api/portraits/men/1.jpg' }} style={styles.profileImage} />
+                <Image source={{ uri: profileImage ? profileImage: 'https://pbs.twimg.com/media/EEUy6MCU0AErfve.png' }} style={styles.profileImage} />
                 <View style={styles.profileDetails}>
-                    <Text style={styles.cardTitle}>{title}</Text>
-                    <Text style={styles.cardAuthor}>{author}</Text>
+                    <Text style={styles.cardTitle}>{name}</Text>
+                    <Text style={styles.cardAuthor}>{host}</Text>
                 </View>
 
                 <View style={styles.actionButtons}>
@@ -42,9 +42,9 @@ const MYOfferingCardComponent = ({ title, description, phone, author }) => {
             </View>
 
             <View style={styles.content}>
-                <View style={styles.phoneSection}>
+                <View style={styles.contactSection}>
                     <Icon name="call" size={18} color="#4CAF50" />
-                    <Text style={styles.phoneText}>{phone}</Text>
+                    <Text style={styles.contactText}>{contact}</Text>
                 </View>
                 {description && <Text style={styles.description}>{description}</Text>}
             </View>
@@ -56,8 +56,8 @@ const MYOfferingCardComponent = ({ title, description, phone, author }) => {
                         <TouchableWithoutFeedback>
                             <View style={styles.modalContainer}>
                                 <Text style={styles.modalTitle}>Edit Offer</Text>
-                                <TextInput style={styles.modalInput} placeholder="Title" value={title} />
-                                <TextInput style={styles.modalInput} placeholder="Phone" value={phone} />
+                                <TextInput style={styles.modalInput} placeholder="Title" value={name} />
+                                <TextInput style={styles.modalInput} placeholder="Contact" value={contact} />
                                 <TextInput style={[styles.modalInput, styles.modalDescriptionInput]} placeholder="Description" value={description} multiline />
                                 <TouchableOpacity style={styles.modalButton} onPress={() => setEditModalVisible(false)}>
                                     <Text style={styles.modalButtonText}>Save Changes</Text>
@@ -154,12 +154,12 @@ const styles = StyleSheet.create({
     content: {
         marginTop: 5,
     },
-    phoneSection: {
+    contactSection: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 5,
     },
-    phoneText: {
+    contactText: {
         fontSize: 17,
         color: '#333', 
         marginLeft: 5,

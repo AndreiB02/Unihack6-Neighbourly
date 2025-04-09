@@ -1,11 +1,35 @@
 // AskServiceScreen.js
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import AskCardComponent from '../Components/AskCardComponent';
 import MYAskCardComponent from '../Components/MYAskCardComponent';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { fetchMyProblems } from '../../../services/problems';
 
-const AskServiceScreen = ({ navigation }) => {
+const AskServiceScreen = ({ navigation, route }) => {
+    const problems = route.params?.data;
+    const user_id = route.params?.user_id;
+
+    const [myProblems,setMyProblems] = useState([]);
+    
+    useEffect ( () =>{
+        fetch_MyProblems(user_id);
+    });
+
+    const fetch_MyProblems = async () => {
+            try {
+                const response = await fetchMyProblems(user_id);
+                if (response.length > 0) {
+                    setMyProblems(response);
+                }
+            } catch (error) {
+                console.error('Error fetching neighbourhood', error);
+                Alert.alert('Error', 'Something went wrong.');
+            }
+    };
+
+    console.log(myProblems);
+
     const asks = [
         {
             id: '1',
@@ -25,7 +49,7 @@ const AskServiceScreen = ({ navigation }) => {
         },
     ];
 
-    const myAsks = [
+    /*const myProblems = [
         {
             id: '3',
             title: 'Need Flour for Cake',
@@ -34,16 +58,16 @@ const AskServiceScreen = ({ navigation }) => {
             description: 'I need help with the cake I am making.',
             profileImage: 'https://www.w3schools.com/w3images/avatar6.png',
         },
-    ];
+    ];*/
 
     return (
         <View style={styles.container}>
             <Text style={styles.header}>Your Requests</Text>
             <ScrollView contentContainerStyle={styles.scrollViewContent}>
-                {myAsks.map((ask) => (
+                {myProblems.map((ask) => (
                     <MYAskCardComponent
                         key={ask.id}
-                        title={ask.title}
+                        host={ask.host}
                         name={ask.name}
                         phone={ask.phone}
                         description={ask.description}
@@ -55,11 +79,11 @@ const AskServiceScreen = ({ navigation }) => {
                 ))}
 
                 <Text style={styles.header}>Community Requests</Text>
-                {asks.map((ask) => (
+                {problems.map((ask) => (
                     <AskCardComponent
                         key={ask.id}
-                        title={ask.title}
                         name={ask.name}
+                        host={ask.host}
                         phone={ask.phone}
                         description={ask.description}
                         profileImage={ask.profileImage}

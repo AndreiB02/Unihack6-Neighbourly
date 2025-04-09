@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, TextInput, Alert, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const MYAskCardComponent = ({ name, profileImage, phone, description, title, onModify, onDelete }) => {
+const MYAskCardComponent = ({ name, profileImage, phone, description, host, onModify, onDelete }) => {
     const [isPaused, setIsPaused] = useState(false);
     const [editModalVisible, setEditModalVisible] = useState(false);
     const [deleteModalVisible, setDeleteModalVisible] = useState(false);
@@ -22,10 +22,10 @@ const MYAskCardComponent = ({ name, profileImage, phone, description, title, onM
     return (
         <View style={styles.cardContainer}>
             <View style={styles.header}>
-                <Image source={{ uri: profileImage }} style={styles.profileImage} />
+                <Image source={{ uri: profileImage ? profileImage: 'https://pbs.twimg.com/media/EEUy6MCU0AErfve.png'}} style={styles.profileImage} />
                 <View style={styles.profileDetails}>
-                    <Text style={styles.cardTitle}>{title}</Text>
-                    <Text style={styles.cardName}>{name}</Text>
+                    <Text style={styles.cardTitle}>{name}</Text>
+                    <Text style={styles.cardName}>{host}</Text>
                 </View>
 
                 <View style={styles.actionButtons}>
@@ -61,7 +61,7 @@ const MYAskCardComponent = ({ name, profileImage, phone, description, title, onM
                         <TouchableWithoutFeedback>
                             <View style={styles.modalContainer}>
                                 <Text style={styles.modalTitle}>Edit Request</Text>
-                                <TextInput style={styles.modalInput} placeholder="Title" value={title} />
+                                <TextInput style={styles.modalInput} placeholder="Title" value={name} />
                                 <TextInput style={styles.modalInput} placeholder="Phone" value={phone} />
                                 <TextInput style={[styles.modalInput, styles.modalDescriptionInput]} placeholder="Description" value={description} multiline />
                                 <TouchableOpacity style={styles.modalButton} onPress={() => { setEditModalVisible(false); onModify(); }}>

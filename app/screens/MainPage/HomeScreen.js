@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState, useCallback } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Image, SafeAreaView, Modal } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -6,6 +6,7 @@ import { fetchNeighbourhood } from '../../services/neighbourhood';
 import { fetchEvents } from '../../services/events';
 import { fetchProblems } from '../../services/problems';
 import { fetchService } from '../../services/services';
+import { useFocusEffect } from '@react-navigation/native';
 
 const logo = require('../../../assets/logo.png');
 
@@ -34,6 +35,7 @@ const mockVolunteers = [
 
 const HomeScreen = ({ navigation, route}) => {
 
+    const user_id = route.params?.user_id; 
     const username = route.params?.username;
     const points = route.params?.points;
     const neighbourhood_id = route.params?.neighbourhood_id;
@@ -45,12 +47,14 @@ const HomeScreen = ({ navigation, route}) => {
 
     //title of heighbourhood displayed on top of home screen
     const [neighbourhoodName, setNeighbourhoodName] = useState("");
-    useEffect(() => {
-        fetch_Neighbourhood();
-        fetch_Events();
-        fetch_Problems();
-        fetch_Services();
-    }, [neighbourhood_id]);
+    useFocusEffect(
+        useCallback (() => {
+            fetch_Neighbourhood();
+            fetch_Events();
+            fetch_Problems();
+            fetch_Services();
+        }, [neighbourhood_id])
+    );
 
     const fetch_Neighbourhood = async () => {
         try {
@@ -71,7 +75,7 @@ const HomeScreen = ({ navigation, route}) => {
                 setEvents(response);
             }
         } catch (error) {
-            console.error('Error fetching members', error);
+            console.error('Error fetching events', error);
         }
     };
 
@@ -82,7 +86,7 @@ const HomeScreen = ({ navigation, route}) => {
                 setProblems(response);
             }
         } catch (error) {
-            console.error('Error fetching members', error);
+            console.error('Error fetching problems', error);
         }
     };
 
@@ -93,7 +97,7 @@ const HomeScreen = ({ navigation, route}) => {
                 setServices(response);
             }
         } catch (error) {
-            console.error('Error fetching members', error);
+            console.error('Error fetching services', error);
         }
     };
 
@@ -123,24 +127,24 @@ const HomeScreen = ({ navigation, route}) => {
 
             <ScrollView contentContainerStyle={styles.scrollContainer}>
                 <CoFunds navigation={navigation} />
-                <Sections navigation={navigation} neighbourhood_id={neighbourhood_id} events={events} problems={problems} services={services}/>
+                <Sections navigation={navigation} neighbourhood_id={neighbourhood_id} user_id ={user_id} events={events} problems={problems} services={services}/>
             </ScrollView>
         </SafeAreaView>
     );
 };
 
-const Sections = ({ navigation, neighbourhood_id, events, problems, services}) => (
+const Sections = ({ navigation, neighbourhood_id, user_id, events, problems, services}) => (
     <View style={styles.sectionsContainer}>
-        <Section title="Services" screenName="OfferServiceScreen" navigation={navigation} data={services} />
-        <Section title="Problems" screenName="AskServiceScreen" navigation={navigation} data={problems} />
-        <Section title="Events" screenName="EventServiceScreen" navigation={navigation} data={events} neighbourhood_id={neighbourhood_id}/>
-        <Section title="Volunteers Needed" screenName="CommunityServiceScreen" navigation={navigation} data={mockVolunteers} />
+        <Section title="Services" screenName="OfferServiceScreen" navigation={navigation} data={services} user_id={user_id}/>
+        <Section title="Problems" screenName="AskServiceScreen" navigation={navigation} data={problems} user_id={user_id}/>
+        <Section title="Events" screenName="EventServiceScreen" navigation={navigation} data={events} neighbourhood_id={neighbourhood_id} user_id={user_id}/>
+        <Section title="Volunteers Needed" screenName="CommunityServiceScreen" navigation={navigation} data={mockVolunteers} user_id={user_id}/>
     </View>
 );
 
-const Section = ({ title, screenName, navigation, data, neighbourhood_id}) => (
+const Section = ({ title, screenName, navigation, data, neighbourhood_id, user_id}) => (
     <>
-        <TouchableOpacity onPress={() => navigation.navigate(screenName, {neighbourhood_id:neighbourhood_id})} style={styles.sectionTouchable}>
+        <TouchableOpacity onPress={() => navigation.navigate(screenName, {neighbourhood_id:neighbourhood_id, data:data, user_id:user_id})} style={styles.sectionTouchable}>
             <View style={styles.sectionHeaderContainer}>
                 <Text style={styles.sectionHeader}>{title}</Text>
                 <Icon name="chevron-forward-outline" size={24} color="#4CAF50" style={styles.arrowIcon} />

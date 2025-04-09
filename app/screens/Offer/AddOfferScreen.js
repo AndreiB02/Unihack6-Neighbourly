@@ -1,30 +1,34 @@
 // AddOfferScreen.js
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { createOffer } from '../../services/services';
+import { createService } from '../../services/services';
 
-const AddOfferScreen = ({ navigation }) => {
-    const [title, setTitle] = useState('');
+const AddOfferScreen = ({ navigation, route }) => {
+    const {user_id}=route.params;
+
+    const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [phone, setPhone] = useState('');
-    const [author, setAuthor] = useState('');
+    const [contact, setContact] = useState('');
+    //const [author, setAuthor] = useState('');
 
     const handleSubmit = async ()  => {
-        if (!title || !phone) {
-            Alert.alert("Error", "Title and phone number are required.");
+        if (!name || !contact) {
+            Alert.alert("Error", "Title and contact information are required.");
             return;
         }
 
         // Replace this with actual database logic, e.g., Firebase or API call
         const newOffer = {
-            title,
+            name,
             description,
-            phone,
-            author,
+            contact,
+            user_id,
         };
         console.log("Submitted Offer:", newOffer);
 
-        const response = await createOffer(newOffer);
+        const response = await createService(newOffer,user_id);
+
+        Alert.alert("Offer created!", "Offer created!");
         // Navigate back to OfferServiceScreen or wherever you want after submission
         navigation.goBack();
     };
@@ -38,8 +42,8 @@ const AddOfferScreen = ({ navigation }) => {
                 <TextInput
                     style={styles.input}
                     placeholder="Offer title"
-                    value={title}
-                    onChangeText={setTitle}
+                    value={name}
+                    onChangeText={setName}
                 />
             </View>
 
@@ -55,17 +59,17 @@ const AddOfferScreen = ({ navigation }) => {
             </View>
 
             <View style={styles.inputContainer}>
-                <Text style={styles.label}>Phone Number</Text>
+                <Text style={styles.label}>Contact information</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Your phone number"
-                    value={phone}
-                    onChangeText={setPhone}
+                    value={contact}
+                    onChangeText={setContact}
                     keyboardType="phone-pad"
                 />
             </View>
 
-            <View style={styles.inputContainer}>
+            {/* <View style={styles.inputContainer}>
                 <Text style={styles.label}>Author</Text>
                 <TextInput
                     style={styles.input}
@@ -73,7 +77,7 @@ const AddOfferScreen = ({ navigation }) => {
                     value={author}
                     onChangeText={setAuthor}
                 />
-            </View>
+            </View> */}
 
             <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
                 <Text style={styles.submitButtonText}>Submit Offer</Text>

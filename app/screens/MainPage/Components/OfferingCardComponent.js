@@ -3,23 +3,23 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const OfferingCardComponent = ({ author, profileImage, phone, description, title , id }) => {
+const OfferingCardComponent = ({ id, name, description, contact, host, profileImage, onModify, onDelete }) => {
     return (
         <View style={styles.cardContainer}>
             {/* Profile Header */}
             <View style={styles.header}>
-                <Image source={{ uri: `https://randomuser.me/api/portraits/men/${id%5+1}.jpg` }} style={styles.profileImage} />
+                <Image source={{ uri: profileImage ? profileImage: 'https://pbs.twimg.com/media/EEUy6MCU0AErfve.png' }} style={styles.profileImage} />
                 <View style={styles.profileDetails}>
-                    <Text style={styles.cardTitle}>{title}</Text>
-                    <Text style={styles.cardAuthor}>{author}</Text>
+                    <Text style={styles.cardTitle}>{name}</Text>
+                    <Text style={styles.cardAuthor}>{host}</Text>
                 </View>
             </View>
 
-            {/* Phone and Description */}
+            {/* contact and Description */}
             <View style={styles.content}>
-                <View style={styles.phoneSection}>
+                <View style={styles.contactSection}>
                     <Icon name="call" size={18} color="#4CAF50" />
-                    <Text style={styles.phoneText}>{phone}</Text>
+                    <Text style={styles.contactText}>{contact}</Text>
                 </View>
                 <Text style={styles.description}>{description}</Text>
             </View>
@@ -45,39 +45,39 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     profileImage: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
+        width: 70,
+        height: 70,
+        borderRadius: 35,
         marginRight: 10,
     },
     profileDetails: {
         flex: 1,
     },
     cardTitle: {
-        fontSize: 18,
+        fontSize: 23,
         fontWeight: 'bold',
-        color: '#333',
+        color: '#4CAF50',
     },
-    cardAuthor: {
-        fontSize: 16,
+    cardName: {
+        fontSize: 18,
         color: '#666',
     },
     content: {
         marginTop: 5,
     },
-    phoneSection: {
+    contactSection: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 5,
     },
-    phoneText: {
-        fontSize: 16,
+    contactText: {
+        fontSize: 17,
         color: '#333',
         marginLeft: 5,
     },
     description: {
-        fontSize: 14,
-        color: '#555',
+        fontSize: 17,
+        color: '#333',
     },
 });
 

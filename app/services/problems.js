@@ -5,7 +5,27 @@ const baseUrl = `http://${Address}/my_database/db_operations.php/`;
 export const fetchProblems = async (neighbourhood_id) => {
 
     try {
-        const response = await fetch(`${baseUrl}/?action=readJoined&table1=problem&table2=member&join_on_1=problem.creator_id&join_on_2=member.id&fields=problem.id,problem.name,problem.description,member.profileImage,member.neighbourhood_id,member.name%20as%20host&neighbourhood_id=${neighbourhood_id}`, {
+        const response = await fetch(`${baseUrl}/?action=readJoined&table1=problem&table2=member&join_on_1=problem.creator_id&join_on_2=member.id&fields=problem.id,problem.name,problem.description,member.profileImage,member.phone,member.neighbourhood_id,member.name%20as%20host&member.neighbourhood_id=${neighbourhood_id}`, {
+            method: 'GET',
+        });
+
+        // Check if the response was successful
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP error! status: ${response.status}, ${errorText}`);
+        }
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error('Error fetching service', error);
+    }
+};
+
+export const fetchMyProblems = async (user_id) => {
+
+    try {
+        const response = await fetch(`${baseUrl}/?action=readJoined&table1=problem&table2=member&join_on_1=problem.creator_id&join_on_2=member.id&fields=problem.id,problem.name,problem.solved,problem.description,member.profileImage,member.neighbourhood_id,member.name%20as%20host&member.id=${user_id}`, {
             method: 'GET',
         });
 

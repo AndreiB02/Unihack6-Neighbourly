@@ -3,15 +3,15 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const AskCardComponent = ({ name, profileImage, phone, description, title, id }) => {
+const AskCardComponent = ({ id, name, profileImage, phone, description, host}) => {
     return (
         <View style={styles.cardContainer}>
             {/* Profile Header */}
             <View style={styles.header}>
-                <Image source={{ uri: `https://randomuser.me/api/portraits/men/6.jpg` }} style={styles.profileImage} />
+                <Image source={{ uri: profileImage ? profileImage: `https://pbs.twimg.com/media/EEUy6MCU0AErfve.png` }} style={styles.profileImage} />
                 <View style={styles.profileDetails}>
-                    <Text style={styles.cardTitle}>{title}</Text>
-                    <Text style={styles.cardName}>{name}</Text>
+                    <Text style={styles.cardTitle}>{name}</Text>
+                    <Text style={styles.cardName}>{host}</Text>
                 </View>
             </View>
 
