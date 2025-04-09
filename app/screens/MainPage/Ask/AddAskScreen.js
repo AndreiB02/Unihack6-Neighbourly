@@ -1,24 +1,31 @@
 // AddAskScreen.js
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ScrollView } from 'react-native';
+import { createProblem } from '../../../services/problems';
 
-const AddAskScreen = ({ navigation }) => {
-    const [title, setTitle] = useState('');
+const AddAskScreen = ({ navigation, route }) => {
+    const {user_id}=route.params;
+
+    const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [phone, setPhone] = useState('');
+    const [contact, setContact] = useState('');
 
-    const handleSubmit = () => {
-        if (!title || !phone) {
-            Alert.alert("Error", "Title and phone number are required.");
+    const handleSubmit = async () => {
+        if (!name || !contact) {
+            Alert.alert("Error", "Title and contact information are required.");
             return;
         }
 
-        const newAsk = {
-            title,
+        const newProblem = {
+            name,
             description,
-            phone,
+            contact,
+            user_id,
         };
-        console.log("Submitted Ask:", newAsk);
+        console.log("Submitted Ask:", newProblem);
+
+        const response = await createProblem(newProblem,user_id);
+        Alert.alert("New service request created!");
         navigation.goBack();
     };
 
@@ -31,8 +38,8 @@ const AddAskScreen = ({ navigation }) => {
                 <TextInput
                     style={styles.input}
                     placeholder="E.g. Need a carpenter"
-                    onChangeText={setTitle}
-                    value={title}
+                    onChangeText={setName}
+                    value={name}
                 />
             </View>
 
@@ -40,7 +47,7 @@ const AddAskScreen = ({ navigation }) => {
                 <Text style={styles.label}>Description</Text>
                 <TextInput
                     style={[styles.input, styles.descriptionInput]}
-                    placeholder="Briefly describe your request (optional)"
+                    placeholder="Description (optional)"
                     value={description}
                     onChangeText={setDescription}
                     multiline
@@ -48,13 +55,12 @@ const AddAskScreen = ({ navigation }) => {
             </View>
 
             <View style={styles.inputContainer}>
-                <Text style={styles.label}>Phone Number</Text>
+                <Text style={styles.label}>Contact information</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="Enter your phone number"
-                    value={phone}
-                    onChangeText={setPhone}
-                    keyboardType="phone-pad"
+                    placeholder="Enter your contact information"
+                    value={contact}
+                    onChangeText={setContact}
                 />
             </View>
 

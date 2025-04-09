@@ -1,10 +1,11 @@
 // AskServiceScreen.js
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import AskCardComponent from '../Components/AskCardComponent';
 import MYAskCardComponent from '../Components/MYAskCardComponent';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { fetchMyProblems } from '../../../services/problems';
+import { useFocusEffect } from '@react-navigation/native';
 
 const AskServiceScreen = ({ navigation, route }) => {
     const problems = route.params?.data;
@@ -12,9 +13,11 @@ const AskServiceScreen = ({ navigation, route }) => {
 
     const [myProblems,setMyProblems] = useState([]);
     
-    useEffect ( () =>{
-        fetch_MyProblems(user_id);
-    });
+    useFocusEffect(
+            useCallback(() => {
+              fetch_MyProblems(user_id);
+            }, [user_id])
+    );
 
     const fetch_MyProblems = async () => {
             try {
@@ -30,36 +33,6 @@ const AskServiceScreen = ({ navigation, route }) => {
 
     console.log(myProblems);
 
-    const asks = [
-        {
-            id: '1',
-            title: 'Need a Plumber',
-            name: 'John Doe',
-            phone: '123-456-7890',
-            description: 'Looking for a plumber to fix a leaking pipe.',
-            profileImage: 'https://www.w3schools.com/w3images/avatar2.png',
-        },
-        {
-            id: '2',
-            title: 'Carpenter Needed',
-            name: 'Jane Smith',
-            phone: '987-654-3210',
-            description: 'I need help assembling some furniture.',
-            profileImage: 'https://www.w3schools.com/w3images/avatar5.png',
-        },
-    ];
-
-    /*const myProblems = [
-        {
-            id: '3',
-            title: 'Need Flour for Cake',
-            name: 'Marie Small',
-            phone: '934-241-6756',
-            description: 'I need help with the cake I am making.',
-            profileImage: 'https://www.w3schools.com/w3images/avatar6.png',
-        },
-    ];*/
-
     return (
         <View style={styles.container}>
             <Text style={styles.header}>Your Requests</Text>
@@ -69,7 +42,7 @@ const AskServiceScreen = ({ navigation, route }) => {
                         key={ask.id}
                         host={ask.host}
                         name={ask.name}
-                        phone={ask.phone}
+                        contact={ask.contact}
                         description={ask.description}
                         profileImage={ask.profileImage}
                         onModify={() => console.log(`Modify ${ask.id}`)}
@@ -84,7 +57,7 @@ const AskServiceScreen = ({ navigation, route }) => {
                         key={ask.id}
                         name={ask.name}
                         host={ask.host}
-                        phone={ask.phone}
+                        contact={ask.contact}
                         description={ask.description}
                         profileImage={ask.profileImage}
                     />
@@ -93,7 +66,7 @@ const AskServiceScreen = ({ navigation, route }) => {
 
             <TouchableOpacity
                 style={styles.addButton}
-                onPress={() => navigation.navigate('AddAskScreen')}
+                onPress={() => navigation.navigate('AddAskScreen', {user_id:user_id})}
             >
                 <Icon name="add" size={30} color="#fff" />
             </TouchableOpacity>

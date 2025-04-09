@@ -9,25 +9,8 @@ import { useFocusEffect } from '@react-navigation/native';
 const OfferServiceScreen = ({ navigation, route }) => {
     const services = route.params?.data;
     const user_id = route.params?.user_id;
+    
     const [myServices, setMyServices] = useState([]);
-
-    // Sample hardcoded offers for MYOfferingCardComponent
-    // const myOffers = [
-    //     {
-    //         id: 1,
-    //         title: "Plumbing Services",
-    //         description: "Experienced plumber offering quick and reliable services.",
-    //         phone: "123-456-7890",
-    //         author: "John Doe",
-    //     },
-    //     {
-    //         id: 2,
-    //         title: "House Cleaning",
-    //         description: "Thorough and affordable cleaning services for your home.",
-    //         phone: "987-654-3210",
-    //         author: "Jane Smith",
-    //     },
-    // ];
 
     useFocusEffect(
         useCallback(() => {

@@ -135,8 +135,8 @@ const HomeScreen = ({ navigation, route}) => {
 
 const Sections = ({ navigation, neighbourhood_id, user_id, events, problems, services}) => (
     <View style={styles.sectionsContainer}>
-        <Section title="Services" screenName="OfferServiceScreen" navigation={navigation} data={services} user_id={user_id}/>
-        <Section title="Problems" screenName="AskServiceScreen" navigation={navigation} data={problems} user_id={user_id}/>
+        <Section title="Offering services" screenName="OfferServiceScreen" navigation={navigation} data={services} user_id={user_id}/>
+        <Section title="Requesting services" screenName="AskServiceScreen" navigation={navigation} data={problems} user_id={user_id}/>
         <Section title="Events" screenName="EventServiceScreen" navigation={navigation} data={events} neighbourhood_id={neighbourhood_id} user_id={user_id}/>
         <Section title="Volunteers Needed" screenName="CommunityServiceScreen" navigation={navigation} data={mockVolunteers} user_id={user_id}/>
     </View>

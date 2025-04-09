@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, TextInput, Alert, TouchableWithoutFeedback } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const MYAskCardComponent = ({ name, profileImage, phone, description, host, onModify, onDelete }) => {
+const MYAskCardComponent = ({ name, profileImage, contact, description, host, onModify, onDelete }) => {
     const [isPaused, setIsPaused] = useState(false);
     const [editModalVisible, setEditModalVisible] = useState(false);
     const [deleteModalVisible, setDeleteModalVisible] = useState(false);
@@ -47,9 +47,9 @@ const MYAskCardComponent = ({ name, profileImage, phone, description, host, onMo
             </View>
 
             <View style={styles.content}>
-                <View style={styles.phoneSection}>
+                <View style={styles.contactSection}>
                     <Icon name="call" size={18} color="#4CAF50" />
-                    <Text style={styles.phoneText}>{phone}</Text>
+                    <Text style={styles.contactText}>{contact}</Text>
                 </View>
                 {description && <Text style={styles.description}>{description}</Text>}
             </View>
@@ -62,7 +62,7 @@ const MYAskCardComponent = ({ name, profileImage, phone, description, host, onMo
                             <View style={styles.modalContainer}>
                                 <Text style={styles.modalTitle}>Edit Request</Text>
                                 <TextInput style={styles.modalInput} placeholder="Title" value={name} />
-                                <TextInput style={styles.modalInput} placeholder="Phone" value={phone} />
+                                <TextInput style={styles.modalInput} placeholder="Contact information" value={contact} />
                                 <TextInput style={[styles.modalInput, styles.modalDescriptionInput]} placeholder="Description" value={description} multiline />
                                 <TouchableOpacity style={styles.modalButton} onPress={() => { setEditModalVisible(false); onModify(); }}>
                                     <Text style={styles.modalButtonText}>Save Changes</Text>
@@ -159,12 +159,12 @@ const styles = StyleSheet.create({
     content: {
         marginTop: 5,
     },
-    phoneSection: {
+    contactSection: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 5,
     },
-    phoneText: {
+    contactText: {
         fontSize: 17,
         color: '#333',
         marginLeft: 5,

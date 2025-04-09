@@ -3,7 +3,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const AskCardComponent = ({ id, name, profileImage, phone, description, host}) => {
+const AskCardComponent = ({ id, name, profileImage, contact, description, host}) => {
     return (
         <View style={styles.cardContainer}>
             {/* Profile Header */}
@@ -15,11 +15,11 @@ const AskCardComponent = ({ id, name, profileImage, phone, description, host}) =
                 </View>
             </View>
 
-            {/* Phone and Description */}
+            {/* Contact and Description */}
             <View style={styles.content}>
-                <View style={styles.phoneSection}>
+                <View style={styles.contactSection}>
                     <Icon name="call" size={18} color="#4CAF50" />
-                    <Text style={styles.phoneText}>{phone}</Text>
+                    <Text style={styles.contactText}>{contact}</Text>
                 </View>
                 {description && <Text style={styles.description}>{description}</Text>}
             </View>
@@ -65,12 +65,12 @@ const styles = StyleSheet.create({
     content: {
         marginTop: 5,
     },
-    phoneSection: {
+    contactSection: {
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 5,
     },
-    phoneText: {
+    contactText: {
         fontSize: 17,
         color: '#333',
         marginLeft: 5,

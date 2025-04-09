@@ -62,10 +62,9 @@ const AddOfferScreen = ({ navigation, route }) => {
                 <Text style={styles.label}>Contact information</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="Your phone number"
+                    placeholder="Your contact information"
                     value={contact}
                     onChangeText={setContact}
-                    keyboardType="phone-pad"
                 />
             </View>
 

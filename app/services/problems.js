@@ -5,7 +5,7 @@ const baseUrl = `http://${Address}/my_database/db_operations.php/`;
 export const fetchProblems = async (neighbourhood_id) => {
 
     try {
-        const response = await fetch(`${baseUrl}/?action=readJoined&table1=problem&table2=member&join_on_1=problem.creator_id&join_on_2=member.id&fields=problem.id,problem.name,problem.description,member.profileImage,member.phone,member.neighbourhood_id,member.name%20as%20host&member.neighbourhood_id=${neighbourhood_id}`, {
+        const response = await fetch(`${baseUrl}/?action=readJoined&table1=problem&table2=member&join_on_1=problem.creator_id&join_on_2=member.id&fields=problem.id,problem.name,problem.description,problem.contact,problem.solved,member.profileImage,member.phone,member.neighbourhood_id,member.name%20as%20host&member.neighbourhood_id=${neighbourhood_id}&problem.solved=0`, {
             method: 'GET',
         });
 
@@ -25,7 +25,7 @@ export const fetchProblems = async (neighbourhood_id) => {
 export const fetchMyProblems = async (user_id) => {
 
     try {
-        const response = await fetch(`${baseUrl}/?action=readJoined&table1=problem&table2=member&join_on_1=problem.creator_id&join_on_2=member.id&fields=problem.id,problem.name,problem.solved,problem.description,member.profileImage,member.neighbourhood_id,member.name%20as%20host&member.id=${user_id}`, {
+        const response = await fetch(`${baseUrl}/?action=readJoined&table1=problem&table2=member&join_on_1=problem.creator_id&join_on_2=member.id&fields=problem.id,problem.name,problem.description,problem.contact,problem.solved,member.profileImage,member.neighbourhood_id,member.name%20as%20host&member.id=${user_id}`, {
             method: 'GET',
         });
 
@@ -42,22 +42,20 @@ export const fetchMyProblems = async (user_id) => {
     }
 };
 
-export const createProblem = async (data) => {
+export const createProblem = async (data, user_id) => {
     try {
-        const response = await fetch(`${baseUrl}/?action=create&table=service`, {
+        const response = await fetch(`${baseUrl}/?action=create&table=problem`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                table: "service",
+                table: "problem",
                 fields: {
-                    name: data.title,        
+                    name: data.name,        
                     description: data.description,
-                    phone: data.phone,
-                    author: data.author,
-                    is_offered: true,
-                    
+                    contact: data.contact,
+                    creator_id: user_id,
                 }
             })
         });
