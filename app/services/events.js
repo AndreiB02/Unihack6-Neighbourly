@@ -32,20 +32,19 @@ export const createEvent = async (data) => {
             body: JSON.stringify({
                 table: "Event",
                 fields: {
-                    name: data.title,          // map title to 'name'
+                    name: data.title,          
                     description: data.description,
-                    location: data.location,   // map location to 'location'
-                    host: data.organizer,      // map organizer to 'host'
+                    location: data.location,   
+                    host: data.organizer,      
                     phone: data.phone,
                     date: data.date,
                 }
             })
         });
 
-        const responseText = await response.text();  // Read the response as text first
-        console.log("Raw Response Text:", responseText);  // Log the raw response text
+        const responseText = await response.text();  
+        console.log("Raw Response Text:", responseText);  
 
-        // Check if the response was successful
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}, response: ${responseText}`);
         }
