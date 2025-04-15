@@ -127,17 +127,17 @@ const HomeScreen = ({ navigation, route}) => {
 
             <ScrollView contentContainerStyle={styles.scrollContainer}>
                 <CoFunds navigation={navigation} />
-                <Sections navigation={navigation} neighbourhood_id={neighbourhood_id} user_id ={user_id} events={events} problems={problems} services={services}/>
+                <Sections navigation={navigation} neighbourhood_id={neighbourhood_id} user_id ={user_id} events={events} problems={problems} services={services} username={username}/>
             </ScrollView>
         </SafeAreaView>
     );
 };
 
-const Sections = ({ navigation, neighbourhood_id, user_id, events, problems, services}) => (
+const Sections = ({ navigation, neighbourhood_id, user_id, events, problems, services, username}) => (
     <View style={styles.sectionsContainer}>
         <Section title="Offering services" screenName="OfferServiceScreen" navigation={navigation} data={services} user_id={user_id}/>
         <Section title="Requesting services" screenName="AskServiceScreen" navigation={navigation} data={problems} user_id={user_id}/>
-        <Section title="Events" screenName="EventServiceScreen" navigation={navigation} data={events} neighbourhood_id={neighbourhood_id} user_id={user_id}/>
+        <Section title="Events" screenName="EventServiceScreen" navigation={navigation} data={events} neighbourhood_id={neighbourhood_id} user_id={username}/>
         <Section title="Volunteers Needed" screenName="CommunityServiceScreen" navigation={navigation} data={mockVolunteers} user_id={user_id}/>
     </View>
 );

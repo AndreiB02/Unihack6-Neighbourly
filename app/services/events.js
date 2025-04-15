@@ -22,7 +22,28 @@ export const fetchEvents = async (neighbourhood_id) => {
         console.error('Error fetching events', error);
     }
 };
-export const createEvent = async (data) => {
+
+export const fetchMyEvents = async (username) => {
+
+    try {
+        console.log("fetchMyEvents:", `${baseUrl}/?action=read&table=event&host=${username}`);
+        const response = await fetch(`${baseUrl}/?action=read&table=event&host=${username}`, {
+            method: 'GET',
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP error! status: ${response.status}, ${errorText}`);
+        }
+        const data = await response.json();
+        console.log(data);
+        return data;
+    } catch (error) {
+        console.error('Error fetching events', error);
+    }
+};
+
+export const createEvent = async (data, neighbourhood_id, user_id) => {
     try {
         const response = await fetch(`${baseUrl}/?action=create&table=event`, {
             method: 'POST',
@@ -32,10 +53,11 @@ export const createEvent = async (data) => {
             body: JSON.stringify({
                 table: "Event",
                 fields: {
+                    neighbourhood_id: data.neighbourhood_id,
                     name: data.title,          // map title to 'name'
                     description: data.description,
                     location: data.location,   // map location to 'location'
-                    host: data.organizer,      // map organizer to 'host'
+                    host: data.user_id,      // map organizer to 'host'
                     phone: data.phone,
                     date: data.date,
                 }

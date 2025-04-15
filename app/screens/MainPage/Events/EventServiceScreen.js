@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import EventCardComponent from '../Components/EventCardComponent'; // Adjust the path if needed
-import { fetchEvents } from '../../../services/events';
+import { fetchEvents, fetchMyEvents } from '../../../services/events';
 import { useFocusEffect } from '@react-navigation/native';
 
 const EventServiceScreen = ({ navigation, route }) => {
     const [events, setEvents] = useState([]);
+    const [myEvents, setMyEvents] = useState ([]);
     console.log("routeparams in event service screen",route.params?.neighbourhood_id);
     const neighbourhood_id = route.params?.neighbourhood_id;
+
+    //nota: user_id e de fapt "username"-ul aici
+    const user_id = route.params?.user_id;
 
     // Function to load events
     const loadEvents = async () => {
@@ -22,15 +26,43 @@ const EventServiceScreen = ({ navigation, route }) => {
         }
     };
 
+    const loadMyEvents = async () => {
+        try {
+            const response = await fetchMyEvents(user_id);
+            // Ensure the response is always an array
+            console.log('Fetched events:', response);
+            setMyEvents(Array.isArray(response) ? response : []);
+        } catch (error) {
+            console.error('Error fetching events:', error);
+            setMyEvents([]); // Set to empty array if error occurs
+        }
+    };
+
+
     // Fetch events when component mounts or when the screen comes into focus
     useFocusEffect(
         React.useCallback(() => {
             loadEvents(); // Refetch events when screen is focused
+            loadMyEvents();
         }, [])
     );
 
+    console.log("user: ", user_id, "  neighbourhood: ", neighbourhood_id    )
+
     return (
-        <View style={styles.container}>
+        <View style={styles.container}> 
+            <Text style={styles.HeaderTitle}>My Events</Text>  
+            <ScrollView contentContainerStyle={styles.scrollContainer}>
+                
+                {myEvents.length > 0 ? (
+                    myEvents.map((event) => (
+                        <EventCardComponent key={event.id} event={event} />
+                    ))
+                ) : (
+                    <Text>You have no events created.</Text> // You can add a fallback UI
+                )}
+            </ScrollView>
+
             <Text style={styles.HeaderTitle}>Upcoming Events</Text>  
 
             <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -45,7 +77,7 @@ const EventServiceScreen = ({ navigation, route }) => {
 
             <TouchableOpacity
                 style={styles.addButton}
-                onPress={() => navigation.navigate('AddEventScreen', {neighbourhood_id:neighbourhood_id})}
+                onPress={() => navigation.navigate('AddEventScreen', {neighbourhood_id:neighbourhood_id, user_id: user_id})}
             >
                 <Text style={styles.addButtonText}>+</Text>
             </TouchableOpacity>

@@ -4,13 +4,18 @@ import { createEvent } from '../../../services/events';
 import { createEventNeeds } from '../../../services/events';
 import { getItemIdByName } from '../../../services/item';
 
-const AddEventScreen = ({ navigation }) => {
+const AddEventScreen = ({ navigation, route }) => {
+    const neighbourhood_id = route.params?.neighbourhood_id;
+
+    //nota: user_id e de fapt "username"-ul aici (sa traiasca romaneasca)
+    const user_id = route.params?.user_id;
+
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [phone, setPhone] = useState('');
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
-    const [organizer, setOrganizer] = useState('');
+    //const [organizer, setOrganizer] = useState('');
     const [needs, setNeeds] = useState([{ itemId: '', itemName: '', fulfilled: 0, total: 0 }]); // Initialize with default values
 
     const handleSubmit = async () => {
@@ -24,13 +29,17 @@ const AddEventScreen = ({ navigation }) => {
             };
         }));
 
+        console.log("user: ", user_id, "  neighbourhood: ", neighbourhood_id    )
+
         const eventData = {
             title,
             description,
             phone,
             date,
             location,
-            organizer,
+            //organizer,
+            neighbourhood_id,
+            user_id,
             needs: updatedNeeds,  // Use the updated needs with itemIds
         };
 
@@ -112,12 +121,12 @@ const AddEventScreen = ({ navigation }) => {
                     onChangeText={setLocation}
                 />
                 {/* New Organizer Field */}
-                <TextInput
+                {/* <TextInput
                     style={styles.input}
                     placeholder="Organizer"
                     value={organizer}
                     onChangeText={setOrganizer}
-                />
+                /> */}
             </View>
 
             {/* Needs Section */}
