@@ -1,4 +1,4 @@
-package com.anonymous.idk10
+package com.anonymous.neighbourly
 
 import android.os.Build
 import android.os.Bundle

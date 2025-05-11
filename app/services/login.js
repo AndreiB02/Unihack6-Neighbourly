@@ -1,5 +1,5 @@
-// const Address = 'info.tm.edu.ro:8088/~abarsescu/Neighbourly';
-const Address = 'localhost';
+const Address = 'info.tm.edu.ro:8088/~abarsescu/Neighbourly';
+// const Address = 'localhost';
 const baseUrl = `http://${Address}/my_database/db_operations.php/`;
 
 export const createMember = async (name,email,password, neighbourhood_id) => {

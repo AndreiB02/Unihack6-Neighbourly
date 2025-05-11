@@ -4,7 +4,7 @@ import { createEvent } from '../../../services/events';
 import { createEventNeeds } from '../../../services/events';
 import { getItemIdByName } from '../../../services/item';
 
-const AddEventScreen = ({ navigation }) => {
+const AddEventScreen = ({ navigation, route}) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [phone, setPhone] = useState('');
@@ -12,7 +12,7 @@ const AddEventScreen = ({ navigation }) => {
     const [location, setLocation] = useState('');
     const [organizer, setOrganizer] = useState('');
     const [needs, setNeeds] = useState([{ itemId: '', itemName: '', fulfilled: 0, total: 0 }]); // Initialize with default values
-
+    const neighbourhood_id = route.params?.neighbourhood_id;
     const handleSubmit = async () => {
         // First, retrieve the item IDs for all needs
         const updatedNeeds = await Promise.all(needs.map(async (need) => {
@@ -36,7 +36,7 @@ const AddEventScreen = ({ navigation }) => {
 
         try {
             // 1. Create the event first
-            const eventResponse = await createEvent(eventData);
+            const eventResponse = await createEvent(eventData, neighbourhood_id);
 
             // 2. Use the event ID from the event creation to insert the needs into eventneeds table
             const eventId = eventResponse.id;  // Assuming the response includes event_id

@@ -1,5 +1,5 @@
-//const Address = 'info.tm.edu.ro:8088/~abarsescu/Neighbourly';
-const Address = 'localhost';
+const Address = 'info.tm.edu.ro:8088/~abarsescu/Neighbourly';
+// const Address = 'localhost';
 const baseUrl = `http://${Address}/my_database/db_operations.php/`;
 
 export const fetchEvents = async (neighbourhood_id) => {
@@ -22,7 +22,7 @@ export const fetchEvents = async (neighbourhood_id) => {
         console.error('Error fetching events', error);
     }
 };
-export const createEvent = async (data) => {
+export const createEvent = async (data, neighbourhood_id) => {
     try {
         const response = await fetch(`${baseUrl}/?action=create&table=event`, {
             method: 'POST',
@@ -30,7 +30,7 @@ export const createEvent = async (data) => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                table: "Event",
+                table: "event",
                 fields: {
                     name: data.title,          
                     description: data.description,
@@ -38,6 +38,7 @@ export const createEvent = async (data) => {
                     host: data.organizer,      
                     phone: data.phone,
                     date: data.date,
+                    neighbourhood_id: neighbourhood_id
                 }
             })
         });

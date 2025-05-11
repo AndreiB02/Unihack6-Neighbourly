@@ -1,4 +1,4 @@
-package com.anonymous.idk10
+package com.anonymous.neighbourly
 
 import android.app.Application
 import android.content.res.Configuration

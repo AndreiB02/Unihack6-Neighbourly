@@ -34,7 +34,7 @@ install! 'cocoapods',
 
 prepare_react_native_project!
 
-target 'idk10' do
+target 'neighbourly' do
   use_expo_modules!
   config = use_native_modules!
 
